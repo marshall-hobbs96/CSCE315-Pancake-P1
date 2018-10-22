@@ -14,13 +14,20 @@ based on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (
 | Priority | Story | Estimated Time (days) |
 |----------|-------|----------------|
 | 1 | I need to see a splash screen when the program boots up | 2 |
+| 7 | Show a game being played in the background of the splash screen | 3 |
 | 1 | I need to be able to choose how many pancakes to flip and the difficulty of my opponent before the game starts | 2 |
-| 1 | I need to be able to choose an order for the pancake stacks before the game or choose a random order | 2|
+| 1 | I need to be able to choose an order for the pancake stacks before the game or choose a random order | 2 |
 | 1 | I should be able to see the high scores as I enter my initials before the game starts | 2 |
-| 2 | When the game starts, I should see my pancake stack along with the AI's so I can choose one | 4 |
-| 2 | When the AI makes a move, I need to know what the AI player did | 2 |
-| 3 | I should know when the game is over and what my score is | 5 |
-| 4 | After the game, I want to see the score I got and have the option to start a new game | 3 |
+| 2 | Drawing a pancake stack function | 2 |
+| 2 | When the game starts, I should see my pancake stack along with the AI's so I can choose one | 2 |
+| 2 | Choosing AI difficulty and using a search tree with a variable depth to modify AI difficulty | 2 | 
+| 6 | Display minimum number of moves required to solve current stack | 2 | 
+| 2 | When a player/AI makes a move, I need to know what the player/AI did (make move function). Should be able to choose flip location with ASWD or arrow keys, then pancakes above flip location blink for 3 seconds, then new stack is drawn| 3 |
+| 2 | Checking if win conditions are met after each move | 1 |
+| 5 | Ability for player to ask for hint | 2 |
+| 3 | I should know when the game is over and what my score is | 1 |
+| 3 | Ability to check/display high scores and save new highscores to file | 1 |
+| 4 | After the game, I want to see the score I got and have the option to start a new game | 1 |
 
 ### Burn-Down Chart
 
