@@ -15,5 +15,5 @@ AI.cpp - AI implementation for calculating the next move
 
 int AI::calculateMove() {
     // Implementation...
-    return 0;
+    return 2;
 }

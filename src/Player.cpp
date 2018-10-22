@@ -19,9 +19,10 @@ Player::Player(int num_pancakes, int* order, std::string un = "") {
 
 int* Player::getStack() {
     // Implementation...
-    return NULL;
+    return stack;
 }
 
-void Player::MakeMove(int pancake) {
+void Player::makeMove(int pancake) {
     // Implementation...
+    stack = new int[4]{1, 2, 3, 4};
 }

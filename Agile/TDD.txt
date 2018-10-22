@@ -1,3 +1,0 @@
-Here, we can document changes we make to how we test the code so we can 
-discuss them in the final report.
-
