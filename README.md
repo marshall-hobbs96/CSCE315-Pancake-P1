@@ -23,3 +23,13 @@ I also know tried modifying:
 
 to a couple different things but it still didn't work. If we can't figure it out 
 how to compile this by lab, maybe we should just write our own.
+
+FIXED: Just run:
+
+> make test_AI
+
+to compile from the root directory and 
+
+> test/test_AI
+
+to run the test (It should pass...)
