@@ -34,7 +34,7 @@ public:
     // For the AI to decide under which pancake to flip:
     int calculateMove();
 
-    AI(int num_pancakes, int* order, int diff, std::string un = "");
+    AI(int num_pancakes, int* order, int diff);
 };
 
 #endif

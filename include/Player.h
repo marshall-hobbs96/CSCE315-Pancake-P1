@@ -33,7 +33,7 @@ public:
     int* getStack();
     void makeMove(int pancake);     // Same "flipping" action for all players
 
-    Player(int num_pancakes, int* order, std::string un = "");
+    Player(int num_pancakes, int* order, std::string un);
 };
 
 #endif

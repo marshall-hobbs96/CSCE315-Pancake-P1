@@ -95,7 +95,7 @@ int* getOrderInput() {
 
 std::string getScoresInput() {
     // Implementation
-    return true;
+    return "";
 }     
 
 bool getEndInput() {

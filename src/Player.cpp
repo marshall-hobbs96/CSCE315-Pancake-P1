@@ -13,9 +13,8 @@ Player.cpp - Implementations for Player class (making moves, returning the stack
 
 #include "Player.h"
 
-Player::Player(int num_pancakes, int* order, std::string un = "") {
-    // Implementation...
-}
+Player::Player(int num_pancakes, int* order, std::string un) :
+    stack_size(num_pancakes), stack(order), username(un) {}
 
 int* Player::getStack() {
     // Implementation...

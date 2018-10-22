@@ -19,7 +19,7 @@ GaphicsEngine.h - Interface for the Graphics Engine class
  ***********************************************/
 #include <iostream>
 #include "Game.h"
-#include <curses.h>     // To use ncurses
+//#include <curses.h>     // To use ncurses
 
 /************************************************
  * Main Class
@@ -58,7 +58,7 @@ public:
 
     // Facilitating gameplay:
     bool playGame();
-    void starteGame(int num_pancakes, int ai_difficulty, std::string fn);
+    void startGame(int num_pancakes, int ai_difficulty, std::string fn);
 };
 
 

@@ -41,7 +41,7 @@ public:
 
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order = NULL);
-    int* generateStack(int size, int* set_order = NULL);
+    int* generateStack(int size, int* set_order);
 
     // For getting the state of each stack before and after each move:
     int* getHumanStack();

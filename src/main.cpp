@@ -23,7 +23,8 @@ main.cpp - contains main() for instantiating a graphics engine and
 #define DIFF_SIZE 2
 
 int main() {
-    GraphicsEngine ge(/* args... */);
+    /*
+    GraphicsEngine ge();
     bool keep_playing = true, new_game = true;
     
     ge.drawSplashScreen();
@@ -51,6 +52,7 @@ int main() {
         ge.drawEndScreen();
         new_game = ge.getEndInput();
     }
+    */
 
     return 0;
 }
