@@ -25,3 +25,7 @@ void Player::makeMove(int pancake) {
     // Implementation...
     stack = new int[4]{1, 2, 3, 4};
 }
+
+void Player::setName(std::string name) {
+     username = name;
+ }

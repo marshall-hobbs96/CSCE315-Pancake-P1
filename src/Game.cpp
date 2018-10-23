@@ -31,6 +31,9 @@ bool Game::checkStackOrder(int* stack, int sz) {
 
 /* For starting the game */
 
+Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
+    human(num_pancakes, starting_order, ""), ai(num_pancakes, starting_order, ai_difficulty) {}
+
 int* Game::generateStack(int size, int* set_order = NULL) {
     // Implementation...
     return NULL;
@@ -83,6 +86,12 @@ std::string Game::getHighScores() {
     // Implementation...
     return "";
 }
+
+/*
+Game::~Game() {
+    // Implementation...
+}
+*/
 
 /* For dealing with the high scores file */
 

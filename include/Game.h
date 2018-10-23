@@ -40,7 +40,7 @@ private:
 public:
 
     // For starting the game:
-    Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order = NULL);
+    Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
     int* generateStack(int size, int* set_order);
 
     // For getting the state of each stack before and after each move:
@@ -57,6 +57,7 @@ public:
     // For when the game is over:
     int computeScore();
     std::string getHighScores();
+    //~Game();
     
     // For dealing with the high scores file:
     std::string read();

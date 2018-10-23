@@ -32,6 +32,7 @@ protected:
 public:
     int* getStack();
     void makeMove(int pancake);     // Same "flipping" action for all players
+    void setName(std::string name);
 
     Player(int num_pancakes, int* order, std::string un);
 };

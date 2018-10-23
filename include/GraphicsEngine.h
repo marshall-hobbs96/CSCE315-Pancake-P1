@@ -41,6 +41,9 @@ private:
 
 public:
 
+    // Constructor:
+    GraphicsEngine(Game g);
+
     // For drawing various screens:
     void drawSplashScreen();
     void drawDifficultyScreen();

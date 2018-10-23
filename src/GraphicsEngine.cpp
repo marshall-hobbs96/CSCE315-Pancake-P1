@@ -51,36 +51,40 @@ void GraphicsEngine::blinkPancakes(int p) {
  * PUBLIC METHODS
  ****************************************************/
 
+/* Default Constructor creates a dummy game with the file name so it can get scores */
+GraphicsEngine::GraphicsEngine(Game g) :
+    curr_game(g) {}
+
 /* For drawing various screens */
 
-void drawSplashScreen() {
+void GraphicsEngine::drawSplashScreen() {
     // Implementation
 }     
 
-void drawDifficultyScreen() {
+void GraphicsEngine::drawDifficultyScreen() {
     // Implementation
 }     
 
-void drawOrderScreen() {
+void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
-void drawScoresScreen() {
+void GraphicsEngine::drawScoresScreen() {
     // Implementation
 }     
 
-void drawEndScreen() {
+void GraphicsEngine::drawEndScreen() {
     // Implementation
 }     
 
 /* For getting input from various screens */
 
-bool getSplashInput() {
+bool GraphicsEngine::getSplashInput() {
     // Implementation
     return true;
 }
 
-int* getDifficultyInput() {
+int* GraphicsEngine::getDifficultyInput() {
     // Always returns [stack_size, ai_difficulty]
     // so size of next array is determined...
 
@@ -88,17 +92,17 @@ int* getDifficultyInput() {
     return NULL;
 }      
                                 
-int* getOrderInput() {
+int* GraphicsEngine::getOrderInput() {
     // Implementation
     return NULL;
 }     
 
-std::string getScoresInput() {
+std::string GraphicsEngine::getScoresInput() {
     // Implementation
     return "";
 }     
 
-bool getEndInput() {
+bool GraphicsEngine::getEndInput() {
     // Implementation
     return true;
 }     
@@ -106,7 +110,7 @@ bool getEndInput() {
 
 /* Facilitating gameplay */
 
-bool playGame() {
+bool GraphicsEngine::playGame() {
     // Implementation
     return true;
 }
