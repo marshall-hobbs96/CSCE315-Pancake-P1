@@ -32,4 +32,4 @@ to compile from the root directory and
 
 > test/test_AI
 
-to run the test (It should pass...)
+to run the test (It should pass...s)
