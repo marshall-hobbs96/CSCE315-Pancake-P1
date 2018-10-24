@@ -76,10 +76,33 @@ void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
+<<<<<<< HEAD
 void GraphicsEngine::drawScoresScreen(string filename) {
     // Implementation
 	//print screen title
 	screenPrompt("Top 5 Scores", -10);
+=======
+void GraphicsEngine::drawScoresScreen() {
+    // Implementation
+
+    echo();
+
+    std::string scores = curr_game.getHighScores();
+
+	//print screen title
+	screenPrompt("Top 5 Scores", -10);
+	screenPrompt(scores, -9);
+
+    //replace for requesting user input
+    screenPrompt("Enter your intials ", 6);
+    
+    char str[80];
+    getstr(str);
+    std::string initials = std::string(str);
+    
+    screenPrompt("Your score: "+curr_game.findScore(initials),0);
+    
+>>>>>>> a17eae83210b88d6e8cf6173b94b40b38665f7f5
 	
 	//print 5 top scores
 	fstream scoreFile(filename, fstream::in);
@@ -107,11 +130,63 @@ bool GraphicsEngine::getSplashInput() {
     return true;
 }
 
+<<<<<<< HEAD
 int* GraphicsEngine::getDifficultyInput() {
     // Always returns [stack_size, ai_difficulty]
     // so size of next array is determined...
 
     // Implementation...
+=======
+bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
+    int intArg = arg - '0';
+    if (intArg >= a && intArg <= b)
+        return true;
+    return false;
+}
+
+int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
+    
+    noecho();
+    refresh();
+
+    if (!test) {
+        char c;
+        printw("Enter a number of pancakes from 2 to 9: ");
+        while(!isWithinRange((c = getch()),2,9)) {
+            printw("%c\n",c);
+            clear();
+            printw("Enter a number of pancakes from 2 to 9: ");
+            
+        }
+        int numCakes = c - '0';
+        clear();
+        printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+        printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+
+        while(!isWithinRange((c = getch()),1,numCakes)) {
+            clear();
+            printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+            printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+        }
+        int diff = c - '0';
+        static int result[2] = {numCakes,diff};
+
+        return result;
+    } else {
+        if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
+            static int result[2] = {(testA - '0'), (testB - '0')};
+            return result;
+        } else {
+            return NULL;
+        }
+    }
+    
+   return NULL;
+}     
+                                
+int* GraphicsEngine::getOrderInput() {
+    // Implementation
+>>>>>>> a17eae83210b88d6e8cf6173b94b40b38665f7f5
     return NULL;
 }      
                                 
@@ -141,7 +216,7 @@ bool GraphicsEngine::getEndInput() {
 
 bool GraphicsEngine::playGame() {
     // Implementation
-    return true;
+    return false;
 }
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {

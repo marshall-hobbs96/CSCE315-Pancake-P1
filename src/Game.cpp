@@ -35,7 +35,7 @@ bool Game::checkStackOrder(int* stack, int sz) {
 
 Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
     human(num_pancakes, starting_order, ""), ai(num_pancakes, starting_order, ai_difficulty),
-    human_score(0), stack_size(num_pancakes)    {}
+    human_score(0), stack_size(num_pancakes), filename(fn)    {}
 
 int* Game::generateStack(int stackSize, std::string stackState, bool test = false) {
        
@@ -236,7 +236,7 @@ string Game::findScore(string user)
 	if(!scoreFound)
 	{
 		scoreFile.open(filename, fstream::app);	
-		scoreFile<<user<<"\n"<<"0"<<"\n";
+		scoreFile<<user<<"\t"<<"0"<<"\n";
 		return user+ " 0";
 	}
 }

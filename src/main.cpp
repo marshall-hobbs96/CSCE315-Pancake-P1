@@ -25,7 +25,7 @@ main.cpp - contains main() for instantiating a graphics engine and
 
 int main() {
     // Game g created so the scores file can be read from
-    Game g(5, 3, "scores.db", NULL);
+    Game g(5, 3, "scores.txt", NULL);
 
     initscr();
 
@@ -42,13 +42,15 @@ int main() {
 
         while (keep_playing) {
             ge.drawDifficultyScreen();
-            int* diff = ge.getDifficultyInput();   // size defined above main
-
+            int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
+            
             ge.drawOrderScreen();
             int* order = ge.getOrderInput();
 
             // Instantiates a new inaccessible game object, ignoring the previous dummy
-            ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
+            //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
+            
+            clear();
 
             ge.drawScoresScreen();
             std::string username = ge.getScoresInput();
