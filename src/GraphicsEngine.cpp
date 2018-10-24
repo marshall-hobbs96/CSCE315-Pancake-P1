@@ -84,7 +84,7 @@ void GraphicsEngine::drawSplashScreen() {
     getch();
     attroff(A_BLINK);
     attroff(A_BOLD);
-}     
+}       
 
 void GraphicsEngine::drawDifficultyScreen() {
     // Implementation
