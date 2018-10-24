@@ -20,6 +20,9 @@ Game.h - Interface for the Game class
 #include <iostream>
 #include "Player.h"
 #include "AI.h"
+#include <random>
+#include <algorithm>
+#include <chrono>
 
 /************************************************
  * Main Class
@@ -41,7 +44,7 @@ public:
 
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
-    int* generateStack(int size, int* set_order);
+    int* generateStack(int stackSize, std::string stackState, bool test == false);
 
     // For getting the state of each stack before and after each move:
     int* getHumanStack();

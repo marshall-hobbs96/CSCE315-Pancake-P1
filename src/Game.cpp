@@ -37,9 +37,103 @@ Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_or
     human(num_pancakes, starting_order, ""), ai(num_pancakes, starting_order, ai_difficulty),
     human_score(0), stack_size(num_pancakes)    {}
 
-int* Game::generateStack(int size, int* set_order = NULL) {
-    // Implementation...
-    return NULL;
+int* Game::generateStack(int stackSize, std::string stackState, bool test = false) {
+       
+if(test == false) {
+    //printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
+
+        int* finalStack = new int[stackSize];
+        std::string stackState = getString();       //string for getting user input
+
+        if(stackState.size() == 0){                 //if user just puts enter...generate random order
+
+            printw("initializing random initial stack\n");
+
+            for(int i = 0; i < stackSize; i++){
+
+                finalStack[i] = i + 1;              //fill with 1 - n for shuffle
+
+            }
+
+            finalStack = gen_rand_stack(finalStack, stackSize);     //shuffle the stack, i.e. random
+
+        }
+
+        else {
+            printw("initializing predefined stack\n");
+            int finalStackIterator = 0;                             //for iterating through the string, pulling ints
+            for(int i = 0; i < stackState.size(); i++){              //iterate through the user input string
+
+                int temp = stackState.at(i) - '0';
+                
+                if((temp >= 0) && (temp <= 9)) {                    //if the input is an int, put it into final stack order
+
+                    finalStack[finalStackIterator] = temp;
+                    finalStackIterator++;
+
+                }
+            }
+
+            if (finalStackIterator != (stackSize)) {            //stacksize is 5 and user put 1 2 3 4 or something like that
+
+                printw("Error, invalid number of arguments\n");
+                return NULL; 
+
+            }
+
+        }
+    
+
+    return finalStack;
+}
+
+else{
+		stackSize = 5;
+        int* finalStack = new int[stackSize];
+		std::string stackState = "1 4 2 5 3";
+
+        if(stackState.size() == 0){                 //if user just puts enter...generate random order
+
+            //printw("initializing random initial stack\n");
+
+            for(int i = 0; i < stackSize; i++){
+
+                finalStack[i] = i + 1;              //fill with 1 - n for shuffle
+
+            }
+
+            finalStack = gen_rand_stack(finalStack, stackSize);     //shuffle the stack, i.e. random
+
+        }
+
+        else {
+            //printw("initializing predefined stack\n");
+            int finalStackIterator = 0;                             //for iterating through the string, pulling ints
+            for(int i = 0; i < stackState.size(); i++){              //iterate through the user input string
+
+                int temp = stackState.at(i) - '0';
+                
+                if((temp >= 0) && (temp <= 9)) {                    //if the input is an int, put it into final stack order
+
+                    finalStack[finalStackIterator] = temp;
+                    finalStackIterator++;
+
+                }
+            }
+
+            if (finalStackIterator != (stackSize)) {            //stacksize is 5 and user put 1 2 3 4 or something like that
+
+                printw("Error, invalid number of arguments\n");
+                return NULL; 
+
+            }
+
+        }
+    
+
+    return finalStack;
+
+}
 }
 
 int* Game::getHumanStack() {
@@ -147,6 +241,16 @@ string Game::findScore(string user)
 	}
 }
 
+
+int* gen_rand_stack(int* stack, int stackSize) {
+
+    std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
+    int* resultStack = new int[stackSize];                                  
+    resultStack = stack;
+    std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack 
+    return resultStack;
+
+}
 
 /*
 Game::~Game() {
