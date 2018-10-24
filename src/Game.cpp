@@ -105,7 +105,11 @@ string Game::read() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void Game::write(std::string filename, std::string new_score) {
+=======
+void Game::write(string new_score) {
+>>>>>>> 375d1007ce32c588b5e9abe4ae32cae7ccd4b041
 =======
 void Game::write(string new_score) {
 >>>>>>> 375d1007ce32c588b5e9abe4ae32cae7ccd4b041
