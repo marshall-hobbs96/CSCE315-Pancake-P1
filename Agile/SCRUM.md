@@ -31,6 +31,8 @@ based on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (
 
 ### Burn-Down Chart
 
+![thing](https://github.tamu.edu/storage/user/5293/files/61e96d08-d7aa-11e8-9caf-368cf6f743be)
+
 ### Sprints
 
 **Sprint 1:** Design Documents and Project Framework
