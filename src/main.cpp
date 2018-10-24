@@ -16,6 +16,7 @@ main.cpp - contains main() for instantiating a graphics engine and
  *  INCLUDES
  ***********************************************/
 #include "GraphicsEngine.h"
+#include <ncurses.h>
 
 /************************************************
  *  DEFINES
@@ -26,6 +27,8 @@ int main() {
     // Game g created so the scores file can be read from
     Game g(5, 3, "scores.db", NULL);
 
+    initscr();
+
     // Then use it to make a graphics engine
     GraphicsEngine ge(g);
     bool keep_playing = true, new_game = true;
@@ -34,7 +37,7 @@ int main() {
     ge.drawSplashScreen();
     ge.getSplashInput();
     // ...which eventually calls ge.drawInstructions();
-    
+    /*
     while (new_game) {
 
         while (keep_playing) {
@@ -56,6 +59,11 @@ int main() {
         ge.drawEndScreen();
         new_game = ge.getEndInput();
     }
+    */
+    
+    getch();
+    
+    endwin();
 
     return 0;
 }

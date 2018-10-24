@@ -18,6 +18,8 @@ Player.h - Interface for the Player class
  *  INCLUDES
  ***********************************************/
 #include <iostream>
+#include <ncurses.h>
+#include <string>
 
 /************************************************
  * Main Class

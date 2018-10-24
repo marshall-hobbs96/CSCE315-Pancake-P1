@@ -19,7 +19,6 @@ GaphicsEngine.h - Interface for the Graphics Engine class
  ***********************************************/
 #include <iostream>
 #include "Game.h"
-//#include <curses.h>     // To use ncurses
 
 /************************************************
  * Main Class
@@ -43,6 +42,7 @@ public:
 
     // Constructor:
     GraphicsEngine(Game g);
+    GraphicsEngine();
 
     // For drawing various screens:
     void drawSplashScreen();

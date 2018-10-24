@@ -54,11 +54,20 @@ void GraphicsEngine::blinkPancakes(int p) {
 /* Default Constructor creates a dummy game with the file name so it can get scores */
 GraphicsEngine::GraphicsEngine(Game g) :
     curr_game(g) {}
+    
+GraphicsEngine::GraphicsEngine() : curr_game(5, 3, "scores.db", NULL) {
+}
 
 /* For drawing various screens */
 
 void GraphicsEngine::drawSplashScreen() {
     // Implementation
+    /*
+    printw("Enter something");
+    refresh();
+    getch();
+    refresh();
+    */
 }     
 
 void GraphicsEngine::drawDifficultyScreen() {
