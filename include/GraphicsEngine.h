@@ -62,6 +62,8 @@ public:
     // Facilitating gameplay:
     bool playGame();
     void startGame(int num_pancakes, int ai_difficulty, std::string fn);
+
+    std::string getString();
 };
 
 

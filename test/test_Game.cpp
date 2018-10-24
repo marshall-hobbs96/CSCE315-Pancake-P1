@@ -25,9 +25,3 @@ test_Game.cpp - Game Unit Testing
 /****************************************************
  * TEST CASES
  ***************************************************/
- 
- TEST_CASE( "Given no file, should return """, "[Game.cpp]" ) 
- {
-	 REQUIRE(findScore("") == "");
-	 REQUIRE(getHighScore() == "");
- }

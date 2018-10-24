@@ -2,10 +2,12 @@
 CSCE 315 503
 Project 3
 Group 17
+
 Abdul Campos
 Marshall Hobbs
 McLain Johnson
 Troy Fulton
+
 GraphicsEngine.cpp - Implementations for Engine methods for running the game and
         drawing the state to the screen. Includes methods for drawing specific
         screens, getting input from those screens, and facilitation of the gameplay.
@@ -25,10 +27,14 @@ void GraphicsEngine::drawInstructions() {
     // Implementation
 }     
 
-// to report the high scores before and after the game
-void GraphicsEngine::drawScores(std::string scores) {
-    // Implementation
-}     
+void GraphicsEngine::screenPrompt(std::string text, int line)
+{
+	int row,col;
+	getmaxyx(stdscr,row,col);	
+	char mesg1[text.size()+1];
+	strcpy(mesg1, text.c_str());
+	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
+}    
 
 /* Facilitating gameplay in playGame */
 
@@ -102,6 +108,8 @@ void GraphicsEngine::drawScoresScreen() {
     std::string initials = std::string(str);
     
     screenPrompt("Your score: "+curr_game.findScore(initials),0);
+    
+	
 }     
 
 void GraphicsEngine::drawEndScreen() {
@@ -162,21 +170,13 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
    return NULL;
 }     
                                 
-int* GraphicsEngine::getOrderInput() {
-    // Implementation
-    return NULL;
-}      
-                                
 std::string GraphicsEngine::getOrderInput() {
 
-    printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
-    std::string stackState = getString();       //string for getting user input
-    return stackState;
+   printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
+   std::string stackState = getString();       //string for getting user input
+   return stackState;
 
 }
-
-
-}     
 
 std::string GraphicsEngine::getScoresInput() {
     // Implementation
@@ -185,7 +185,7 @@ std::string GraphicsEngine::getScoresInput() {
 
 bool GraphicsEngine::getEndInput() {
     // Implementation
-    return true;
+    return false;
 }     
 
 
@@ -200,30 +200,20 @@ void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string 
     // Pretty straighforward...
 }
 
-void screenPrompt(string text, int line)
-{
-	int row,col;
-	getmaxyx(stdscr,row,col);	
-	char mesg1[text.size()+1];
-	strcpy(mesg1, text.c_str());
-	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
-}
+std::string GraphicsEngine::getString() {
 
-std::string getString() {
+   std::string input;
 
-    std::string input;
+   nocbreak();
+   echo();
+   int ch = getch();
 
-    nocbreak();
-    echo();
-    int ch = getch();
+   while ( ch != '\n' )
+   {
+       input.push_back( ch );
+       ch = getch();
+   }
 
-    while ( ch != '\n' )
-    {
-        input.push_back( ch );
-        ch = getch();
-    }
-
-    return input;
+   return input;
 
 }
-
