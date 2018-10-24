@@ -111,13 +111,51 @@ bool GraphicsEngine::getSplashInput() {
     return true;
 }
 
-int* GraphicsEngine::getDifficultyInput() {
-    // Always returns [stack_size, ai_difficulty]
-    // so size of next array is determined...
+bool isWithinRange(char arg, int a, int b) {
+    int intArg = arg - '0';
+    if (intArg >= a && intArg <= b)
+        return true;
+    return false;
+}
 
-    // Implementation...
-    return NULL;
-}      
+int* getDifficultyInput(bool test, const char testA, const char testB) {
+    initscr();                 /* Start curses mode     */
+    noecho();
+    refresh();                 /* Print it on to the real screen */
+
+    if (!test) {
+        char c;
+        printw("Enter a number of pancakes from 2 to 9: ");
+        while(!isWithinRange((c = getch()),2,9)) {
+            printw("%c\n",c);
+            clear();
+            printw("Enter a number of pancakes from 2 to 9: ");
+            
+        }
+        int numCakes = c - '0';
+        clear();
+        printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+        printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+
+        while(!isWithinRange((c = getch()),1,numCakes)) {
+            clear();
+            printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+            printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+        }
+        int diff = c - '0';
+        static int result[2] = {numCakes,diff};
+        endwin();                  /* End curses mode    */
+
+        return result;
+    } else {
+        if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
+            static int result[2] = {(testA - '0'), (testB - '0')};
+            return result;
+        } else {
+            return NULL;
+        }
+    }
+}     
                                 
 int* GraphicsEngine::getOrderInput() {
     // Implementation

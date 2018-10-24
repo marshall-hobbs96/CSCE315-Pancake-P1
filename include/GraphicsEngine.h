@@ -52,7 +52,8 @@ public:
 
     // For getting input from various screens:
     bool getSplashInput();
-    int* getDifficultyInput();      // Always returns [stack_size, ai_difficulty]
+    bool isWithinRange(char arg, int a, int b);
+    int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
                                     // so size of next array is determined...
     int* getOrderInput();
     std::string getScoresInput();
