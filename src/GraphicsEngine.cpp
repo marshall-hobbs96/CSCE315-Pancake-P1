@@ -83,12 +83,6 @@ void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
-<<<<<<< HEAD
-void GraphicsEngine::drawScoresScreen(string filename) {
-    // Implementation
-	//print screen title
-	screenPrompt("Top 5 Scores", -10);
-=======
 void GraphicsEngine::drawScoresScreen() {
     // Implementation
 
@@ -108,22 +102,6 @@ void GraphicsEngine::drawScoresScreen() {
     std::string initials = std::string(str);
     
     screenPrompt("Your score: "+curr_game.findScore(initials),0);
-    
->>>>>>> a17eae83210b88d6e8cf6173b94b40b38665f7f5
-	
-	//print 5 top scores
-	fstream scoreFile(filename, fstream::in);
-	
-	for(int i=0; i<5; i++)
-	{
-		string name,score;
-		getline(scoreFile,name);
-		getline(scoreFile,score);
-		//print to ncurses
-		string line =name+" "+score;
-		screenPrompt(line, i-9);
-	}
-	scoreFile.close();
 }     
 
 void GraphicsEngine::drawEndScreen() {
@@ -137,13 +115,6 @@ bool GraphicsEngine::getSplashInput() {
     return true;
 }
 
-<<<<<<< HEAD
-int* GraphicsEngine::getDifficultyInput() {
-    // Always returns [stack_size, ai_difficulty]
-    // so size of next array is determined...
-
-    // Implementation...
-=======
 bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
     int intArg = arg - '0';
     if (intArg >= a && intArg <= b)
@@ -193,7 +164,6 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
                                 
 int* GraphicsEngine::getOrderInput() {
     // Implementation
->>>>>>> a17eae83210b88d6e8cf6173b94b40b38665f7f5
     return NULL;
 }      
                                 
