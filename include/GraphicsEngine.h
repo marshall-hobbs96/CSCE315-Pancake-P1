@@ -36,7 +36,7 @@ private:
     void drawStack(int* stack, int sz);
     int getFlipSelection();
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
-
+	void screenPrompt(string text, int line);
 
 public:
 
@@ -48,7 +48,7 @@ public:
     void drawSplashScreen();
     void drawDifficultyScreen();
     void drawOrderScreen();
-    void drawScoresScreen();
+    void drawScoresScreen(string filename);
     void drawEndScreen();
 
     // For getting input from various screens:

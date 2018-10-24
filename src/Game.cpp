@@ -137,22 +137,49 @@ Game::~Game() {
 
 /* For dealing with the high scores file */
 
-void createFile(string filename)
-{
-	//create score file since it does not exist
-	fstream scoreFile(filename, fstream::out);
-	//print to screen
+	void createFile(string filename)
+	{
+		//create score file since it does not exist
+		fstream scoreFile(filename, fstream::out);
+		//print to screen
+		
+		screenPrompt("Enter your intials ", 1);			
+		
+		//request user input to create file
+		char str[80];
+		getstr(str);
+		string initials = string(str);
+		
+		scoreFile<<initials<<"\n"<<"0"<<"\n";
+		screenPrompt(initials+" 0", -9);
+		scoreFile.close();
+	}
 	
-	screenPrompt("Enter your intials ", 1);			
-	
-	//request user input to create file
-	char str[80];
-	getstr(str);
-	string initials = string(str);
-	
-	scoreFile<<initials<<"\n"<<"0"<<"\n";
-	screenPrompt(initials+" 0", -9);
-	scoreFile.close();
-}
+	string findScore(string filename, string user)
+	{
+		fstream scoreFile;
+		bool scoreFound = false;
+		string username;
+		scoreFile.open(filename);
+		
+		while(getline(scoreFile,username))
+		{	
+			if(username==user)
+			{
+				string score;
+				getline(scoreFile,score);
+				return user +" "+score;
+				scoreFound = true;
+				break;
+			}
+		}
+		scoreFile.close();
+		if(!scoreFound)
+		{
+			scoreFile.open(filename, fstream::app);	
+			scoreFile<<user<<"\n"<<"0"<<"\n";
+			return user+ " 0";
+		}
+	}
 	
 }
