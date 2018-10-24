@@ -54,11 +54,20 @@ void GraphicsEngine::blinkPancakes(int p) {
 /* Default Constructor creates a dummy game with the file name so it can get scores */
 GraphicsEngine::GraphicsEngine(Game g) :
     curr_game(g) {}
+    
+GraphicsEngine::GraphicsEngine() : curr_game(5, 3, "scores.db", NULL) {
+}
 
 /* For drawing various screens */
 
 void GraphicsEngine::drawSplashScreen() {
     // Implementation
+    /*
+    printw("Enter something");
+    refresh();
+    getch();
+    refresh();
+    */
 }     
 
 void GraphicsEngine::drawDifficultyScreen() {
@@ -69,8 +78,24 @@ void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
-void GraphicsEngine::drawScoresScreen() {
+void GraphicsEngine::drawScoresScreen(string filename) {
     // Implementation
+	//print screen title
+	screenPrompt("Top 5 Scores", -10);
+	
+	//print 5 top scores
+	fstream scoreFile(filename, fstream::in);
+	
+	for(int i=0; i<5; i++)
+	{
+		string name,score;
+		getline(scoreFile,name);
+		getline(scoreFile,score);
+		//print to ncurses
+		string line =name+" "+score;
+		screenPrompt(line, i-9);
+	}
+	scoreFile.close();
 }     
 
 void GraphicsEngine::drawEndScreen() {
@@ -117,4 +142,13 @@ bool GraphicsEngine::playGame() {
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
     // Pretty straighforward...
+}
+
+void screenPrompt(string text, int line)
+{
+	int row,col;
+	getmaxyx(stdscr,row,col);	
+	char mesg1[text.size()+1];
+	strcpy(mesg1, text.c_str());
+	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
 }

@@ -16,6 +16,8 @@ Game.cpp - Implementations for Game methods for running the game and
 
 #include "Game.h"
 
+using namespace std;
+
 /*****************************************************
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
@@ -32,7 +34,8 @@ bool Game::checkStackOrder(int* stack, int sz) {
 /* For starting the game */
 
 Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
-    human(num_pancakes, starting_order, ""), ai(num_pancakes, starting_order, ai_difficulty) {}
+    human(num_pancakes, starting_order, ""), ai(num_pancakes, starting_order, ai_difficulty),
+    human_score(0), stack_size(num_pancakes)    {}
 
 int* Game::generateStack(int size, int* set_order = NULL) {
     // Implementation...
@@ -82,8 +85,9 @@ int Game::computeScore() {
     return 0;
 }
 
-std::string Game::getHighScores() {
+string Game::getHighScores() {
     // Implementation...
+	
     return "";
 }
 
@@ -95,11 +99,16 @@ Game::~Game() {
 
 /* For dealing with the high scores file */
 
-std::string Game::read() {
+string Game::read() {
     // Implementation...
     return "";
 }
 
-void Game::write(std::string new_score) {
+<<<<<<< HEAD
+void Game::write(std::string filename, std::string new_score) {
+=======
+void Game::write(string new_score) {
+>>>>>>> 375d1007ce32c588b5e9abe4ae32cae7ccd4b041
     // Implementation...
+	
 }
