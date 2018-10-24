@@ -55,13 +55,15 @@ public:
     bool isWithinRange(char arg, int a, int b);
     int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
                                     // so size of next array is determined...
-    int* getOrderInput();
+    std::string getOrderInput();
     std::string getScoresInput();
     bool getEndInput();
 
     // Facilitating gameplay:
     bool playGame();
     void startGame(int num_pancakes, int ai_difficulty, std::string fn);
+
+    std::string getString();
 };
 
 

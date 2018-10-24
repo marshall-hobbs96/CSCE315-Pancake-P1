@@ -23,6 +23,8 @@ main.cpp - contains main() for instantiating a graphics engine and
  ***********************************************/
 #define DIFF_SIZE 2
 
+using namespace std;
+
 int main() {
     // Game g created so the scores file can be read from
     Game g(5, 3, "scores.txt", NULL);
@@ -37,6 +39,8 @@ int main() {
     ge.drawSplashScreen();
     ge.getSplashInput();
     // ...which eventually calls ge.drawInstructions();
+
+    clear();
     
     while (new_game) {
 
@@ -44,8 +48,10 @@ int main() {
             ge.drawDifficultyScreen();
             int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
             
+            clear();
+
             ge.drawOrderScreen();
-            int* order = ge.getOrderInput();
+            string order = ge.getOrderInput();
 
             // Instantiates a new inaccessible game object, ignoring the previous dummy
             //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?

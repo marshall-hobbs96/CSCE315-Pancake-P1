@@ -175,10 +175,13 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
    return NULL;
 }     
                                 
-int* GraphicsEngine::getOrderInput() {
-    // Implementation
-    return NULL;
-}     
+std::string GraphicsEngine::getOrderInput() {
+
+   printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
+   std::string stackState = getString();       //string for getting user input
+   return stackState;
+
+}
 
 std::string GraphicsEngine::getScoresInput() {
     // Implementation
@@ -200,4 +203,22 @@ bool GraphicsEngine::playGame() {
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
     // Pretty straighforward...
+}
+
+std::string GraphicsEngine::getString() {
+
+   std::string input;
+
+   nocbreak();
+   echo();
+   int ch = getch();
+
+   while ( ch != '\n' )
+   {
+       input.push_back( ch );
+       ch = getch();
+   }
+
+   return input;
+
 }
