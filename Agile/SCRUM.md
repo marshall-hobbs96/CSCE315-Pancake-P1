@@ -31,6 +31,8 @@ based on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (
 
 ### Burn-Down Chart
 
+()[Burn down chart.PNG]
+
 ### Sprints
 
 **Sprint 1:** Design Documents and Project Framework
