@@ -88,3 +88,46 @@ TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
     // Returns true even if one of the files is missing!
     REQUIRE_NOTHROW(compare_files(key_name, response_name));
 }
+
+TEST_CASE("GE Test getDifficultyInput 1", "[single-file]" ) {
+    Game g(5, 3, "scores.db", NULL);
+    GraphicsEngine ge(g);
+
+    int* result1;
+    result1 = ge.getDifficultyInput(true,'5','4');
+    int numCakes1, diff1 = 0;
+    numCakes1 = *result1;
+    diff1 = *(result1 + 1);
+
+    REQUIRE(numCakes1 == 5);
+    REQUIRE(diff1 == 4);
+  
+    int* result2;
+    result2 = ge.getDifficultyInput(true,'8','2');
+    int numCakes2, diff2 = 0;
+    numCakes2 = *result2;
+    diff2 = *(result2 + 1);
+
+    REQUIRE(numCakes2 == 8);
+    REQUIRE(diff2 == 2);
+
+    int* result3;
+    result3 = ge.getDifficultyInput(true,'2','2');
+    int numCakes3, diff3 = 0;
+    numCakes3 = *result3;
+    diff3 = *(result3 + 1);
+
+    REQUIRE(numCakes3 == 2);
+    REQUIRE(diff3 == 2);
+
+    int* result4;
+    result4 = ge.getDifficultyInput(true,'9','2');
+    int numCakes4, diff4 = 0;
+    numCakes4 = *result4;
+    diff4 = *(result4 + 1);
+
+    REQUIRE(numCakes4 == 9);
+    REQUIRE(diff4 == 2);
+    
+    //out << "result2: " << numCakes2 << " and " << diff2 << endl;
+}

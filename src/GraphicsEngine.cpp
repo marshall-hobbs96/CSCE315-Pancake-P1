@@ -78,7 +78,12 @@ void GraphicsEngine::drawSplashScreen() {
     screenPrompt(mesg,5);
     mesg = "Press ENTER to Start...";
     screenPrompt(mesg,8);
+    //int wattron(WINDOW *win, int attr);
+    attrset(A_BLINK | A_BOLD);
+    addstr("ENTER\n");
     getch();
+    attroff(A_BLINK);
+    attroff(A_BOLD);
 }     
 
 void GraphicsEngine::drawDifficultyScreen() {
