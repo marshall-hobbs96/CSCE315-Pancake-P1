@@ -85,11 +85,49 @@ int Game::computeScore() {
     return 0;
 }
 
-string Game::getHighScores() {
+void Game::getHighScores() {
     // Implementation...
+	fstream scoreFile; 
+	string filename = "scores.txt";
+	//debug
+	/*
+	if(argc==2)
+	{
+		filename = "scores_full.txt";
+	}
+	*/
 	
-    return "";
+	//open file if it exists
+	scoreFile.open(filename);
+	if(scoreFile.is_open())
+	{
+		scoreFile.close();
+		//print to screen
+		printHighScores(filename);
+		
+		//replace for requesting user input
+		screenPrompt("Enter your intials ", 6);
+		
+		char str[80];
+		getstr(str);
+		string initials = string(str);
+		
+		screenPrompt("Your score: "+findScore(filename, initials),0);
+		
+	}	
+	//file does not exist
+	else
+	{
+		screenPrompt("No score file exists ", -10);
+		createFile(filename);
+		
+	}
+	
+	screenPrompt("Press any key to continue ", +10);
+	getch();
 }
+
+
 
 /*
 Game::~Game() {
@@ -99,20 +137,22 @@ Game::~Game() {
 
 /* For dealing with the high scores file */
 
-string Game::read() {
-    // Implementation...
-    return "";
+void createFile(string filename)
+{
+	//create score file since it does not exist
+	fstream scoreFile(filename, fstream::out);
+	//print to screen
+	
+	screenPrompt("Enter your intials ", 1);			
+	
+	//request user input to create file
+	char str[80];
+	getstr(str);
+	string initials = string(str);
+	
+	scoreFile<<initials<<"\n"<<"0"<<"\n";
+	screenPrompt(initials+" 0", -9);
+	scoreFile.close();
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-void Game::write(std::string filename, std::string new_score) {
-=======
-void Game::write(string new_score) {
->>>>>>> 375d1007ce32c588b5e9abe4ae32cae7ccd4b041
-=======
-void Game::write(string new_score) {
->>>>>>> 375d1007ce32c588b5e9abe4ae32cae7ccd4b041
-    // Implementation...
 	
 }
