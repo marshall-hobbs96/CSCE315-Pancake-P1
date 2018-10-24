@@ -47,7 +47,7 @@ public:
     void drawSplashScreen();
     void drawDifficultyScreen();
     void drawOrderScreen();
-    void drawScoresScreen(std::string filename);
+    void drawScoresScreen();
     void drawEndScreen();
 
     // For getting input from various screens:

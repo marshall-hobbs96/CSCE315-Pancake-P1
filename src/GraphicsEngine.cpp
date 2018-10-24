@@ -82,8 +82,12 @@ void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
-void GraphicsEngine::drawScoresScreen(std::string scores) {
+void GraphicsEngine::drawScoresScreen() {
     // Implementation
+
+    echo();
+
+    std::string scores = curr_game.getHighScores();
 
 	//print screen title
 	screenPrompt("Top 5 Scores", -10);
@@ -97,6 +101,7 @@ void GraphicsEngine::drawScoresScreen(std::string scores) {
     std::string initials = std::string(str);
     
     screenPrompt("Your score: "+curr_game.findScore(initials),0);
+    
 	
 }     
 
@@ -111,17 +116,17 @@ bool GraphicsEngine::getSplashInput() {
     return true;
 }
 
-bool isWithinRange(char arg, int a, int b) {
+bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
     int intArg = arg - '0';
     if (intArg >= a && intArg <= b)
         return true;
     return false;
 }
 
-int* getDifficultyInput(bool test, const char testA, const char testB) {
-    initscr();                 /* Start curses mode     */
+int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
+    
     noecho();
-    refresh();                 /* Print it on to the real screen */
+    refresh();
 
     if (!test) {
         char c;
@@ -144,7 +149,6 @@ int* getDifficultyInput(bool test, const char testA, const char testB) {
         }
         int diff = c - '0';
         static int result[2] = {numCakes,diff};
-        endwin();                  /* End curses mode    */
 
         return result;
     } else {
@@ -155,6 +159,8 @@ int* getDifficultyInput(bool test, const char testA, const char testB) {
             return NULL;
         }
     }
+    
+   return NULL;
 }     
                                 
 int* GraphicsEngine::getOrderInput() {
@@ -177,7 +183,7 @@ bool GraphicsEngine::getEndInput() {
 
 bool GraphicsEngine::playGame() {
     // Implementation
-    return true;
+    return false;
 }
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
