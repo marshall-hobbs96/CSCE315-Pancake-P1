@@ -59,13 +59,20 @@ GraphicsEngine::GraphicsEngine() : curr_game(5, 3, "scores.db", NULL) {
 /* For drawing various screens */
 
 void GraphicsEngine::drawSplashScreen() {
-    // Implementation
-    /*
-    printw("Enter something");
-    refresh();
+    int row,col;
+    getmaxyx(stdscr,row,col);    
+    //print screen title
+    std::string mesg ="Ultimate Pancake Flipper Simulator 2018";    
+    screenPrompt(mesg,0);
+    mesg = "Team 17: No More ncurses Pls";
+    screenPrompt(mesg,2);
+    mesg = "Members:";
+    screenPrompt(mesg,4);
+    mesg = "Abdul Campos, Troy Fulton, Marshall Hobbs, McLain Johnson";
+    screenPrompt(mesg,5);
+    mesg = "Press ENTER to Start...";
+    screenPrompt(mesg,8);
     getch();
-    refresh();
-    */
 }     
 
 void GraphicsEngine::drawDifficultyScreen() {
