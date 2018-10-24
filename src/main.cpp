@@ -37,7 +37,7 @@ int main() {
     ge.drawSplashScreen();
     ge.getSplashInput();
     // ...which eventually calls ge.drawInstructions();
-    /*
+    
     while (new_game) {
 
         while (keep_playing) {
@@ -55,11 +55,13 @@ int main() {
 
             keep_playing = ge.playGame();
         }
-    
+
+        // Inside:
+        // printHighScores(curr_game.getHighScores);
         ge.drawEndScreen();
         new_game = ge.getEndInput();
     }
-    */
+    
     
     getch();
     

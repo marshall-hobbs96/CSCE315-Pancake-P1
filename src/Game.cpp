@@ -85,48 +85,67 @@ int Game::computeScore() {
     return 0;
 }
 
-void Game::getHighScores() {
+string Game::getHighScores() {
     // Implementation...
-	fstream scoreFile; 
-	string filename = "scores.txt";
-	//debug
-	/*
-	if(argc==2)
-	{
-		filename = "scores_full.txt";
-	}
-	*/
+	fstream scoreFile;
 	
 	//open file if it exists
-	scoreFile.open(filename);
+	scoreFile.open(filename, fstream::in);
+	string scores = "";
+
 	if(scoreFile.is_open())
-	{
-		scoreFile.close();
-		//print to screen
-		printHighScores(filename);
-		
-		//replace for requesting user input
-		screenPrompt("Enter your intials ", 6);
-		
-		char str[80];
-		getstr(str);
-		string initials = string(str);
-		
-		screenPrompt("Your score: "+findScore(filename, initials),0);
-		
+	{		
+		for(int i=0; i<5; i++)
+		{
+			string name,score;
+			getline(scoreFile,name);
+			getline(scoreFile,score);
+			//print to ncurses
+			string line =name+" "+score;
+			scores += line + "\n";
+			//screenPrompt(line, i-9);
+		}	
 	}	
 	//file does not exist
 	else
 	{
-		screenPrompt("No score file exists ", -10);
-		createFile(filename);
-		
+		// Report error
+		//screenPrompt("No score file exists ", -10);		
 	}
-	
-	screenPrompt("Press any key to continue ", +10);
-	getch();
+
+	scoreFile.close();	
+
+	return scores;
 }
 
+/* For dealing with the high scores file */
+
+string Game::findScore(string user)
+{
+	fstream scoreFile;
+	bool scoreFound = false;
+	string username;
+	scoreFile.open(filename);
+	
+	while(getline(scoreFile,username))
+	{	
+		if(username==user)
+		{
+			string score;
+			getline(scoreFile,score);
+			return user +" "+score;
+			scoreFound = true;
+			break;
+		}
+	}
+	scoreFile.close();
+	if(!scoreFound)
+	{
+		scoreFile.open(filename, fstream::app);	
+		scoreFile<<user<<"\n"<<"0"<<"\n";
+		return user+ " 0";
+	}
+}
 
 
 /*
@@ -134,52 +153,3 @@ Game::~Game() {
     // Implementation...
 }
 */
-
-/* For dealing with the high scores file */
-
-	void createFile(string filename)
-	{
-		//create score file since it does not exist
-		fstream scoreFile(filename, fstream::out);
-		//print to screen
-		
-		screenPrompt("Enter your intials ", 1);			
-		
-		//request user input to create file
-		char str[80];
-		getstr(str);
-		string initials = string(str);
-		
-		scoreFile<<initials<<"\n"<<"0"<<"\n";
-		screenPrompt(initials+" 0", -9);
-		scoreFile.close();
-	}
-	
-	string findScore(string filename, string user)
-	{
-		fstream scoreFile;
-		bool scoreFound = false;
-		string username;
-		scoreFile.open(filename);
-		
-		while(getline(scoreFile,username))
-		{	
-			if(username==user)
-			{
-				string score;
-				getline(scoreFile,score);
-				return user +" "+score;
-				scoreFound = true;
-				break;
-			}
-		}
-		scoreFile.close();
-		if(!scoreFound)
-		{
-			scoreFile.open(filename, fstream::app);	
-			scoreFile<<user<<"\n"<<"0"<<"\n";
-			return user+ " 0";
-		}
-	}
-	
-}

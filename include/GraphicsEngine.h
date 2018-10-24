@@ -30,13 +30,12 @@ private:
 
     // Helpers for drawing certain screens:
     void drawInstructions();      // to show the player how to play
-    void drawScores(std::string scores);
+	void screenPrompt(std::string text, int line);
 
     // Facilitating gameplay in playGame:
     void drawStack(int* stack, int sz);
     int getFlipSelection();
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
-	void screenPrompt(string text, int line);
 
 public:
 
@@ -48,7 +47,7 @@ public:
     void drawSplashScreen();
     void drawDifficultyScreen();
     void drawOrderScreen();
-    void drawScoresScreen(string filename);
+    void drawScoresScreen(std::string filename);
     void drawEndScreen();
 
     // For getting input from various screens:

@@ -20,6 +20,8 @@ Player.h - Interface for the Player class
 #include <iostream>
 #include <ncurses.h>
 #include <string>
+#include <cstring>
+#include <fstream>
 
 /************************************************
  * Main Class

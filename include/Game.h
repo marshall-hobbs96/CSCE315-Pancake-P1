@@ -36,10 +36,6 @@ private:
 
     // To check if a stack is in order (for checkWin and generateStack)
     bool checkStackOrder(int* stack, int sz);
-	
-	//to handle score file
-	void createFile(string filename);
-	void findScore(string filename, string user);
 
 public:
 
@@ -60,9 +56,11 @@ public:
     
     // For when the game is over:
     int computeScore();
-    void getHighScores();
+    std::string getHighScores();
     //~Game();
-    
+
+	// For dealing with the high scores file
+	std::string findScore(std::string user);
 };
 
 #endif

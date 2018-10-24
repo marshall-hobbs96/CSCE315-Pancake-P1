@@ -27,10 +27,14 @@ void GraphicsEngine::drawInstructions() {
     // Implementation
 }     
 
-// to report the high scores before and after the game
-void GraphicsEngine::drawScores(std::string scores) {
-    // Implementation
-}     
+void GraphicsEngine::screenPrompt(std::string text, int line)
+{
+	int row,col;
+	getmaxyx(stdscr,row,col);	
+	char mesg1[text.size()+1];
+	strcpy(mesg1, text.c_str());
+	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
+}    
 
 /* Facilitating gameplay in playGame */
 
@@ -78,24 +82,22 @@ void GraphicsEngine::drawOrderScreen() {
     // Implementation
 }     
 
-void GraphicsEngine::drawScoresScreen(string filename) {
+void GraphicsEngine::drawScoresScreen(std::string scores) {
     // Implementation
+
 	//print screen title
 	screenPrompt("Top 5 Scores", -10);
+	screenPrompt(scores, -9);
+
+    //replace for requesting user input
+    screenPrompt("Enter your intials ", 6);
+    
+    char str[80];
+    getstr(str);
+    std::string initials = std::string(str);
+    
+    screenPrompt("Your score: "+curr_game.findScore(initials),0);
 	
-	//print 5 top scores
-	fstream scoreFile(filename, fstream::in);
-	
-	for(int i=0; i<5; i++)
-	{
-		string name,score;
-		getline(scoreFile,name);
-		getline(scoreFile,score);
-		//print to ncurses
-		string line =name+" "+score;
-		screenPrompt(line, i-9);
-	}
-	scoreFile.close();
 }     
 
 void GraphicsEngine::drawEndScreen() {
@@ -129,7 +131,7 @@ std::string GraphicsEngine::getScoresInput() {
 
 bool GraphicsEngine::getEndInput() {
     // Implementation
-    return true;
+    return false;
 }     
 
 
@@ -142,13 +144,4 @@ bool GraphicsEngine::playGame() {
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
     // Pretty straighforward...
-}
-
-void screenPrompt(string text, int line)
-{
-	int row,col;
-	getmaxyx(stdscr,row,col);	
-	char mesg1[text.size()+1];
-	strcpy(mesg1, text.c_str());
-	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
 }
