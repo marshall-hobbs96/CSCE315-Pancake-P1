@@ -19,6 +19,10 @@ based on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (
 | I need to be able to choose an order for the pancake stacks before the game or choose a random order | 1 | Marshall |
 | I should be able to see the high scores as I enter my initials before the game starts | 1 | Abdul |
 | Drawing a pancake stack function | 2 | Marshall |
+| Learn how to use arrow keys to make a selection using ncurses, and handle illegal selections | 2 | McLain |
+| Access a data structure containing the pancake draw instructions for each pancake and print them individually | 3 | McLain |
+| Print the updated user stack using the stack print function from part 5 | 3 | McLain |
+| Alter the format in which a pancake prints by activating the blinking flag on the right condition and blink those pancakes for 3 seconds | 2 | McLain |
 | When the game starts, I should see my pancake stack along with the AI's so I can choose one | 2 | ? | 
 | Choosing AI difficulty and using a search tree with a variable depth to modify AI difficulty | 2 | ? | 
 | Display minimum number of moves required to solve current stack | 2 | ? | 
