@@ -85,22 +85,22 @@ This weekend will be for handing the game off to someone who does not have a com
 
 15 Minute meeetings to review priorities mentioned (should mostly come from the Product backlog). Will be filled in and added to as we go.
 
-| Date | Time | Priorities | Master | Anticipated Members |
-|------|------|------------|--------|---------------------|
-| Oct. 15 | 4:10pm | Clear understanding of Design Documents | Troy | Everyone|
-| Oct. 17 | 4:10pm | Division of labor for Design Documents | Troy | Everyone |
-| Oct. 21 | 5:00pm | Tests for Part 1 Code | Troy | Everyone |
-| Oct. 22 | 4:10pm | Functional Code for 10/22 submission | Troy | Everyone |
-| Oct. 23 | 12:35pm | Update for next part | Abdul | Everyone |
-| Oct. 24 | 4:10pm | TBA | Abdul | Everyone |
-| Oct. 25 | 12:35pm | TBA | Abdul | Everyone |
-| Oct. 27 | TBA | TBA | Marshall | Everyone |
-| Oct. 29 | 4:10pm | TBA | Marshall | Everyone |
-| Oct. 30 | 12:35pm | TBA | Marshall | Everyone |
-| Oct. 31 | 4:10pm | TBA | McLain | Everyone |
-| Nov. 1 | 12:35pm | TBA | McLain | Everyone |
-| Nov. 3 | TBA | TBA | McLain | Everyone |
-| Nov. 4 | TBA | TBA | Troy | Everyone |
-| Nov. 5 | 4:10pm | Make sure submission is ready/complete | Troy | Everyone |
+
+| Date   | Time  | Master   | Members Present | Items Due      | Items Completed     | Items Due Count (running total) | Completed Count (running total) |  | Planned | Actual |
+|--------|-------|----------|-----------------|----------------|---------------------|---------------------------------|---------------------------------|--|---------|--------|
+| 15-Oct | 4:10  | Troy     | Everyone        | 1, 2           | 1, 2                | 2                               | 2                               |  | 36      | 36     |
+| 17-Oct | 4:10  | Troy     | Everyone        | 3              | 3                   | 3                               | 3                               |  | 35      | 35     |
+| 18-Oct | 5:00  | Troy     | Everyone        | 4, 5           | 4, 5                | 5                               | 5                               |  | 33      | 33     |
+| 21-Oct | 5:00  | Troy     | Everyone        | 6, 7, 10       | 6                   | 8                               | 6                               |  | 30      | 32     |
+| 22-Oct | 4:10  | Troy     | Everyone        | 8, 11, 13, 15  | 10, 11, 13, 15      | 12                              | 10                              |  | 26      | 28     |
+| 23-Oct | 12:35 | Abdul    | Everyone        | 9, 12, 14, 16  | 7, 8, 9, 12, 14, 16 | 16                              | 16                              |  | 22      | 22     |
+| 28-Oct | TBA   | Abdul    | Everyone        | 17, 24, 27     |                     | 19                              | 16                              |  | 19      | 22     |
+| 29-Oct | 4:10  | Marshall | Everyone        | 18, 20, 28     |                     | 22                              | 16                              |  | 16      | 22     |
+| 30-Oct | 12:35 | Marshall | Everyone        | 19, 21, 22, 25 |                     | 26                              | 16                              |  | 12      | 22     |
+| 31-Oct | 4:10  | McLain   | Everyone        | 23, 26, 29, 30 |                     | 30                              | 16                              |  | 8       | 22     |
+| 1-Nov  | 12:35 | McLain   | Everyone        | 31, 32, 34, 36 |                     | 34                              | 16                              |  | 4       | 22     |
+| 3-Nov  | TBA   | McLain   | Everyone        | 33, 35         |                     | 36                              | 16                              |  | 2       | 22     |
+| 4-Nov  | TBA   | Troy     | Everyone        | 37             |                     | 37                              | 16                              |  | 1       | 22     |
+| 5-Nov  | 4:10  | Troy     | Everyone        | 38             |                     | 38                              | 16                              |  | 0       | 22     |
 
 ### 
