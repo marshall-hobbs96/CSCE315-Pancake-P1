@@ -52,7 +52,7 @@ based loosely on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlo
 
 ### Burn-Down Chart
 
-![thing](https://github.tamu.edu/storage/user/5293/files/61e96d08-d7aa-11e8-9caf-368cf6f743be)
+![burn](https://github.tamu.edu/storage/user/5293/files/c145d502-da0c-11e8-8989-b3f4a07b6443)
 
 ### Sprints
 
