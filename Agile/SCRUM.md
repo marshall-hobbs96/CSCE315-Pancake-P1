@@ -7,31 +7,48 @@ of these items as the project progresses.
 
 ### Backlog
 
-based on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (items with a low priority value have high priority)
+based loosely on [this](https://www.scrum-institute.org/The_Scrum_Product_Backlog.php) (item priority is totally based on sprint number)
 
-> These are very rough and do not cover all the detail of everything the user should expect. Feel free to add to it.
-
-| Item | Sprint | Assignee |
-|----------|-------|----------------|
-| I need to see a splash screen when the program boots up | 1 | Troy |
-| Show a game being played in the background of the splash screen | Troy |
-| I need to be able to choose how many pancakes to flip and the difficulty of my opponent before the game starts | 1 | McLain |
-| I need to be able to choose an order for the pancake stacks before the game or choose a random order | 1 | Marshall |
-| I should be able to see the high scores as I enter my initials before the game starts | 1 | Abdul |
-| Drawing a pancake stack function | 2 | Marshall |
-| Learn how to use arrow keys to make a selection using ncurses, and handle illegal selections | 2 | McLain |
-| Access a data structure containing the pancake draw instructions for each pancake and print them individually | 3 | McLain |
-| Alter the format in which a pancake prints by activating the blinking flag on the right condition and blink those pancakes for 3 seconds | 2 | McLain |
-| Print the updated user stack using the stack print function from part 5 | 3 | McLain |
-| When the game starts, I should see my pancake stack along with the AI's so I can choose one | 2 | ? | 
-| Choosing AI difficulty and using a search tree with a variable depth to modify AI difficulty | 2 | ? | 
-| Display minimum number of moves required to solve current stack | 2 | ? | 
-| When a player/AI makes a move, I need to know what the player/AI did (make move function). Should be able to choose flip location with ASWD or arrow keys, then pancakes above flip location blink for 3 seconds, then new stack is drawn| 3 | ? |
-| Checking if win conditions are met after each move | 1 | ? |
-| Ability for player to ask for hint | 2 | ? |
-| I should know when the game is over and what my score is | 1 | ? |
-| Ability to check/display high scores and save new highscores to file | 1 | ? |
-| After the game, I want to see the score I got and have the option to start a new game | 1 | ? |
+| ID | Item | Sprint | Assignee | Complete |
+|----|------|--------|----------|----------|
+| 1  | Write a concise purpose statement for the project                                                             | 1      | Troy                | 14-Oct   |
+| 2  | Decide on a set of high-level entities, and describe their relationships                                      | 1      | Everyone            | 15-Oct   |
+| 3  | Create an interaction Diagram to describe the interactions of the high-level entities                         | 1      | Everyone            | 17-Oct   |
+| 4  | Describe the interactions in that diagram with descriptions and UML                                           | 1      | Troy, McLain, Abdul | 18-Oct   |
+| 5  | Establish the risks, benefits, and assumptions of the project                                                 | 1      | Marshall            | 18-Oct   |
+| 6  | Set up framework code based on the UML diagram to allow team members to fill in implementations               | 2      | Troy                | 20-Oct   |
+| 7  | Splash screen appears when program begins                                                                     | 2      | Troy                | 23-Oct   |
+| 8  | Splash screen includes a (somewhat working) blinking "ENTER" button                                           | 2      | Troy                | 23-Oct   |
+| 9  | Splash screen displays instructions upon being entered on a new screen                                        | 2      | Troy                | 23-Oct   |
+| 10 | Next screen allows user to choose how many pancakes to stack                                                  | 2      | McLain              |          |
+| 11 | Same screen allows user to set the difficulty of their opponent                                               | 2      | McLain              |          |
+| 12 | Handle incorrect difficulty input                                                                             | 2      | McLain              |          |
+| 13 | Allow user to choose an order for the pancake stacks before the game or choose a random order                 | 2      | Marshall            |          |
+| 14 | Validate user order or use C++ STL to shuffle the pancakes                                                    | 2      | Marshall            |          |
+| 15 | Allow player to enter their initials on the next screen                                                       | 2      | Abdul               |          |
+| 16 | Allow player to see the high scores loaded from the file on that same screen                                  | 2      | Abdul               |          |
+| 17 | Draw one pancake                                                                                              | 3      | Marshall            |          |
+| 18 | Draw a stack of pancakes in its own window                                                                    | 3      | Marshall            |          |
+| 19 | Draw another stack of pancakes in a separate window without affecting the other stack                         | 3      | Marshall            |          |
+| 20 | Allow user to make a selection using arrow keys                                                               | 3      | McLain              |          |
+| 21 | Handle illegal pancake selections                                                                             | 3      | McLain              |          |
+| 22 | Access a data structure containing the pancake draw instructions for each pancake and print them individually | 3      | McLain              |          |
+| 23 | Blink those pancakes above and including the selected pancake for 3 seconds                                   | 3      | McLain              |          |
+| 24 | Print the updated user stack to reflect changes                                                               | 3      | McLain              |          |
+| 25 | Calculate the AI's move by performing a minimax tree depth search                                             | 3      | Troy                |          |
+| 26 | Blink the pancakes at and above the AI's choice for the player                                                | 3      | Troy                |          |
+| 27 | Execute the AI's move by flipping the pancakes above that choice and redraw the AI's stack                    | 3      | Troy                |          |
+| 28 | When the game is over, calculate the user's score                                                             | 3      | Abdul               |          |
+| 29 | Generate a new screen to show the user their score                                                            | 3      | Abdul               |          |
+| 30 | On the same screen, display the previous scores read from the file, with all 6 scores sorted                  | 3      | Abdul               |          |
+| 31 | Write the scores to the file, and ask the user if they would like to play again or quit                       | 3      | Abdul               |          |
+| 32 | Make sure the user cannot mess up the first splash screen or instructions screen                              | 3      | Troy                |          |
+| 33 | Show the user their difficulty before leaving second screen                                                   | 4      | McLain              |          |
+| 34 | Handle incorrect pancake stack orders                                                                         | 4      | Marshall            |          |
+| 35 | Show pancake stack order when leaving third screen                                                            | 4      | Marshall            |          |
+| 36 | Cleanly display results on  scores screen                                                                     | 4      | Abdul               |          |
+| 37 | Display only 5 results plus user's 0 score on same screen                                                     | 4      | Abdul               |          |
+| 37 | Fix any issues that arise when users try our game                                                             | 5      | Everyone            |
 
 ### Burn-Down Chart
 
