@@ -16,41 +16,64 @@ main.cpp - contains main() for instantiating a graphics engine and
  *  INCLUDES
  ***********************************************/
 #include "GraphicsEngine.h"
+#include <ncurses.h>
 
 /************************************************
  *  DEFINES
  ***********************************************/
 #define DIFF_SIZE 2
 
+using namespace std;
+
 int main() {
-    GraphicsEngine ge(/* args... */);
+    // Game g created so the scores file can be read from
+    Game g(5, 3, "scores.txt", NULL);
+
+    initscr();
+
+    // Then use it to make a graphics engine
+    GraphicsEngine ge(g);
     bool keep_playing = true, new_game = true;
     
+    // Splash Screen
     ge.drawSplashScreen();
     ge.getSplashInput();
+    // ...which eventually calls ge.drawInstructions();
 
-    ge.drawInstructions();
+    clear();
     
     while (new_game) {
 
         while (keep_playing) {
             ge.drawDifficultyScreen();
-            int* diff = getDifficultyInput();   // size defined above main
+            int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
+            
+            clear();
 
             ge.drawOrderScreen();
-            int* order = getOrderInput();
+            string order = ge.getOrderInput();
 
-            ge.startGame(order[0], order[1], "filename");
+            // Instantiates a new inaccessible game object, ignoring the previous dummy
+            //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
+            
+            clear();
 
             ge.drawScoresScreen();
             std::string username = ge.getScoresInput();
 
-            keep_playing = playGame();
+            keep_playing = ge.playGame();
         }
-    
+
+        // Inside:
+        // printHighScores(curr_game.getHighScores);
         ge.drawEndScreen();
         new_game = ge.getEndInput();
     }
+    
+    
+    getch();
+    
+    endwin();
 
     return 0;
 }

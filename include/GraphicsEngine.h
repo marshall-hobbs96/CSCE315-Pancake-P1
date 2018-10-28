@@ -19,7 +19,6 @@ GaphicsEngine.h - Interface for the Graphics Engine class
  ***********************************************/
 #include <iostream>
 #include "Game.h"
-#include <curses.h>     // To use ncurses
 
 /************************************************
  * Main Class
@@ -31,15 +30,18 @@ private:
 
     // Helpers for drawing certain screens:
     void drawInstructions();      // to show the player how to play
-    void drawScores(std::string scores);
+	void screenPrompt(std::string text, int line);
 
     // Facilitating gameplay in playGame:
     void drawStack(int* stack, int sz);
     int getFlipSelection();
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
-
 public:
+
+    // Constructor:
+    GraphicsEngine(Game g);
+    GraphicsEngine();
 
     // For drawing various screens:
     void drawSplashScreen();
@@ -50,15 +52,18 @@ public:
 
     // For getting input from various screens:
     bool getSplashInput();
-    int* getDifficultyInput();      // Always returns [stack_size, ai_difficulty]
+    bool isWithinRange(char arg, int a, int b);
+    int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
                                     // so size of next array is determined...
-    int* getOrderInput();
+    std::string getOrderInput();
     std::string getScoresInput();
     bool getEndInput();
 
     // Facilitating gameplay:
     bool playGame();
-    void starteGame(int num_pancakes, int ai_difficulty, std::string fn);
+    void startGame(int num_pancakes, int ai_difficulty, std::string fn);
+
+    std::string getString();
 };
 
 

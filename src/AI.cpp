@@ -13,7 +13,10 @@ AI.cpp - AI implementation for calculating the next move
 
 #include "AI.h"
 
+AI::AI(int num_pancakes, int* order, int diff) :
+    Player(num_pancakes, order, ""), difficulty(diff) {}
+
 int AI::calculateMove() {
     // Implementation...
-    return 0;
+    return 2;
 }

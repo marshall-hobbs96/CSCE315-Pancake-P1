@@ -18,6 +18,13 @@ Player.h - Interface for the Player class
  *  INCLUDES
  ***********************************************/
 #include <iostream>
+#include <ncurses.h>
+#include <string>
+#include <cstring>
+#include <fstream>
+#include <algorithm>
+#include <random>
+#include <chrono>
 
 /************************************************
  * Main Class
@@ -31,9 +38,10 @@ protected:
 
 public:
     int* getStack();
-    void MakeMove(int pancake);     // Same "flipping" action for all players
+    void makeMove(int pancake);     // Same "flipping" action for all players
+    void setName(std::string name);
 
-    Player(int num_pancakes, int* order, std::string un = "");
+    Player(int num_pancakes, int* order, std::string un);
 };
 
 #endif
