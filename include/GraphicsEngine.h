@@ -33,7 +33,7 @@ private:
 	void screenPrompt(std::string text, int line);
 
     // Facilitating gameplay in playGame:
-    void drawStack(std::string stringStack);
+    void drawStack(std::string stringStack, int stackSize);
     int getFlipSelection();
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
