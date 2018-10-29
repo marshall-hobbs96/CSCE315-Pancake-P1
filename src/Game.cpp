@@ -251,6 +251,44 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
 
 }
 
+std::string stackToString(int* stack, int stackSize) {
+
+    std::string* stringStack = new std::string[stackSize];
+
+    for(int i = 0; i < stackSize; i++){
+        
+        int pancakeSize = stack[i];
+        std::string pancakeString = "+";
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+/n|";
+
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        pancakeString = pancakeString + "|/n+";
+
+        for(int k = 0; k < (2*pancakeString - 1); k++){
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+/n";
+
+        stringStack[i] = pancakeString;
+
+    }
+
+}
+
 /*
 Game::~Game() {
     // Implementation...

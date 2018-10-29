@@ -59,6 +59,8 @@ public:
     std::string getHighScores();
     //~Game();
 
+    std::string stackToString(int* stack, int stackSize);
+
 	// For dealing with the high scores file
 	std::string findScore(std::string user);
     int* gen_rand_stack(int* stack, int stackSize);
