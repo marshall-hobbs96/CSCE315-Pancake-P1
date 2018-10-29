@@ -19,6 +19,7 @@ Node.h - Interface for the Node class of a minimax tree
  ***********************************************/
 #include <iostream>
 #include <map>
+#include <vector>
 using namespace std;
 
 
@@ -28,11 +29,12 @@ using namespace std;
 
 class Node {
 private:
-    Node* children;
+    vector<Node*> children;
     bool is_min;
-    int vlaue;
+    int move;
+    int value;
 public:
-    Node(Node* kids, bool im, int init_val);
+    Node(vector<Node*> kids, bool im, int choice);
     ~Node();
     int eval();
 };

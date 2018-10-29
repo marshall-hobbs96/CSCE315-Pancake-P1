@@ -18,8 +18,10 @@ AI::AI(int num_pancakes, int* order, int diff) :
 
 int AI::calculateMove() {
     // Construct a minimax tree
+    MMTree minimax_tree(stack, difficulty);
     // Evaluate it
+    int choice = minimax_tree.eval();
     // Collect Garbage
     // Return the result
-    return 0;
+    return choice;
 }
