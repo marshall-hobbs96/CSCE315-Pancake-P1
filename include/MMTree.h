@@ -8,33 +8,32 @@ Marshall Hobbs
 McLain Johnson
 Troy Fulton
 
-AI.h - Interface for the Artificial Intelligence Player class
+MMTree.h - Interface for the Minimax Tree Implementation
 */
 
-#ifndef __AI__        // For #including more than once
-#define __AI__
+#ifndef __MMTREE__        // For #including more than once
+#define __MMTREE__
 
 /************************************************
  *  INCLUDES
  ***********************************************/
 #include <iostream>
 #include <map>
-#include "Player.h"
-#include "MMTree.h"
+#include "Node.h"
+
 
 /************************************************
  * Main Class
  ***********************************************/
 
-class AI : public Player {
+class MMTree {
 private:
-    int difficulty;
-
+    Node* root;
+    int depth;
 public:
-    // For the AI to decide under which pancake to flip:
-    int calculateMove();
-
-    AI(int num_pancakes, int* order, int diff);
+    MMTree(int* stack, int d);
+    ~MMTree();
+    int eval();
 };
 
 #endif
