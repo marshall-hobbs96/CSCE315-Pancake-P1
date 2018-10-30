@@ -47,11 +47,6 @@ TEST_CASE( "Node Test eval 1", "[single-file]" ) {
 
     CHECK(value == 1);
     
-    // Cleanup
-    /*
-    delete node1;
-    delete node2;
-    delete node3;
-    */
+    // No Cleanup necessary
     REQUIRE(true);
 }
