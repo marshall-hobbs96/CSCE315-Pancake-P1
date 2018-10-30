@@ -34,7 +34,7 @@ private:
     int value;
 public:
     Node(vector<Node*> kids, bool im, int init_val);
-    //~Node();
+    ~Node();
     int eval();
 };
 

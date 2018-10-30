@@ -18,13 +18,13 @@ using namespace std;
 Node::Node(vector<Node*> kids, bool im, int init_val): 
     value(init_val), is_min(im), children(kids) {}
 
-/*
+
 Node::~Node() {
     for (Node* child: children) {
         delete child;
     }
 }
-*/
+
 
 int Node::eval() {
     // Base Case for recursion:
@@ -44,7 +44,8 @@ int Node::eval() {
             }
         }
 
-        return min_node->value;
+        this->value = min_node->value;
+        return this->value;
     }
     else {      // Max node
         // Simple linear search
@@ -57,6 +58,7 @@ int Node::eval() {
             }
         }
 
-        return max_node->value;
+        this->value = max_node->value;
+        return this->value;
     }
 }
