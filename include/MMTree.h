@@ -30,6 +30,8 @@ class MMTree {
 private:
     Node* root;
     int depth;
+    int utility(int* stack);
+
 public:
     MMTree(int* stack, int d);
     ~MMTree();

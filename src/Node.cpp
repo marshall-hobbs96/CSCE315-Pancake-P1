@@ -16,51 +16,47 @@ Node.cpp - Node implementation for holding tree data
 using namespace std;
 
 Node::Node(vector<Node*> kids, bool im, int init_val): 
-    move(init_val), is_min(im), children(kids), value(0) {}
+    value(init_val), is_min(im), children(kids) {}
 
+/*
 Node::~Node() {
-    // Implement...?
-    // for loop
-    //delete &children[i];
+    for (Node* child: children) {
+        delete child;
+    }
 }
+*/
 
 int Node::eval() {
     // Base Case for recursion:
     if (children.size() == 0) {
-        // determine "sortedness" after move
         return value;
     }
 
-    // Evaluate the children
-    for (Node* child:children) {
-        child->eval();
-    }
-
-    // Then search for the min or max
+    // Search for the min or max
     if (is_min) {   // Min node
-
         // Simple linear search
         Node* min_node = children[0];
+        int min_value = children[0]->eval();     // has to be at least one child
 
         for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->data < min_node->data) {
+            if (children[i]->eval() < min_value) {
                 min_node = children[i];
             }
         }
 
-        return min_node->data;
+        return min_node->value;
     }
     else {      // Max node
-
         // Simple linear search
         Node* max_node = children[0];
+        int max_value = children[0]->eval();     // has to be at least one child
 
         for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->data > max_node->data) {
+            if (children[i]->eval() > max_value) {
                 max_node = children[i];
             }
         }
 
-        return max_node->data;
+        return max_node->value;
     }
 }
