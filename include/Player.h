@@ -44,6 +44,7 @@ public:
     int getStackSize();
     void makeMove(int pancake);     // Same "flipping" action for all players
     void setName(std::string name);
+    int getSortedness(int* stack_order);
 
     Player(int num_pancakes, int* order, std::string un);
 };

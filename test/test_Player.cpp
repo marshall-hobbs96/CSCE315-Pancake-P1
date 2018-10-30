@@ -133,3 +133,25 @@ TEST_CASE( "Player Test makeMove 4", "[single-file]" ) {
     delete[] solution;
     REQUIRE(true);
 }
+
+TEST_CASE( "Player Test getSortedness 1", "[single-file]" ) {
+    // Testing stack in reverse order
+    
+    // Set up tester and solution
+    int* stack = new int[6]{6, 5, 4, 3, 2, 1};
+    int solution = 1;
+    Player tester(6, stack, "Me");
+
+    // Check that the size has not changed
+    int original_size = tester.getStackSize();
+    int sortedness = tester.getSortedness(stack);
+    int new_size = tester.getStackSize();
+    CHECK(original_size == new_size);
+
+    // Validate that the solution matches
+    CHECK(sortedness == soultion);
+    
+    // Cleanup
+    delete[] stack;
+    REQUIRE(true);
+}

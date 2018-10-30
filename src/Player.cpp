@@ -33,12 +33,14 @@ void Player::swapPancakes(int i, int j) {
 
 int Player::getSortedness(int* stack_order) {
     // Array of ls and gs for less than and greater than
-    char comparators[stack_size - 1];
+    char comparators[stack_size];
+    comparators[0] = 'l';
+
     for (int i = 0; i < stack_size - 1; i++) {
         if (stack[i] < stack[i+1]) 
-            comparators[i] = 'l';
+            comparators[i+1] = 'l';
         else
-            comparators[i] = 'g';
+            comparators[i+1] = 'g';
     }
 
     // Count the changes in sign from left to right
