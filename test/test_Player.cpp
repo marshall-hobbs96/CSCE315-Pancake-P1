@@ -149,7 +149,7 @@ TEST_CASE( "Player Test getSortedness 1", "[single-file]" ) {
     CHECK(original_size == new_size);
 
     // Validate that the solution matches
-    CHECK(sortedness == soultion);
+    CHECK(sortedness == solution);
     
     // Cleanup
     delete[] stack;
