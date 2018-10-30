@@ -25,6 +25,7 @@ Player.h - Interface for the Player class
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <array>
 
 /************************************************
  * Main Class
