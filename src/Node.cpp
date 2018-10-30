@@ -13,6 +13,8 @@ Node.cpp - Node implementation for holding tree data
 
 #include "Node.h"
 
+using namespace std;
+
 Node::Node(vector<Node*> kids, bool im, int init_val): 
     move(init_val), is_min(im), children(kids), value(0) {}
 

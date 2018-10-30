@@ -25,6 +25,7 @@ Player.h - Interface for the Player class
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <array>
 
 /************************************************
  * Main Class
@@ -35,9 +36,13 @@ protected:
     int *stack;         // Pancake Stack size
     int stack_size;     // Number of Pancakes
     std::string username;
+    
+    void swapPancakes(int i, int j);
+    int getSortedness(int* stack_order);
 
 public:
     int* getStack();
+    int getStackSize();
     void makeMove(int pancake);     // Same "flipping" action for all players
     void setName(std::string name);
 
