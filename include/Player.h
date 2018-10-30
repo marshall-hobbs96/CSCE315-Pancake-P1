@@ -38,7 +38,6 @@ protected:
     std::string username;
     
     void swapPancakes(int i, int j);
-    int getSortedness(int* stack_order);
 
 public:
     int* getStack();

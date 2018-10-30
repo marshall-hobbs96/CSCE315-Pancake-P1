@@ -20,7 +20,6 @@ AI.h - Interface for the Artificial Intelligence Player class
 #include <iostream>
 #include <map>
 #include "Player.h"
-#include "MMTree.h"
 
 /************************************************
  * Main Class
@@ -28,6 +27,7 @@ AI.h - Interface for the Artificial Intelligence Player class
 
 class AI : public Player {
 private:
+    std::map<int, int> tree;    // Not sure how this will be implemented...
     int difficulty;
 
 public:

@@ -22,9 +22,16 @@ using namespace std;
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
 
-bool Game::checkStackOrder(int* stack, int sz) {
-    // Implementation...
-    return true;
+bool Game::checkStackOrder(int *stack, int size)
+{
+	bool sorted =true;
+	int sizeStack = size;
+	for(int i =0; i<sizeStack; i++)
+	{
+		if(stack[i]!=(sizeStack-i))
+			sorted = false; 
+	}
+	return sorted;
 }
 
 /*****************************************************
@@ -173,10 +180,19 @@ bool Game::checkWin() {
 }
 
 // For when the game is over:
-
-int Game::computeScore() {
-    // Implementation...
-    return 0;
+//will return -1 if the game is not over, returns score otherwise
+int Game::computeScore(int difficulty, int size, int userStack[], int aiStack[])
+{
+	bool userSorted = checkStackOrder(userStack, size);
+	bool aiSorted = checkStackOrder(aiStack, size);
+	if(userSorted && aiSorted)
+		return size*(difficulty+1);
+	else if(aiSorted && !userSorted)
+		return size;
+	else if(!aiSorted && userSorted)
+		return 2*size*(difficulty+1);
+	else
+		return -1;
 }
 
 string Game::getHighScores() {
