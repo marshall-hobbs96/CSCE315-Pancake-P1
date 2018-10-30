@@ -21,9 +21,30 @@ int* Player::getStack() {
     return stack;
 }
 
+int Player::getStackSize() {
+    return stack_size;
+}
+
+void Player::swapPancakes(int i, int j) {
+    int temp_pancake = stack[i];
+    stack[i] = stack[j];
+    stack[j] = temp_pancake;
+}
+
 void Player::makeMove(int pancake) {
-    // Implementation...
-    stack = new int[4]{1, 2, 3, 4};
+    // Count of pancakes at and above spatula
+    int pancakes_to_flip = (stack_size - pancake)/2;
+    
+    // If we need to look at more than one
+    if (pancakes_to_flip >= 1) {
+        
+        // For each of the pancakes above the spatula
+        for (int i = pancake; i < pancake + (pancakes_to_flip/2) + 1; i++) {
+            swapPancakes(i, stack_size - i + pancake - 1);
+        }
+    }
+    
+    return;
 }
 
 void Player::setName(std::string name) {
