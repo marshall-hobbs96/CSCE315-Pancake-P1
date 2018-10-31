@@ -28,7 +28,7 @@ using namespace std;
 
 class Node {
 private:
-    Node* children;
+    vector<Node*> children;
     bool is_min;
     int vlaue;
 public:
