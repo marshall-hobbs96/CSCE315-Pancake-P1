@@ -34,34 +34,36 @@ vector<Node*> Node::eval() {
         return v;
     }
 
+    // Simple linear search
+    vector<Node*> path = children[0]->eval();
+    int sel_val = children[0]->value;
+
     // Search for the min or max
     if (is_min) {   // Min node
-        // Simple linear search
-        vector<Node*> min_path = children[0]->eval();
-        int min_val = children[0]->value;
 
         for (int i = 1; i < children.size(); ++i) {
             vector<Node*> temp_path = children[i]->eval();
-            if (children[i]->value < min_val) {
-                min_val = children[i]->value;
-                min_path = temp_path;
+            if (children[i]->value < sel_val) {
+                sel_val = children[i]->value;
+                path = temp_path;
+                path.push_back(children[i]);
             }
         }
 
-        this->value = min_node->value;
-        return this->value;
     }
     else {      // Max node
-        // Simple linear search
-        Node* max_node = children[0];
 
-        for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->eval() < max_node->value) {
-                max_node = children[i];
+        for (int i = 1; i < children.size(); ++i) {
+            vector<Node*> temp_path = children[i]->eval();
+            if (children[i]->value > sel_val) {
+                sel_val = children[i]->value;
+                path = temp_path;
             }
         }
-
-        this->value = max_node->value;
-        return this->value;
     }
+
+    this->value = sel_val;
+    path.push_back(this);
+    
+    return path;
 }
