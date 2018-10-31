@@ -8,7 +8,7 @@ Marshall Hobbs
 McLain Johnson
 Troy Fulton
 
-MMTree.cpp - Implementation for Minimax tree to evaluate the minimax tree
+MMTree.cpp - Implementation for Minimax tree to evaluate the tree
 */
 
 #include "MMTree.h"
@@ -18,10 +18,9 @@ MMTree::MMTree(int* stack, int d) : depth(d) {
 }
 
 MMTree::~MMTree() {
-    // implement...
+    delete root;
 }
 
 int MMTree::eval() {
-    //return root->eval();
-    return 0;
+    return root->eval();
 }

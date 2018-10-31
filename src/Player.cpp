@@ -21,9 +21,51 @@ int* Player::getStack() {
     return stack;
 }
 
+int Player::getStackSize() {
+    return stack_size;
+}
+
+void Player::swapPancakes(int i, int j) {
+    int temp_pancake = stack[i];
+    stack[i] = stack[j];
+    stack[j] = temp_pancake;
+}
+
+int Player::getSortedness(int* stack_order) {
+    // Array of ls and gs for less than and greater than
+    char comparators[stack_size];
+    comparators[0] = 'l';
+
+    for (int i = 0; i < stack_size - 1; i++) {
+        if (stack[i] < stack[i+1]) 
+            comparators[i+1] = 'l';
+        else
+            comparators[i+1] = 'g';
+    }
+
+    // Count the changes in sign from left to right
+    int count = 0;
+    for (int i = 0; i < stack_size - 1; i++)
+        if (comparators[i] != comparators[i+1])
+            count++;
+    
+    return count;
+}
+
 void Player::makeMove(int pancake) {
-    // Implementation...
-    stack = new int[4]{1, 2, 3, 4};
+    // Count of pancakes at and above spatula
+    int pancakes_to_flip = (stack_size - pancake)/2;
+    
+    // If we need to look at more than one
+    if (pancakes_to_flip >= 1) {
+        
+        // For each of the pancakes above the spatula
+        for (int i = pancake; i < pancake + (pancakes_to_flip/2) + 1; i++) {
+            swapPancakes(i, stack_size - i + pancake - 1);
+        }
+    }
+    
+    return;
 }
 
 void Player::setName(std::string name) {

@@ -17,9 +17,6 @@ AI::AI(int num_pancakes, int* order, int diff) :
     Player(num_pancakes, order, ""), difficulty(diff) {}
 
 int AI::calculateMove() {
-    // Construct a minimax tree
-    // Evaluate it
-    // Collect Garbage
-    // Return the result
-    return 0;
+    // Implementation...
+    return 2;
 }

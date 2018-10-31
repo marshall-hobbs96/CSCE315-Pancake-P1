@@ -22,9 +22,16 @@ using namespace std;
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
 
-bool Game::checkStackOrder(int* stack, int sz) {
-    // Implementation...
-    return true;
+bool Game::checkStackOrder(int *stack, int size)
+{
+	bool sorted =true;
+	int sizeStack = size;
+	for(int i =0; i<sizeStack; i++)
+	{
+		if(stack[i]!=(sizeStack-i))
+			sorted = false; 
+	}
+	return sorted;
 }
 
 /*****************************************************
@@ -173,10 +180,19 @@ bool Game::checkWin() {
 }
 
 // For when the game is over:
-
-int Game::computeScore() {
-    // Implementation...
-    return 0;
+//will return -1 if the game is not over, returns score otherwise
+int Game::computeScore(int difficulty, int size, int userStack[], int aiStack[])
+{
+	bool userSorted = checkStackOrder(userStack, size);
+	bool aiSorted = checkStackOrder(aiStack, size);
+	if(userSorted && aiSorted)
+		return size*(difficulty+1);
+	else if(aiSorted && !userSorted)
+		return size;
+	else if(!aiSorted && userSorted)
+		return 2*size*(difficulty+1);
+	else
+		return -1;
 }
 
 string Game::getHighScores() {
@@ -248,44 +264,6 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
    resultStack = stack;
    std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
    return resultStack;
-
-}
-
-std::string stackToString(int* stack, int stackSize) {
-
-    std::string* stringStack = new std::string[stackSize];
-
-    for(int i = 0; i < stackSize; i++){
-        
-        int pancakeSize = stack[i];
-        std::string pancakeString = "+";
-        for(int k = 0; k < (2*pancakeSize - 1); k++) {
-
-            pancakeString = pancakeString + "-";
-
-        }
-
-        pancakeString = pancakeString + "+/n|";
-
-        for(int k = 0; k < (2*pancakeSize - 1); k++) {
-
-            pancakeString = pancakeString + " ";
-
-        }
-
-        pancakeString = pancakeString + "|/n+";
-
-        for(int k = 0; k < (2*pancakeString - 1); k++){
-
-            pancakeString = pancakeString + "-";
-
-        }
-
-        pancakeString = pancakeString + "+/n";
-
-        stringStack[i] = pancakeString;
-
-    }
 
 }
 
