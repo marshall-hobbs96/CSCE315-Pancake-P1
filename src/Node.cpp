@@ -50,11 +50,11 @@ int Node::eval() {
 
         for (int i = 1; i < children.size(); ++i) {
             children[i]->eval();
-            if (children[i]->value < sel_val) {
+            if (children[i]->value > sel_val) {
                 sel_val = children[i]->value;
             }
         }
-        
+
     }
 
     this->value = sel_val;
