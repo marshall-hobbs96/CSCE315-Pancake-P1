@@ -8,9 +8,6 @@ AI.o: Player.o
 Node.o:
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/Node.cpp
 
-MMTree.o: Node.o
-	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/MMTree.cpp
-
 Player.o: 
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/Player.cpp
 
@@ -22,8 +19,8 @@ GraphicsEngine.o: Game.o
 
 # Tests:
 
-test_AI: AI.o Player.o
-	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I $(CATCH_SINGLE_INCLUDE):include -o test/test_AI AI.o Player.o test/test_AI.cpp 
+test_AI: AI.o Player.o Node.o
+	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I $(CATCH_SINGLE_INCLUDE):include -o test/test_AI AI.o Player.o Node.o test/test_AI.cpp 
 
 test_GraphicsEngine: GraphicsEngine.o Game.o AI.o Player.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o test/test_GraphicsEngine AI.o Player.o Game.o GraphicsEngine.o test/test_GraphicsEngine.cpp 

@@ -20,6 +20,7 @@ AI.h - Interface for the Artificial Intelligence Player class
 #include <iostream>
 #include <map>
 #include "Player.h"
+#include "MMTree.h"
 using namespace std;
 
 /************************************************
@@ -30,15 +31,22 @@ class AI : public Player {
 private:
     int difficulty;
 
-    class Helper {
-        int operator()(vector<int> path);
-    }
+    
 
 public:
     // For the AI to decide under which pancake to flip:
     int calculateMove();
 
     AI(int num_pancakes, int* order, int diff);
+};
+
+
+
+class Helper {
+    AI ai;
+public:
+    Helper(AI ai_player);
+    int operator()(vector<int> path);
 };
 
 #endif

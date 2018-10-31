@@ -39,7 +39,7 @@ TEST_CASE( "AI Test calculateMove 1", "[single-file]" ) {
     tester.makeMove(AImove);
 
     for (int i =0; i < tester.getStackSize(); i++) {
-        CHECK(tester.getStack()[2] == solution[2]);
+        CHECK(tester.getStack()[i] == new_stack[i]);
     }
 
     delete[] stack;

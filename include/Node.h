@@ -34,9 +34,11 @@ private:
     int value;
     vector<int> path;          // path to the node
 public:
-    Node(vector<Node*> kids, bool im, int init_val, vector<int> path);
+    Node(vector<Node*> kids, bool im, int init_val, vector<int> curr_path);
     ~Node();
     int eval();
+    vector<Node*> getChildren();
+    int getValue();
 };
 
 #endif

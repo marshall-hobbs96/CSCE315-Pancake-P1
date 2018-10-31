@@ -15,14 +15,22 @@ Node.cpp - Node implementation for holding tree data
 
 using namespace std;
 
-Node::Node(vector<Node*> kids, bool im, int init_val, vector<int> path): 
-    children(kids), is_min(im), value(init_val) {}
+Node::Node(vector<Node*> kids, bool im, int init_val, vector<int> curr_path): 
+    children(kids), is_min(im), value(init_val), path(curr_path) {}
 
 
 Node::~Node() {
     for (Node* child: children) {
         delete child;
     }
+}
+
+vector<Node*> Node::getChildren() {
+    return children;
+}
+
+int Node::getValue() {
+    return value;
 }
 
 
