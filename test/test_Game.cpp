@@ -67,3 +67,16 @@ test_Game.cpp - Game Unit Testing
 	assert(computeScore(difficulty,n ,user3, ai3)==-1);
 	cout<<"Case 4 passed"<<endl;
 }
+TEST_CASE("Testing whether pancakeStack in int form converts to string successfully. stackToString"){
+
+    int stackSize = 9;
+    int* stack = new int[stackSize]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    std::string stringStack = stackToString(stack, stackSize);
+    correctStack = "+-+/n|1|/n+-+/n+---+/n| 2 |/n+---+/n+-----+/n|  3  |/n+-----+/n+-------+/n|   4   |/n+-------+/n+---------+/n|    5    |/n+---------+/n+-----------+/n|     6     |/n+-----------+/n+-------------+/n|      7      |/n+-------------+/n+---------------+/n|       8       |/n+---------------+/n+-----------------+/n|        9        |/n+---------------+/n";
+
+    check(stringStack == correctStack);
+
+    delete stack;
+
+}
