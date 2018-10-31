@@ -79,7 +79,7 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum) {
     // Recursively:
     vector<Node*> children;
     for (int i = 0; i < num_children; i++) {
-        Node* temp = make_tree<T>(func, d-1, num_children, !is_minimum);
+        Node* temp = make_tree(func, d-1, num_children, !is_minimum);
         children.push_back(temp);
     }
 

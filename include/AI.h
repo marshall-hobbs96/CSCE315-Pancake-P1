@@ -25,7 +25,8 @@ AI.h - Interface for the Artificial Intelligence Player class
  * Supporting Class
  ***********************************************/
 
-class Utility {
+class Utility : public Player {
+    
 public:
     Utility();
 
