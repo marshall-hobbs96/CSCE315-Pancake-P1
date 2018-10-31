@@ -12,55 +12,61 @@ Node.cpp - Node implementation for holding tree data
 */
 
 #include "Node.h"
+#include <iostream>
 
 using namespace std;
 
-Node::Node(vector<Node*> kids, bool im, int init_val): 
-    move(init_val), is_min(im), children(kids), value(0) {}
+Node::Node(vector<Node*> kids, bool im, int init_val, vector<int> curr_path): 
+    children(kids), is_min(im), value(init_val), path(curr_path) {}
+
 
 Node::~Node() {
-    // Implement...?
-    // for loop
-    //delete &children[i];
+    for (Node* child: children) {
+        delete child;
+    }
 }
 
+vector<Node*> Node::getChildren() {
+    return children;
+}
+
+int Node::getValue() {
+    return value;
+}
+
+
 int Node::eval() {
-    // Base Case for recursion:
+    // Base Case for leaf nodes
     if (children.size() == 0) {
-        // determine "sortedness" after move
-        return value;
+        return this->value;
     }
 
-    // Evaluate the children
-    for (Node* child:children) {
-        child->eval();
-    }
+    // Simple linear search
+    int sel_val = children[0]->eval();
 
-    // Then search for the min or max
+    // Search for the min or max
     if (is_min) {   // Min node
 
-        // Simple linear search
-        Node* min_node = children[0];
-
-        for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->data < min_node->data) {
-                min_node = children[i];
+        for (int i = 1; i < children.size(); ++i) {
+            children[i]->eval();
+            if (children[i]->value < sel_val) {
+                sel_val = children[i]->value;
             }
         }
 
-        return min_node->data;
     }
     else {      // Max node
 
-        // Simple linear search
-        Node* max_node = children[0];
-
-        for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->data > max_node->data) {
-                max_node = children[i];
+        for (int i = 1; i < children.size(); ++i) {
+            children[i]->eval();
+            if (children[i]->value > sel_val) {
+                sel_val = children[i]->value;
             }
         }
 
-        return max_node->data;
     }
+
+    this->value = sel_val;
+    
+    return this->value;
 }

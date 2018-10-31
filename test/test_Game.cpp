@@ -31,8 +31,6 @@ test_Game.cpp - Game Unit Testing
 
 TEST_CASE("Case1: Test AI Sorted & User stack not sorted")
 {
-	
-	
 	int difficulty = 4;
 	int n = 5;
 	int ai[] = {5,4,3,2,1};

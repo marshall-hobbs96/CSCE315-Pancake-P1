@@ -26,6 +26,7 @@ Player.h - Interface for the Player class
 #include <random>
 #include <chrono>
 #include <array>
+#include "MMTree.h"
 
 /************************************************
  * Main Class
@@ -44,7 +45,7 @@ public:
     int getStackSize();
     void makeMove(int pancake);     // Same "flipping" action for all players
     void setName(std::string name);
-    int getSortedness(int* stack_order);
+    int getSortedness();
 
     Player(int num_pancakes, int* order, std::string un);
 };
