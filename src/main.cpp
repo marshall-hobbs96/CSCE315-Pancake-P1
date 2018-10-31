@@ -53,6 +53,13 @@ int main() {
             ge.drawOrderScreen();
             string order = ge.getOrderInput();
 
+            //***********************************Initialize two subscreens for displaying pancakes
+
+            //WINDOW* left_window = createnew_win(LINES / 2, COLS / 2, 0, 0);
+            //WINDOW* right_window = createnew_win(LINES / 2, COLS / 2, 0, COLS / 2);
+            //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), left_window);
+            //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), right_window);
+
             // Instantiates a new inaccessible game object, ignoring the previous dummy
             //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
             
