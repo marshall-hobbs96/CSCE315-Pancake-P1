@@ -38,11 +38,11 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(std::string stringStack, int stackSize) {
+void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window) {
     
     for(int i = stackSize - 1; i >= 0; i-- ){
         
-        printw("%s", stringStack[i]);
+        mvwprintw(window, 0, 0, "%s", stringStack[i]);
 
     }
     return;
