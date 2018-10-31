@@ -31,7 +31,6 @@ private:
     int difficulty;
 
     class Helper {
-        int utility(int* temp_stack, int temp_stack_size, int* flip_sequence, int sequence_size);
         int operator()(vector<int> path);
     }
 

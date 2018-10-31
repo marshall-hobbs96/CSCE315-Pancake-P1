@@ -70,11 +70,11 @@ int MMTree<T>::eval() {
 template <typename T>
 int MMTree<T>::bestMove() {
     // Evaluate the tree to find the best move
-    int best_move = root->eval();
+    int best_score = root->eval();
 
     // See which node matches that number
     for (int i = 0; i < root->children.size(); i++) {
-        if (root->children[i]->value == best_move) {
+        if (root->children[i]->value == best_score) {
             return i;
         }
     }
