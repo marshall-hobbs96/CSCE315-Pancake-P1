@@ -70,7 +70,7 @@ TEST_CASE( "Node Test eval 2", "[single-file]" ) {
 
     int value = root.eval();
 
-    CHECK(value == 1);
+    CHECK(value == 3);
     
     // No Cleanup necessary
     REQUIRE(true);

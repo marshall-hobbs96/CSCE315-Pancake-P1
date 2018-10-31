@@ -26,27 +26,22 @@ Node::~Node() {
 }
 
 
-vector<Node*> Node::eval() {
+int Node::eval() {
     // Base Case for leaf nodes
     if (children.size() == 0) {
-        vector<Node*> v;
-        v.push_back(this);
-        return v;
+        return this->value;
     }
 
     // Simple linear search
-    vector<Node*> path = children[0]->eval();
     int sel_val = children[0]->value;
 
     // Search for the min or max
     if (is_min) {   // Min node
 
         for (int i = 1; i < children.size(); ++i) {
-            vector<Node*> temp_path = children[i]->eval();
+            children[i]->eval();
             if (children[i]->value < sel_val) {
                 sel_val = children[i]->value;
-                path = temp_path;
-                path.push_back(children[i]);
             }
         }
 
@@ -54,16 +49,15 @@ vector<Node*> Node::eval() {
     else {      // Max node
 
         for (int i = 1; i < children.size(); ++i) {
-            vector<Node*> temp_path = children[i]->eval();
-            if (children[i]->value > sel_val) {
+            children[i]->eval();
+            if (children[i]->value < sel_val) {
                 sel_val = children[i]->value;
-                path = temp_path;
             }
         }
+        
     }
 
     this->value = sel_val;
-    path.push_back(this);
     
-    return path;
+    return this->value;
 }
