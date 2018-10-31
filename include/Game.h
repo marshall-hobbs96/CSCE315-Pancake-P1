@@ -35,7 +35,7 @@ private:
     int stack_size;     // new
 
     // To check if a stack is in order (for checkWin and generateStack)
-    bool checkStackOrder(int *stack, int size)
+    bool checkStackOrder(int *stack, int size);
 
 public:
 
@@ -55,7 +55,7 @@ public:
     bool checkWin();
     
     // For when the game is over:
-    int computeScore(int difficulty, int size, int userStack[], int aiStack[])
+    int computeScore(int difficulty, int size, int userStack[], int aiStack[]);
     std::string getHighScores();
     //~Game();
 

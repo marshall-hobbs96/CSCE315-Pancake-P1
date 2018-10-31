@@ -55,8 +55,8 @@ int main() {
 
             //***********************************Initialize two subscreens for displaying pancakes
 
-            //WINDOW* left_window = createnew_win(LINES / 2, COLS / 2, 0, 0);
-            //WINDOW* right_window = createnew_win(LINES / 2, COLS / 2, 0, COLS / 2);
+            WINDOW* left_window = newwin(LINES / 2, COLS / 2, 0, 0);
+            WINDOW* right_window = newwin(LINES / 2, COLS / 2, 0, COLS / 2);
             //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), left_window);
             //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), right_window);
 
