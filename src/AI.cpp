@@ -20,3 +20,8 @@ int AI::calculateMove() {
     // Implementation...
     return 2;
 }
+
+int AI::getDifficulty()
+{
+	return this->difficulty;
+}

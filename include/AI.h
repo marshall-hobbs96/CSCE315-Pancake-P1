@@ -33,7 +33,7 @@ private:
 public:
     // For the AI to decide under which pancake to flip:
     int calculateMove();
-
+	int getDifficulty();
     AI(int num_pancakes, int* order, int diff);
 };
 
