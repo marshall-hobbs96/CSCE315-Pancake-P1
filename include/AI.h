@@ -20,18 +20,7 @@ AI.h - Interface for the Artificial Intelligence Player class
 #include <iostream>
 #include <map>
 #include "Player.h"
-
-/************************************************
- * Supporting Class
- ***********************************************/
-
-class Utility : public Player {
-    
-public:
-    Utility();
-
-    int operator()(int* temp_stack, int size);
-} 
+using namespace std;
 
 /************************************************
  * Main Class
@@ -39,8 +28,12 @@ public:
 
 class AI : public Player {
 private:
-    std::map<int, int> tree;    // Not sure how this will be implemented...
     int difficulty;
+
+    class Helper {
+        int utility(int* temp_stack, int temp_stack_size, int* flip_sequence, int sequence_size);
+        int operator()(vector<int> path);
+    }
 
 public:
     // For the AI to decide under which pancake to flip:

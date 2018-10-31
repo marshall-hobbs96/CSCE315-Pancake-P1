@@ -32,8 +32,9 @@ private:
     vector<Node*> children;
     bool is_min;
     int value;
+    vector<int> path;          // path to the node
 public:
-    Node(vector<Node*> kids, bool im, int init_val);
+    Node(vector<Node*> kids, bool im, int init_val, vector<int> path);
     ~Node();
     int eval();
 };
