@@ -22,6 +22,17 @@ AI.h - Interface for the Artificial Intelligence Player class
 #include "Player.h"
 
 /************************************************
+ * Supporting Class
+ ***********************************************/
+
+class Utility {
+public:
+    Utility();
+
+    int operator()(int* temp_stack, int size);
+} 
+
+/************************************************
  * Main Class
  ***********************************************/
 

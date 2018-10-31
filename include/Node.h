@@ -35,7 +35,7 @@ private:
 public:
     Node(vector<Node*> kids, bool im, int init_val);
     ~Node();
-    int eval();
+    vector<Node*> eval();
 };
 
 #endif

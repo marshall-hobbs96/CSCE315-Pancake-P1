@@ -26,16 +26,21 @@ MMTree.h - Interface for the Minimax Tree Implementation
  * Main Class
  ***********************************************/
 
+template <typename T>
 class MMTree {
 private:
     Node* root;
     int depth;
-    int utility(int* stack);
+    //int utility(int* temp_stack, int temp_stack_size, int* flip_sequence, int sequence_size);
+    //int getSortedness(int* stack_order, const int stack_size);
+    Node* make_tree(T func, int d, int num_children, bool is_minimum);
 
 public:
-    MMTree(int* stack, int d);
-    ~MMTree();
+    MMTree<T>(T func, int d, int num_children);
+    ~MMTree<T>();
     int eval();
+
+    int bestMove();
 };
 
 #endif

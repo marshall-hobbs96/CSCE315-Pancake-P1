@@ -16,7 +16,7 @@ Node.cpp - Node implementation for holding tree data
 using namespace std;
 
 Node::Node(vector<Node*> kids, bool im, int init_val): 
-    value(init_val), is_min(im), children(kids) {}
+    children(kids), is_min(im), value(init_val) {}
 
 
 Node::~Node() {
@@ -26,21 +26,25 @@ Node::~Node() {
 }
 
 
-int Node::eval() {
-    // Base Case for recursion:
+vector<Node*> Node::eval() {
+    // Base Case for leaf nodes
     if (children.size() == 0) {
-        return value;
+        vector<Node*> v;
+        v.push_back(this);
+        return v;
     }
 
     // Search for the min or max
     if (is_min) {   // Min node
         // Simple linear search
-        Node* min_node = children[0];
-        int min_value = children[0]->eval();     // has to be at least one child
+        vector<Node*> min_path = children[0]->eval();
+        int min_val = children[0]->value;
 
-        for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->eval() < min_value) {
-                min_node = children[i];
+        for (int i = 1; i < children.size(); ++i) {
+            vector<Node*> temp_path = children[i]->eval();
+            if (children[i]->value < min_val) {
+                min_val = children[i]->value;
+                min_path = temp_path;
             }
         }
 
@@ -50,10 +54,9 @@ int Node::eval() {
     else {      // Max node
         // Simple linear search
         Node* max_node = children[0];
-        int max_value = children[0]->eval();     // has to be at least one child
 
         for (int i = 0; i < children.size(); ++i) {
-            if (children[i]->eval() > max_value) {
+            if (children[i]->eval() < max_node->value) {
                 max_node = children[i];
             }
         }
