@@ -12,6 +12,7 @@ Node.cpp - Node implementation for holding tree data
 */
 
 #include "Node.h"
+#include <iostream>
 
 using namespace std;
 
@@ -41,7 +42,7 @@ int Node::eval() {
     }
 
     // Simple linear search
-    int sel_val = children[0]->value;
+    int sel_val = children[0]->eval();
 
     // Search for the min or max
     if (is_min) {   // Min node

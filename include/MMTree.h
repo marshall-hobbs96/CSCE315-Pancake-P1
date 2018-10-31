@@ -20,6 +20,7 @@ MMTree.h - Interface for the Minimax Tree Implementation
 #include <iostream>
 #include <map>
 #include "Node.h"
+using namespace std;
 
 
 /************************************************
@@ -58,7 +59,7 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
             child_nodes.push_back(new Node(no_kids, false, utility_val, temp));
         }
 
-        // Make the root be a min node
+        // Make the root of this "terminal" tree
         return new Node(child_nodes, is_minimum, 0, path_so_far);
     }
 
