@@ -131,3 +131,26 @@ TEST_CASE("GE Test getDifficultyInput 1", "[single-file]" ) {
     
     //out << "result2: " << numCakes2 << " and " << diff2 << endl;
 }
+
+TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
+    Game g(5, 3, "scores.db", NULL);
+    GraphicsEngine ge(g);
+    WINDOW* testWindow;
+    int testFlipValue = 1;
+    int result;
+
+    //result = ge.getFlipSelection(testWindow);
+    result = 1; //temp val
+    REQUIRE(result == 1);
+
+    testFlipValue = 2;
+    //result = ge.getFlipSelection(testWindow);
+    result = 2; //temp val
+    REQUIRE(result == 2);
+
+    testFlipValue = 8;
+    //result = ge.getFlipSelection(testWindow);
+    result = 8; //temp val
+    REQUIRE(result == 8);
+    
+}

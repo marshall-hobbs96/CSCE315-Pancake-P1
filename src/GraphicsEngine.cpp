@@ -48,11 +48,111 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
     return;
 
 
-}     
+}   
 
-int GraphicsEngine::getFlipSelection() {
+void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window, int blinkFrom) {
+    
+    for(int i = stackSize - 1; i >= 0; i-- ){
+        if (i == blinkFrom) 
+            attrset(A_BLINK | A_BOLD);
+        mvwprintw(window, 0, 0, "%s", stringStack[i]);
+    }
+    attroff(A_BLINK);
+    attroff(A_BOLD);
+    return;
+}  
+
+void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
+    std::string choices[] = {"REPLACE"};
+    std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
+    int x, y, i;	
+
+	x = 2;
+	y = 2;
+	box(stack_win, 0, 0);
+	for(i = 0; i < n_choices; ++i) {
+        if(highlight == i + 1) {
+            wattron(stack_win, A_REVERSE); 
+            mvwprintw(stack_win, y, x, "%s", choices[i]);
+            wattroff(stack_win, A_REVERSE);
+        } else {
+            mvwprintw(stack_win, y, x, "%s", choices[i]);
+        }
+        ++y;
+	}
+	wrefresh(stack_win);
+
+
+} 
+
+int GraphicsEngine::getFlipSelection(WINDOW* window) {
     // Implementation
     // comment test
+    //char* choices[] = 
+    int n_choices = (this->curr_game.getStackSize()) + 1;
+    int highlight = 1;
+	int choice = 0;
+	int c;
+
+    clear();
+	noecho();
+	cbreak();
+
+    keypad(window, TRUE);
+    mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
+    refresh();
+    drawSelectionStack(window, highlight, n_choices);
+
+    while(1) {	
+        c = wgetch(window);
+		switch(c) {	
+            case KEY_UP:
+				if(highlight == 1)
+					highlight = n_choices;
+				else
+					--highlight;
+				break;
+			case KEY_DOWN:
+				if(highlight == n_choices)
+					highlight = 1;
+				else 
+					++highlight;
+				break;
+			case 119:
+				if(highlight == 1)
+					highlight = n_choices;
+				else
+					--highlight;
+				break;
+			case 115:
+				if(highlight == n_choices)
+					highlight = 1;
+				else 
+					++highlight;
+				break;
+			case 10:
+				choice = highlight;
+				break;
+			default:
+				mvprintw(24, 0, "character digit: %3d, key: '%c'", c, c);
+				refresh();
+				break;
+		}
+        if(choice != 0)
+			break;
+    }
+    mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);
+    //blink pancakes,
+    drawStack("stringStack REPLACE", n_choices, window, highlight); //blink pancakes
+    timeout(3); //blink for 3 seconds
+    this->curr_game.moveHuman(highlight);
+    drawStack("stringStack REPLACE", n_choices, window); //draw updated stack
+    mvprintw(20, 0, "Press any key to ");
+    getch(); //wit for keypress for testing purposes
+
+    // makeMove
+
+
     return 0;
 }
 

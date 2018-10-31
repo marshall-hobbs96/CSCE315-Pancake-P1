@@ -34,7 +34,9 @@ private:
 
     // Facilitating gameplay in playGame:
     void drawStack(std::string stringStack, int stackSize,WINDOW *window);
-    int getFlipSelection();
+    void drawStack(std::string stringStack, int stackSize,WINDOW *window, int blinkFrom);
+    void drawSelectionStack(WINDOW *window, int highlight, int n_choices);
+    int getFlipSelection(WINDOW *window);
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
 public:
