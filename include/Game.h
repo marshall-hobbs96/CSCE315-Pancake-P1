@@ -35,7 +35,7 @@ private:
     int stack_size;     // new
 
     // To check if a stack is in order (for checkWin and generateStack)
-    bool checkStackOrder(int *stack, int size)
+    bool checkStackOrder(int *stack, int size);
 
 public:
 
@@ -62,6 +62,7 @@ public:
 	// For dealing with the high scores file
 	std::string findScore(std::string user);
     int* gen_rand_stack(int* stack, int stackSize);
+    std::string stackToString(int* stack, int stackSize);
 };
 
 #endif

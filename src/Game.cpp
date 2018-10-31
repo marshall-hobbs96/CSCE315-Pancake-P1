@@ -181,10 +181,12 @@ bool Game::checkWin() {
 
 // For when the game is over:
 //will return -1 if the game is not over, returns score otherwise
-int Game::computeScore(int difficulty, int size, int userStack[], int aiStack[])
+int Game::computeScore()
 {
-	bool userSorted = checkStackOrder(userStack, size);
-	bool aiSorted = checkStackOrder(aiStack, size);
+	int size = human.getStackSize();
+	int difficulty = ai.getDifficulty();
+	bool userSorted = checkStackOrder(human.getStack(), size);
+	bool aiSorted = checkStackOrder(ai.getStack(), size);
 	if(userSorted && aiSorted)
 		return size*(difficulty+1);
 	else if(aiSorted && !userSorted)
@@ -264,6 +266,44 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
    resultStack = stack;
    std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
    return resultStack;
+
+}
+
+std::string stackToString(int* stack, int stackSize) {
+
+    std::string* stringStack = new std::string[stackSize];
+
+    for(int i = 0; i < stackSize; i++){
+        
+        int pancakeSize = stack[i];
+        std::string pancakeString = "+";
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+/n|";
+
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        pancakeString = pancakeString + "|/n+";
+
+        for(int k = 0; k < (2*pancakeSize - 1); k++){
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+/n";
+
+        stringStack[i] = pancakeString;
+
+    }
 
 }
 

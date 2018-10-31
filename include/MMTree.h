@@ -107,5 +107,4 @@ int MMTree<T>::bestMove() {
     // Return for an invalid input:
     return -1;
 }
-
 #endif

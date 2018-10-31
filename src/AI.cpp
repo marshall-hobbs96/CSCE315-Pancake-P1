@@ -45,3 +45,8 @@ int Helper::operator()(vector<int> path) {
 }
 
 Helper::Helper(AI ai_player) : ai(ai_player) {}
+
+int AI::getDifficulty()
+{
+	return this->difficulty;
+}

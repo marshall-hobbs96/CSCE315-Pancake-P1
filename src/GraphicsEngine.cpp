@@ -38,12 +38,21 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(int* stack, int sz) {
-    // Implementation
+void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window) {
+    
+    for(int i = stackSize - 1; i >= 0; i-- ){
+        
+        mvwprintw(window, 0, 0, "%s", stringStack[i]);
+
+    }
+    return;
+
+
 }     
 
 int GraphicsEngine::getFlipSelection() {
     // Implementation
+    // comment test
     return 0;
 }
 
