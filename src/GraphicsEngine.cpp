@@ -29,24 +29,28 @@ void GraphicsEngine::drawInstructions() {
     //print screen title
     std::string mesg ="INSTRUCTIONS";    
     screenPrompt(mesg,0);
-    mesg = "You and an Artificial Intelligence player will be given two versions of the same stack Your goal is to sort";
+    mesg = "You and an Artificial Intelligence player will be given two versions";
     screenPrompt(mesg,1);
-    mesg = "the pancakes from top to bottom (meaning the smallest pancake will be on the top and the largest on bottom).";
+    mesg = "of the same stack of pancakes. Your goal is to sort the pancakes from top to bottom";
     screenPrompt(mesg,2);
-    mesg = "To do this, you will insert a spatula under any of the pancakes in the stack and 'flip' the pancakes at and";
+    mesg = "(meaning the smallest pancake will be on the top and the largest on bottom).";
     screenPrompt(mesg,3);
-    mesg = "above that pancake. The blinking pancake will indicate which pancake your curser is on, and hitting ENTER";
+    mesg = "To do this, you will insert a spatula under any of the pancakes in the stack and";
     screenPrompt(mesg,4);
-    mesg = "will select the pancake and flip the pancakes at and above that pancake after blinking for a few seconds.";
+    mesg = "'flip' the pancakes at and above that pancake. The blinking pancake will";
     screenPrompt(mesg,5);
-    mesg = "Here is an example pancake of size 6:";
+    mesg = "indicate which pancake your curser is on, and hitting ENTER will select";
     screenPrompt(mesg,6);
-    mesg = "+-----------+";
+    mesg = "the pancake and flip the pancakes at and above that pancake after blinking for";
     screenPrompt(mesg,7);
-    mesg = "|     6     |";
+    mesg = "a few seconds. Here is an example pancake of size 6:";
     screenPrompt(mesg,8);
     mesg = "+-----------+";
-    screenPrompt(mesg,9);
+    screenPrompt(mesg,10);
+    mesg = "|     6     |";
+    screenPrompt(mesg,11);
+    mesg = "+-----------+";
+    screenPrompt(mesg,12);
 }     
 
 void GraphicsEngine::screenPrompt(std::string text, int line)

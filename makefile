@@ -36,8 +36,8 @@ test_MMTree: MMTree.o Node.o
 
 # Main:
 
-main: GraphicsEngine.o Game.o AI.o Player.o
-	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include AI.o Player.o Game.o GraphicsEngine.o -o bin/main src/main.cpp 
+main: GraphicsEngine.o Game.o AI.o Player.o Node.o
+	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include Node.o AI.o Player.o Game.o GraphicsEngine.o -o bin/main src/main.cpp 
 
 clean:
-	rm -r *.o
+	rm -r *.o scores.txt

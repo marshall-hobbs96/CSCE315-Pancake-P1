@@ -55,7 +55,7 @@ public:
     bool checkWin();
     
     // For when the game is over:
-    int computeScore()
+    int computeScore();
     std::string getHighScores();
     //~Game();
 
