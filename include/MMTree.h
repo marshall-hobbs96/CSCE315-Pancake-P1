@@ -45,22 +45,10 @@ public:
 template <typename T>
 Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vector<int> path_so_far) {
 
-    // Base case: leaf nodes
-    if (d == 1) {
-
-        vector<Node*> no_kids;      // for the leaf nodes
-        vector<Node*> child_nodes;  // for the children of the depth=1 node
-
-        for (int i = 0; i < num_children; i++) {
-            vector<int> temp = path_so_far;
-            temp.push_back(i);
-            int utility_val = func(temp);
-            // Initialize to utility value (is_min does not matter)
-            child_nodes.push_back(new Node(no_kids, false, utility_val, temp));
-        }
-
-        // Make the root of this "terminal" tree
-        return new Node(child_nodes, is_minimum, 0, path_so_far);
+    // For depth 0, return a terminal node with no children
+    if (d == 0) {
+        vector<Node*> no_kids;
+        return new Node(no_kids, is_minimum, func(path_so_far), path_so_far);
     }
 
     // Recursively:
@@ -68,7 +56,12 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
     for (int i = 0; i < num_children; i++) {
         vector<int> temp_path = path_so_far;
         temp_path.push_back(i);
-        children.push_back(make_tree(func, d-1, num_children, !is_minimum, temp_path));
+        if (func(temp_path) == -10) {    // signal meaning the solution ends the game- make a terminal node
+            children.push_back(make_tree(func, 0, num_children, !is_minimum, temp_path));
+        }
+        else {
+            children.push_back(make_tree(func, d-1, num_children, !is_minimum, temp_path));
+        }
     }
 
     // Initialize root to 0 (doesn't matter):
