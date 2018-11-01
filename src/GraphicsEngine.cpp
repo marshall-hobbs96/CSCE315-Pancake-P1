@@ -24,7 +24,29 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 
 // to show the player how to play
 void GraphicsEngine::drawInstructions() {
-    // Implementation
+    int row,col;
+    getmaxyx(stdscr,row,col);    
+    //print screen title
+    std::string mesg ="INSTRUCTIONS";    
+    screenPrompt(mesg,0);
+    mesg = "You and an Artificial Intelligence player will be given two versions of the same stack Your goal is to sort";
+    screenPrompt(mesg,1);
+    mesg = "the pancakes from top to bottom (meaning the smallest pancake will be on the top and the largest on bottom).";
+    screenPrompt(mesg,2);
+    mesg = "To do this, you will insert a spatula under any of the pancakes in the stack and 'flip' the pancakes at and";
+    screenPrompt(mesg,3);
+    mesg = "above that pancake. The blinking pancake will indicate which pancake your curser is on, and hitting ENTER";
+    screenPrompt(mesg,4);
+    mesg = "will select the pancake and flip the pancakes at and above that pancake after blinking for a few seconds.";
+    screenPrompt(mesg,5);
+    mesg = "Here is an example pancake of size 6:";
+    screenPrompt(mesg,6);
+    mesg = "+-----------+";
+    screenPrompt(mesg,7);
+    mesg = "|     6     |";
+    screenPrompt(mesg,8);
+    mesg = "+-----------+";
+    screenPrompt(mesg,9);
 }     
 
 void GraphicsEngine::screenPrompt(std::string text, int line)
@@ -79,18 +101,17 @@ void GraphicsEngine::drawSplashScreen() {
     //print screen title
     std::string mesg ="Ultimate Pancake Flipper Simulator 2018";    
     screenPrompt(mesg,0);
-    mesg = "Team 17: No More ncurses Pls";
+    mesg = "****** Team 17 ******";
     screenPrompt(mesg,2);
     mesg = "Members:";
     screenPrompt(mesg,4);
     mesg = "Abdul Campos, Troy Fulton, Marshall Hobbs, McLain Johnson";
     screenPrompt(mesg,5);
-    mesg = "Press ENTER to Start...";
+    mesg = "Press ENTER to Start: ";
     screenPrompt(mesg,8);
     //int wattron(WINDOW *win, int attr);
     attrset(A_BLINK | A_BOLD);
     addstr("ENTER\n");
-    getch();
     attroff(A_BLINK);
     attroff(A_BOLD);
 }       
@@ -133,7 +154,16 @@ void GraphicsEngine::drawEndScreen() {
 /* For getting input from various screens */
 
 bool GraphicsEngine::getSplashInput() {
-    // Implementation
+    // hitting enter
+    getch();
+
+    // Clear the screen
+    clear();
+
+    // Show instructions and wait for another "ENTER"
+    drawInstructions();
+    getch();
+
     return true;
 }
 

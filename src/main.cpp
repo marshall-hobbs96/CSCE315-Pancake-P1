@@ -38,7 +38,7 @@ int main() {
     // Splash Screen
     ge.drawSplashScreen();
     ge.getSplashInput();
-    // ...which eventually calls ge.drawInstructions();
+    // ...which eventually draws the instructions screen;
 
     clear();
     
