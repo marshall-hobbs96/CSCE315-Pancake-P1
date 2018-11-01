@@ -271,7 +271,7 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
 
 vector<std::string> stackToString(int* stack, int stackSize) {
 
-    vector<std::string> stringStack
+    vector<std::string> stringStack;
 
     for(int i = 0; i < stackSize; i++){
         
