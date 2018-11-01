@@ -33,12 +33,12 @@ private:
     Node* root;
     int depth;
     Node* make_tree(T func, int d, int num_children, bool is_minimum, vector<int> path_so_far);
-
+    void printTree(Node* root, int tabs);
 public:
     MMTree<T>(T func, int d, int num_children);
     ~MMTree<T>();
     int eval();
-
+    void print();
     int bestMove();
 };
 
@@ -100,4 +100,34 @@ int MMTree<T>::bestMove() {
     // Return for an invalid input:
     return -1;
 }
+
+template<typename T>
+void print() {
+
+    cout << "Minimax Tree:" << "\n=============\n\n";
+
+    int num_tabs = 0;
+    printTree(root, num_tabs);
+
+    cout << "\n\n=============\n";
+}
+
+template <typename T>
+void printTree(Node* root, int tabs) {
+    // Print tabs
+    for (int i = 0; i < tabs; i++)
+        cout << "\t";
+    
+    // Print the path
+    vector<int> temp_path = root->getPath();
+    cout << "["
+    for (int step : temp_path)
+        cout << step << " ";
+    cout << "]\n";
+
+    // Print each of its children with one more tab
+    for (Node* child : root->getChildren())
+        printTree(child, tabs - 1);
+}
+
 #endif

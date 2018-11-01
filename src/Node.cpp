@@ -34,6 +34,10 @@ int Node::getValue() {
     return value;
 }
 
+vector<int> Node::getPath() {
+    return path;
+}
+
 
 int Node::eval() {
     // Base Case for leaf nodes

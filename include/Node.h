@@ -39,6 +39,7 @@ public:
     int eval();
     vector<Node*> getChildren();
     int getValue();
+    vector<int> getPath();
 };
 
 #endif
