@@ -27,8 +27,8 @@ test_Game.cpp - Game Unit Testing
 /****************************************************
  * TEST CASES
  ***************************************************/
- 
 
+/*
 TEST_CASE("Case1: Test AI Sorted & User stack not sorted")
 {
 	int difficulty = 4;
@@ -36,9 +36,9 @@ TEST_CASE("Case1: Test AI Sorted & User stack not sorted")
 	int ai[] = {5,4,3,2,1};
 	int user[] = {1,3,4,5,2};
 	Game g(n, difficulty, "scores.txt", NULL);
-	
-	CHECK(g.computeScore()==n);
-}
+
+	CHECK(g.computeScore(difficulty, n, user, ai)==n)  ;
+}/*
 /*
 cout<<"Case2: Test AI Sorted & User stack sorted"<<endl;
 difficulty = 4;
@@ -48,7 +48,7 @@ int user1[] = {5,4,3,2,1};
 
 assert(computeScore(difficulty,n ,user1, ai1)==(n*(difficulty+1)));
 cout<<"Case 2 passed"<<endl;
-	   
+
 cout<<"Case3: Test AI not Sorted & User stack sorted"<<endl;
 difficulty = 4;
 n = 5;
