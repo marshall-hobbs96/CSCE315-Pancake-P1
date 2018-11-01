@@ -37,7 +37,7 @@ private:
 public:
     MMTree<T>(T func, int d, int num_children);
     ~MMTree<T>();
-    int eval();
+    Node* eval();
     void print();
     int bestMove();
 };
@@ -81,24 +81,15 @@ MMTree<T>::~MMTree() {
 }
 
 template <typename T>
-int MMTree<T>::eval() {
+Node* MMTree<T>::eval() {
     return root->eval();
 }
 
 template <typename T>
 int MMTree<T>::bestMove() {
     // Evaluate the tree to find the best move
-    int best_score = root->eval();
-
-    // See which node matches that number
-    for (int i = 0; i < root->getChildren().size(); i++) {
-        if (root->getChildren()[i]->getValue() == best_score) {
-            return i;
-        }
-    }
-
-    // Return for an invalid input:
-    return -1;
+    vector<int> best_path = root->eval()->getPath();
+    return best_path[0];
 }
 
 template<typename T>
@@ -106,8 +97,7 @@ void MMTree<T>::print() {
 
     cout << "Minimax Tree:" << "\n=============\n\n";
 
-    int num_tabs = 0;
-    printTree(root, num_tabs);
+    printTree(root, 0);
 
     cout << "\n\n=============\n";
 }
@@ -120,14 +110,14 @@ void MMTree<T>::printTree(Node* tree_root, int tabs) {
     
     // Print the path
     vector<int> temp_path = tree_root->getPath();
-    cout << "[";
+    cout << "[ ";
     for (int step : temp_path)
         cout << step << " ";
     cout << "]\n";
 
     // Print each of its children with one more tab
     for (Node* child : tree_root->getChildren())
-        printTree(child, tabs - 1);
+        printTree(child, tabs + 1);
 }
 
 #endif

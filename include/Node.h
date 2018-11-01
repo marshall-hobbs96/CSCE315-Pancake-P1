@@ -36,7 +36,7 @@ private:
 public:
     Node(vector<Node*> kids, bool im, int init_val, vector<int> curr_path);
     ~Node();
-    int eval();
+    Node* eval();
     vector<Node*> getChildren();
     int getValue();
     vector<int> getPath();

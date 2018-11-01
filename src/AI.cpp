@@ -34,17 +34,17 @@ int Helper::operator()(vector<int> path) {
     }
 
     // Get the sortedness difference
-    int score = ai.getSortedness();
-
-    if (score == 0) {       // signal for game-ending score
-        return -10;
-    }
+    int original_score = ai.getSortedness();
     
-    score -= init_sortedness;
+    int score = original_score - init_sortedness;
 
     // Put the stack back where you found it (do the flips in reverse order)
     for (int i = path.size() - 1; i >= 0; i--) {
         ai.makeMove(path[i]);
+    }
+    
+    if (original_score == 0) {       // signal for game-ending score
+        return -10;
     }
 
     return score;
