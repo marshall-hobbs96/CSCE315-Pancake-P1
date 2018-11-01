@@ -102,7 +102,7 @@ int MMTree<T>::bestMove() {
 }
 
 template<typename T>
-void MMTree::print() {
+void MMTree<T>::print() {
 
     cout << "Minimax Tree:" << "\n=============\n\n";
 
@@ -113,7 +113,7 @@ void MMTree::print() {
 }
 
 template <typename T>
-void MMTree::printTree(Node* tree_root, int tabs) {
+void MMTree<T>::printTree(Node* tree_root, int tabs) {
     // Print tabs
     for (int i = 0; i < tabs; i++)
         cout << "\t";
