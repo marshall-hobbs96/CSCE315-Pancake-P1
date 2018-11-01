@@ -28,11 +28,6 @@ test_GraphicsEngine: GraphicsEngine.o Game.o AI.o Player.o MMTree.o Node.o
 test_Player: Player.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Player Player.o test/test_Player.cpp 
 
-# Main:
-
-test_Player: Player.o
-	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Player Player.o test/test_Player.cpp 
-
 test_Node: Node.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Node Node.o test/test_Node.cpp 
 
