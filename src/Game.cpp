@@ -269,9 +269,9 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
 
 }
 
-std::string stackToString(int* stack, int stackSize) {
+vector<std::string> stackToString(int* stack, int stackSize) {
 
-    std::string* stringStack = new std::string[stackSize];
+    vector<std::string> stringStack
 
     for(int i = 0; i < stackSize; i++){
         
@@ -301,9 +301,11 @@ std::string stackToString(int* stack, int stackSize) {
 
         pancakeString = pancakeString + "+/n";
 
-        stringStack[i] = pancakeString;
+        stringStack.push_back(pancakeString);
 
     }
+
+    return stringStack;
 
 }
 
