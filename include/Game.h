@@ -31,6 +31,7 @@ private:
     Player human;
     AI ai;
     std::string filename;
+    std::string username;
     int human_score;
     int stack_size;     // new
 
@@ -43,6 +44,8 @@ public:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
     int* generateStack(int stackSize, std::string stackState, bool test);
     int getDifficulty();
+    void setUsername(string name);
+    string getUsername();
     // For getting the state of each stack before and after each move:
     int* getHumanStack();
     int* getAIStack();
