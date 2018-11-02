@@ -55,11 +55,7 @@ public:
     bool checkWin();
 
     // For when the game is over:
-<<<<<<< HEAD
-    int computeScore();
-=======
     int computeScore(int diff, int n, int* userS, int* aiS);
->>>>>>> 9075cb0d1a00a36a610c845e5a1ac3d33914495c
     std::string getHighScores();
     //~Game();
 
