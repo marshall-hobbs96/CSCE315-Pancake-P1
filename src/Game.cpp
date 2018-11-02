@@ -146,8 +146,7 @@ else{
 }
 
 int* Game::getHumanStack() {
-    // Implementation...
-    return NULL;
+    return human.getStack();
 }
 
 int* Game::getAIStack() {

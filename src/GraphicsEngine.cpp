@@ -16,6 +16,8 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 
 #include "GraphicsEngine.h"
 
+using namespace std;
+
 /*****************************************************
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
@@ -64,15 +66,21 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window) {
+void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
     
 
-
+    if (blinkFrom != -1)
+        attrset(A_BLINK | A_BOLD);
+        
     for(int i = 0; i < stringStack.size(); i++ ){
-    int rows, cols;
-	getmaxyx(window, rows, cols);
-	std::string the_string = stringStack.at(i);
-    mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
+        if (i == blinkFrom - 1) {
+            attroff(A_BLINK);
+            attroff(A_BOLD);
+        }
+        int rows, cols;
+	    getmaxyx(window, rows, cols);
+	    std::string the_string = stringStack.at(i);
+        mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
 
     }
 
@@ -95,8 +103,18 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
 }  
 
 void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
-    std::string choices[] = {"REPLACE"};
+    //std::string choices[] = {"REPLACE"};
     //std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
+    //char* choices = 
+    vector<std::string> choices;
+    choices = curr_game.stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
+
+    /*char choices[curr_game.getStackSize()];
+    for (int i = 0; i < curr_game.getStackSize(); ++i) {
+        choices[i] = s_choices.at(i).c_str();
+    }*/
+
+
     int x, y, i;	
 
 	x = 2;
@@ -105,10 +123,10 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
 	for(i = 0; i < n_choices; ++i) {
         if(highlight == i + 1) {
             wattron(stack_win, A_REVERSE); 
-            mvwprintw(stack_win, y, x, "%s", choices[i]);
+            mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
             wattroff(stack_win, A_REVERSE);
         } else {
-            mvwprintw(stack_win, y, x, "%s", choices[i]);
+            mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
         }
         ++y;
 	}
