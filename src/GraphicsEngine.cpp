@@ -107,7 +107,7 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
     //std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
     //char* choices = 
     vector<std::string> choices;
-    choices = curr_game.stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
+    choices = stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
 
     /*char choices[curr_game.getStackSize()];
     for (int i = 0; i < curr_game.getStackSize(); ++i) {
@@ -140,7 +140,7 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     // comment test
     //char* choices[] = 
     vector<std::string> choices;
-    choices = curr_game.stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
+    choices = stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
     int n_choices = (this->curr_game.getStackSize()) + 1;
     int highlight = 1;
 	int choice = 0;
