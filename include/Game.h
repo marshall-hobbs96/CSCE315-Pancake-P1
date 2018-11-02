@@ -2,12 +2,10 @@
 CSCE 315 503
 Project 3
 Group 17
-
 Abdul Campos
 Marshall Hobbs
 McLain Johnson
 Troy Fulton
-
 Game.h - Interface for the Game class
 */
 
