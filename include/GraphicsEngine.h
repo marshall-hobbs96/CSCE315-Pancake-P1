@@ -63,6 +63,8 @@ public:
     // Facilitating gameplay:
     bool playGame(WINDOW* player_window, WINDOW* ai_window);
     void startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
+    int* gen_rand_stack(int* stack, int stackSize);
+    vector<std::string> stackToString(int* stack, int stackSize);
 
     std::string getString();
 };

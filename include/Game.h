@@ -59,8 +59,7 @@ public:
 
 	// For dealing with the high scores file
 	std::string findScore(std::string user);
-    int* gen_rand_stack(int* stack, int stackSize);
-    vector<std::string> stackToString(int* stack, int stackSize);
+ 
 };
 
 #endif

@@ -372,6 +372,7 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
         if (finalStackIterator != (stackSize)) {            //stacksize is 5 and user put 1 2 3 4 or something like that
 
             printw("Error, invalid number of arguments\n");
+            delete finalStack;
             return NULL;
 
         }
@@ -390,6 +391,16 @@ int* GraphicsEngine::getOrderInput(int stackSize) {
    std::string stackState = getString();       //string for getting user input
    int* finalStack = generateStack(stackSize, stackState);
    return finalStack;
+
+}
+
+int* GraphicsEngine::gen_rand_stack(int* stack, int stackSize) {
+
+   std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
+   int* resultStack = new int[stackSize];
+   resultStack = stack;
+   std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
+   return resultStack;
 
 }
 
@@ -479,3 +490,105 @@ std::string GraphicsEngine::getString() {
    return input;
 
 }
+
+vector<std::string> GraphicsEngine::stackToString(int* stack, int stackSize) {
+
+    vector<std::string> stringStack;
+
+    for(int i = 0; i < stackSize; i++){
+
+	std::string pancakeString;
+	
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        int pancakeSize = stack[i];
+        pancakeString = pancakeString + "+";
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k++){
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "|";
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        char number = stack[i] + '0';
+        pancakeString = pancakeString + number;
+
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        pancakeString = pancakeString + "|";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "+";
+
+        for(int k = 0; k < (2*pancakeSize - 1); k++){
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+
+        stringStack.push_back(pancakeString);
+        pancakeString = "";
+
+    }
+
+    return stringStack;
+
+}
+
+
+
