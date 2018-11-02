@@ -71,11 +71,11 @@ TEST_CASE( "AI Test calculateMove 3", "[single-file]" ) {
     // Testing minimax tree search at depth 3
     int* stack = new int[3]{3, 1, 2};
     AI tester(3, stack, 3);
-    int solution = 0;
+    int solution = 1;
     int AImove = tester.calculateMove();
     CHECK( AImove == solution );
 
-    int* new_stack = new int[3]{2, 1, 3};
+    int* new_stack = new int[3]{3, 2, 1};
     tester.makeMove(AImove);
 
     for (int i =0; i < tester.getStackSize(); i++) {

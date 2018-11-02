@@ -33,34 +33,22 @@ private:
     Node* root;
     int depth;
     Node* make_tree(T func, int d, int num_children, bool is_minimum, vector<int> path_so_far);
-
+    void printTree(Node* tree_root, int tabs);
 public:
     MMTree<T>(T func, int d, int num_children);
     ~MMTree<T>();
-    int eval();
-
+    Node* eval();
+    void print();
     int bestMove();
 };
 
 template <typename T>
 Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vector<int> path_so_far) {
 
-    // Base case: leaf nodes
-    if (d == 1) {
-
-        vector<Node*> no_kids;      // for the leaf nodes
-        vector<Node*> child_nodes;  // for the children of the depth=1 node
-
-        for (int i = 0; i < num_children; i++) {
-            vector<int> temp = path_so_far;
-            temp.push_back(i);
-            int utility_val = func(temp);
-            // Initialize to utility value (is_min does not matter)
-            child_nodes.push_back(new Node(no_kids, false, utility_val, temp));
-        }
-
-        // Make the root of this "terminal" tree
-        return new Node(child_nodes, is_minimum, 0, path_so_far);
+    // For depth 0, return a terminal node with no children
+    if (d == 0) {
+        vector<Node*> no_kids;
+        return new Node(no_kids, is_minimum, func(path_so_far), path_so_far);
     }
 
     // Recursively:
@@ -68,7 +56,12 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
     for (int i = 0; i < num_children; i++) {
         vector<int> temp_path = path_so_far;
         temp_path.push_back(i);
-        children.push_back(make_tree(func, d-1, num_children, !is_minimum, temp_path));
+        if (func(temp_path) == -10) {    // signal meaning the solution ends the game- make a terminal node
+            children.push_back(make_tree(func, 0, num_children, !is_minimum, temp_path));
+        }
+        else {
+            children.push_back(make_tree(func, d-1, num_children, !is_minimum, temp_path));
+        }
     }
 
     // Initialize root to 0 (doesn't matter):
@@ -88,23 +81,43 @@ MMTree<T>::~MMTree() {
 }
 
 template <typename T>
-int MMTree<T>::eval() {
+Node* MMTree<T>::eval() {
     return root->eval();
 }
 
 template <typename T>
 int MMTree<T>::bestMove() {
     // Evaluate the tree to find the best move
-    int best_score = root->eval();
-
-    // See which node matches that number
-    for (int i = 0; i < root->getChildren().size(); i++) {
-        if (root->getChildren()[i]->getValue() == best_score) {
-            return i;
-        }
-    }
-
-    // Return for an invalid input:
-    return -1;
+    vector<int> best_path = root->eval()->getPath();
+    return best_path[0];
 }
+
+template<typename T>
+void MMTree<T>::print() {
+
+    cout << "Minimax Tree:" << "\n=============\n\n";
+
+    printTree(root, 0);
+
+    cout << "\n\n=============\n";
+}
+
+template <typename T>
+void MMTree<T>::printTree(Node* tree_root, int tabs) {
+    // Print tabs
+    for (int i = 0; i < tabs; i++)
+        cout << "\t";
+    
+    // Print the path
+    vector<int> temp_path = tree_root->getPath();
+    cout << "[ ";
+    for (int step : temp_path)
+        cout << step << " ";
+    cout << "]\n";
+
+    // Print each of its children with one more tab
+    for (Node* child : tree_root->getChildren())
+        printTree(child, tabs + 1);
+}
+
 #endif

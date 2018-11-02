@@ -34,23 +34,31 @@ int Node::getValue() {
     return value;
 }
 
+vector<int> Node::getPath() {
+    return path;
+}
 
-int Node::eval() {
+
+Node* Node::eval() {
     // Base Case for leaf nodes
     if (children.size() == 0) {
-        return this->value;
+        return this;
     }
 
     // Simple linear search
-    int sel_val = children[0]->eval();
+    Node* sel_Node = children[0]->eval();
+    int sel_val = sel_Node->value;
+    int shortest_path = sel_Node->getPath().size();
 
     // Search for the min or max
     if (is_min) {   // Min node
 
         for (int i = 1; i < children.size(); ++i) {
-            children[i]->eval();
-            if (children[i]->value < sel_val) {
-                sel_val = children[i]->value;
+            Node* temp_node = children[i]->eval();
+            bool short_enough = temp_node->getPath().size() <= shortest_path;
+            if (temp_node->value < sel_val && short_enough) {
+                sel_val = temp_node->value;
+                sel_Node = temp_node;
             }
         }
 
@@ -58,15 +66,16 @@ int Node::eval() {
     else {      // Max node
 
         for (int i = 1; i < children.size(); ++i) {
-            children[i]->eval();
-            if (children[i]->value > sel_val) {
-                sel_val = children[i]->value;
+            Node* temp_node = children[i]->eval();
+            bool short_enough = temp_node->getPath().size() <= shortest_path;
+            if (temp_node->value > sel_val && short_enough) {
+                sel_val = temp_node->value;
+                sel_Node = temp_node;
             }
         }
 
     }
 
     this->value = sel_val;
-    
-    return this->value;
+    return sel_Node;
 }
