@@ -42,7 +42,7 @@ public:
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
     int* generateStack(int stackSize, std::string stackState, bool test);
-
+    int getDifficulty();
     // For getting the state of each stack before and after each move:
     int* getHumanStack();
     int* getAIStack();
@@ -53,16 +53,20 @@ public:
     void moveHuman(int pancake);
     void moveAI(int pancake);
     bool checkWin();
-    
+
     // For when the game is over:
+<<<<<<< HEAD
     int computeScore();
+=======
+    int computeScore(int diff, int n, int* userS, int* aiS);
+>>>>>>> 9075cb0d1a00a36a610c845e5a1ac3d33914495c
     std::string getHighScores();
     //~Game();
 
 	// For dealing with the high scores file
 	std::string findScore(std::string user);
     int* gen_rand_stack(int* stack, int stackSize);
-    std::string stackToString(int* stack, int stackSize);
+    vector<std::string> stackToString(int* stack, int stackSize);
 };
 
 #endif
