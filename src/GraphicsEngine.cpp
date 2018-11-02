@@ -83,7 +83,7 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
     }
 
     wrefresh(window);
-
+    sleep(3);
     
     return;
 
@@ -195,12 +195,12 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     }
     mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);
     //blink pancakes,
-    drawStack(choices, window, highlight); //blink pancakes
-    timeout(3); //blink for 3 seconds
-    this->curr_game.moveHuman(highlight);
-    drawStack(choices, window,highlight); //draw updated stack
-    mvprintw(20, 0, "Press any key to ");
-    getch(); //wit for keypress for testing purposes
+    //drawStack(choices, window, highlight); //blink pancakes
+    //timeout(3); //blink for 3 seconds
+    //this->curr_game.moveHuman(highlight);
+    //drawStack(choices, window,highlight); //draw updated stack
+    //mvprintw(20, 0, "Press any key to ");
+    //getch(); //wit for keypress for testing purposes
 
     // makeMove
 
