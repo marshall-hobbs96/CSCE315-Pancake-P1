@@ -29,10 +29,12 @@ bool Game::checkStackOrder(int *stack, int size)
 	for(int i =0; i<sizeStack; i++)
 	{
 		if(stack[i]!=(sizeStack-i))
-			sorted = false; 
+			sorted = false;
 	}
 	return sorted;
 }
+
+
 
 /*****************************************************
  * PUBLIC METHODS
@@ -179,34 +181,52 @@ bool Game::checkWin() {
     return true;
 }
 
+
+int Game::getDifficulty()
+{
+	return ai.getDifficulty();
+}
 // For when the game is over:
 //will return -1 if the game is not over, returns score otherwise
-int Game::computeScore()
+
+
+int Game::computeScore(int diff, int n, int* userS, int* aiS)
 {
-	int size = human.getStackSize();
-	int difficulty = ai.getDifficulty();
-	bool userSorted = checkStackOrder(human.getStack(), size);
-	bool aiSorted = checkStackOrder(ai.getStack(), size);
+	int size = n;
+	int difficulty = diff;
+	bool userSorted = checkStackOrder(userS, size);
+	bool aiSorted = checkStackOrder(aiS, size);
 	if(userSorted && aiSorted)
-		return size*(difficulty+1);
+	{
+		human_score = size*(difficulty+1);
+		return human_score;
+	}
 	else if(aiSorted && !userSorted)
-		return size;
-	else if(!aiSorted && userSorted)
-		return 2*size*(difficulty+1);
+	{
+		human_score = size;
+		return human_score;
+	}
+	else if(!aiSorted && userSorted){
+		human_score = 2*size*(difficulty+1);
+		return human_score;
+	}
 	else
-		return -1;
+	{
+		human_score =  -1;
+		return human_score;
+	}
 }
 
 string Game::getHighScores() {
     // Implementation...
 	fstream scoreFile;
-	
+
 	//open file if it exists
 	scoreFile.open(filename, fstream::in);
 	string scores = "";
 
 	if(scoreFile.is_open())
-	{		
+	{
 		for(int i=0; i<5; i++)
 		{
 			string name,score;
@@ -216,16 +236,16 @@ string Game::getHighScores() {
 			string line =name+" "+score;
 			scores += line + "\n";
 			//screenPrompt(line, i-9);
-		}	
-	}	
+		}
+	}
 	//file does not exist
 	else
 	{
 		// Report error
-		//screenPrompt("No score file exists ", -10);		
+		//screenPrompt("No score file exists ", -10);
 	}
 
-	scoreFile.close();	
+	scoreFile.close();
 
 	return scores;
 }
@@ -238,9 +258,9 @@ string Game::findScore(string user)
 	bool scoreFound = false;
 	string username;
 	scoreFile.open(filename);
-	
+
 	while(getline(scoreFile,username))
-	{	
+	{
 		if(username==user)
 		{
 			string score;
@@ -253,7 +273,7 @@ string Game::findScore(string user)
 	scoreFile.close();
 	if(!scoreFound)
 	{
-		scoreFile.open(filename, fstream::app);	
+		scoreFile.open(filename, fstream::app);
 		scoreFile<<user<<"\t"<<"0"<<"\n";
 		return user+ " 0";
 	}
@@ -274,7 +294,7 @@ vector<std::string> stackToString(int* stack, int stackSize) {
     vector<std::string> stringStack;
 
     for(int i = 0; i < stackSize; i++){
-        
+
         int pancakeSize = stack[i];
         std::string pancakeString = "+";
         for(int k = 0; k < (2*pancakeSize - 1); k++) {

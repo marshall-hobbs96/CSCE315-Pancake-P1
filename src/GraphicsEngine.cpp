@@ -245,7 +245,12 @@ bool GraphicsEngine::getEndInput() {
 
 bool GraphicsEngine::playGame() {
     // Implementation
-    return false;
+    int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
+    cout<<score<<endl;
+    if(score!= -1)
+      return false;
+    else
+      return true;
 }
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
