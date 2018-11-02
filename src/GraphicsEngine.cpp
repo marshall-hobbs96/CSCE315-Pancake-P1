@@ -68,9 +68,11 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window) 
     
 
 
-    for(int i = stringStack.size() - 1; i >= 0; i-- ){
-        
-    mvwprintw(window, 2, 20, "%s", stringStack[i]);
+    for(int i = 0; i < stringStack.size(); i++ ){
+    int rows, cols;
+	getmaxyx(window, rows, cols);
+	std::string the_string = stringStack.at(i);
+    mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
 
     }
 

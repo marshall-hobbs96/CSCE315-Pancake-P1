@@ -602,29 +602,81 @@ int* Game::gen_rand_stack(int* stack, int stackSize) {
 
 }
 
-vector<std::string> stackToString(int* stack, int stackSize) {
+vector<std::string> Game::stackToString(int* stack, int stackSize) {
 
     vector<std::string> stringStack;
 
     for(int i = 0; i < stackSize; i++){
 
+	std::string pancakeString;
+	
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
         int pancakeSize = stack[i];
-        std::string pancakeString = "+";
+        pancakeString = pancakeString + "+";
         for(int k = 0; k < (2*pancakeSize - 1); k++) {
 
             pancakeString = pancakeString + "-";
 
         }
 
-        pancakeString = pancakeString + "+/n|";
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k++){
+			
+			pancakeString = pancakeString + " ";
+			
+		}
 
-        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "|";
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
 
             pancakeString = pancakeString + " ";
 
         }
 
-        pancakeString = pancakeString + "|/n+";
+        char number = stack[i] + '0';
+        pancakeString = pancakeString + number;
+
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        pancakeString = pancakeString + "|";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "+";
 
         for(int k = 0; k < (2*pancakeSize - 1); k++){
 
@@ -632,9 +684,16 @@ vector<std::string> stackToString(int* stack, int stackSize) {
 
         }
 
-        pancakeString = pancakeString + "+/n";
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
 
         stringStack.push_back(pancakeString);
+        pancakeString = "";
 
     }
 
