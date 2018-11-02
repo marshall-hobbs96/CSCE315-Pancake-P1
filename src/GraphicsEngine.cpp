@@ -64,13 +64,17 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window) {
+void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window) {
     
-    for(int i = stackSize - 1; i >= 0; i-- ){
+
+
+    for(int i = stringStack.size() - 1; i >= 0; i-- ){
         
-        mvwprintw(window, 0, 0, "%s", stringStack[i]);
+    mvwprintw(window, 2, 20, "%s", stringStack[i]);
 
     }
+
+    
     return;
 
 
