@@ -89,8 +89,8 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
 }  
 
 void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
-    //std::string choices[] = {"REPLACE"};
-    std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
+    std::string choices[] = {"REPLACE"};
+    //std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
     int x, y, i;	
 
 	x = 2;
