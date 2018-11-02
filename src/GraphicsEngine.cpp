@@ -82,6 +82,8 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
 
     }
 
+    wrefresh(window);
+
     
     return;
 
