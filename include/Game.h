@@ -29,6 +29,7 @@ private:
     Player human;
     AI ai;
     std::string filename;
+
     int human_score;
     int stack_size;     // new
 
@@ -36,10 +37,12 @@ private:
     bool checkStackOrder(int *stack, int size);
 
 public:
-
+    string username;
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
+    int* generateStack(int stackSize, std::string stackState, bool test);
     int getDifficulty();
+    int getScore();
     // For getting the state of each stack before and after each move:
     int* getHumanStack();
     int* getAIStack();
@@ -58,8 +61,9 @@ public:
     ~Game();
 
 	// For dealing with the high scores file
-	std::string findScore(std::string user);
- 
+	  void writeScore();
+    int* gen_rand_stack(int* stack, int stackSize);
+    vector<std::string> stackToString(int* stack, int stackSize);
 };
 
 #endif
