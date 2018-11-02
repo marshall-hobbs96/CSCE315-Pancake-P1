@@ -89,7 +89,7 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
 
 
 }   
-
+/*
 void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window, int blinkFrom) {
     
     for(int i = stackSize - 1; i >= 0; i-- ){
@@ -100,7 +100,7 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
     attroff(A_BLINK);
     attroff(A_BOLD);
     return;
-}  
+}  */
 
 void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
     //std::string choices[] = {"REPLACE"};
@@ -139,6 +139,8 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     // Implementation
     // comment test
     //char* choices[] = 
+    vector<std::string> choices;
+    choices = curr_game.stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
     int n_choices = (this->curr_game.getStackSize()) + 1;
     int highlight = 1;
 	int choice = 0;
@@ -193,10 +195,10 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     }
     mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);
     //blink pancakes,
-    drawStack("stringStack REPLACE", n_choices, window, highlight); //blink pancakes
+    drawStack(choices, window, highlight); //blink pancakes
     timeout(3); //blink for 3 seconds
     this->curr_game.moveHuman(highlight);
-    drawStack("stringStack REPLACE", n_choices, window); //draw updated stack
+    drawStack(choices, window,highlight); //draw updated stack
     mvprintw(20, 0, "Press any key to ");
     getch(); //wit for keypress for testing purposes
 
