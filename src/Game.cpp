@@ -219,34 +219,26 @@ int Game::computeScore(int diff, int n, int* userS, int* aiS)
 
 string Game::getHighScores() {
     // Implementation...
-	fstream scoreFile;
+	ifstream scoreFile;
 
 	//open file if it exists
-	scoreFile.open(filename, fstream::in);
-	string scores = "";
-
+	scoreFile.open(filename);
+	string scores;
 	if(scoreFile.is_open())
 	{
 		for(int i=0; i<5; i++)
 		{
 			string name,score;
 			getline(scoreFile,name);
+			name = name.substr(0,name.size()-1);
 			getline(scoreFile,score);
-			//print to ncurses
-			string line =name+" "+score;
-			scores += line + "\n";
-			//screenPrompt(line, i-9);
+			score = score.substr(0,score.size()-1);
+			string line = name + " " + score;
+			scores = scores + "\n" + line;
 		}
-	}
-	//file does not exist
-	else
-	{
-		// Report error
-		//screenPrompt("No score file exists ", -10);
 	}
 
 	scoreFile.close();
-
 	return scores;
 }
 

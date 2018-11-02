@@ -145,11 +145,11 @@ void GraphicsEngine::drawScoresScreen() {
     char str[80];
     getstr(str);
     std::string initials = std::string(str);
-    
-    screenPrompt("Your score: "+curr_game.findScore(initials),0);
-    
-	
-}     
+
+    screenPrompt(initials+": 0",0);
+
+
+}
 
 void GraphicsEngine::drawEndScreen() {
     // Implementation
@@ -242,7 +242,7 @@ bool GraphicsEngine::getEndInput() {
 bool GraphicsEngine::playGame() {
     // Implementation
     int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
-    cout<<score<<endl;
+
     if(score!= -1)
       return false;
     else
