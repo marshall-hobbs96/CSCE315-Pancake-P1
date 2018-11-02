@@ -61,7 +61,7 @@ int main() {
             //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), right_window);
 
             // Instantiates a new inaccessible game object, ignoring the previous dummy
-            //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
+            ge.startGame(order[0], order[1], "filename", stack);       // filename hardcoded?
             
             clear();
 

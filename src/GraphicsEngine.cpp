@@ -345,8 +345,34 @@ bool GraphicsEngine::getEndInput() {
 
 /* Facilitating gameplay */
 
+/*
+bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
+
+    while (curr_game.checkWin()) {
+        int player_selection = getFlipSelection();
+        //drawStack(g.stackToString(g.getHumanStack(), g.getStackSize()), player_window, player_selection);
+        // or blinkStack(player_selection);
+        curr_game.moveHuman(player_stack);
+        // redraw the human stack
+        int AI_selection = curr_game.getAIMove();
+        // blink the AI stack
+        curr_game.moveAI(AI_selection);
+        // redraw the ai stack
+    }
+
+    return getEndInput();
+}
+
+*/
+
 bool GraphicsEngine::playGame() {
-    // Implementation
+
+    bool is_playing = true;
+
+    while (is_playing) {
+
+    }
+
     int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
 
     if(score!= -1)
@@ -355,8 +381,9 @@ bool GraphicsEngine::playGame() {
       return true;
 }
 
-void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn) {
-    // Pretty straighforward...
+void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) {
+    delete curr_game;
+    curr_game = Game(num_pancakes, ai_difficulty, fn, starting_order);
 }
 
 std::string GraphicsEngine::getString() {

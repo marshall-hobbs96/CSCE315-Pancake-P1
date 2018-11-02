@@ -151,8 +151,7 @@ int* Game::getHumanStack() {
 }
 
 int* Game::getAIStack() {
-    // Implementation...
-    return NULL;
+    return ai.getStack();
 }
 
 int Game::getStackSize() {
@@ -162,23 +161,22 @@ int Game::getStackSize() {
 
 // For getting the result of AI.calculateMove()
 int Game::getAIMove() {
-    // Implementation...
-    return 0;
+    return ai.calculateMove();
 }
 
 /* For the gameplay loop */
 
 void Game::moveHuman(int pancake) {
-    // Implementation...
+    human.makeMove(pancake);
 }
 
 void Game::moveAI(int pancake) {
-    // Implementation...
+    ai.makeMove(pancake);
 }
 
 bool Game::checkWin() {
     // Implementation...
-    return true;
+    return computeScore(getDifficulty(), getStackSize(), getHumanStack(), getAIStack()) != -1;
 }
 
 
@@ -380,8 +378,7 @@ vector<std::string> Game::stackToString(int* stack, int stackSize) {
 
 }
 
-/*
 Game::~Game() {
-    // Implementation...
+    delete human;
+    delete ai;
 }
-*/

@@ -52,12 +52,13 @@ public:
     // For gameplay loop:
     void moveHuman(int pancake);
     void moveAI(int pancake);
+
     bool checkWin();
 
     // For when the game is over:
     int computeScore(int diff, int n, int* userS, int* aiS);
     std::string getHighScores();
-    //~Game();
+    ~Game();
 
 	// For dealing with the high scores file
 	std::string findScore(std::string user);

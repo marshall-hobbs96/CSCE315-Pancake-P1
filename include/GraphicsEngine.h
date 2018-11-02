@@ -60,8 +60,8 @@ public:
     bool getEndInput();
 
     // Facilitating gameplay:
-    bool playGame();
-    void startGame(int num_pancakes, int ai_difficulty, std::string fn);
+    bool playGame(WINDOW* player_window, WINDOW* ai_window);
+    void startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
 
     std::string getString();
 };

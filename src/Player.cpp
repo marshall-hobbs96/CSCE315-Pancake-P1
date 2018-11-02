@@ -73,3 +73,7 @@ int Player::getSortedness() {
     
     return count;
 }
+
+Player::~Player() {
+    delete[] stack;
+}
