@@ -49,16 +49,28 @@ int main() {
             int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
             
             clear();
+			noecho();
+			cbreak();
 
             ge.drawOrderScreen();
             string order = ge.getOrderInput();
-
+            int* stack = g.generateStack(diff[0], order, false);
+			clear();
+			
             //***********************************Initialize two subscreens for displaying pancakes
+			
+			
+            WINDOW* left_window = newwin(LINES, COLS / 2, 0, 0);
+            WINDOW* right_window = newwin(LINES, COLS / 2, 0, COLS / 2);
+			vector<std::string> stringStack = g.stackToString(stack, 9);
+			ge.drawStack(stringStack, left_window);
+			box(left_window, 0, 0);
+            wrefresh(left_window);
+			ge.drawStack(stringStack, right_window);
+            wrefresh(right_window);
+			refresh();
+            getch();
 
-            WINDOW* left_window = newwin(LINES / 2, COLS / 2, 0, 0);
-            WINDOW* right_window = newwin(LINES / 2, COLS / 2, 0, COLS / 2);
-            //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), left_window);
-            //ge.drawStack(stackToString(g.getHumanStack(), g.getStackSize()), g.getStackSize(), right_window);
 
             // Instantiates a new inaccessible game object, ignoring the previous dummy
             //ge.startGame(order[0], order[1], "filename");       // filename hardcoded?
@@ -69,6 +81,7 @@ int main() {
             std::string username = ge.getScoresInput();
 
             keep_playing = ge.playGame();
+
         }
 
         // Inside:
@@ -81,6 +94,6 @@ int main() {
     getch();
     
     endwin();
-
+	
     return 0;
 }
