@@ -16,8 +16,6 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 
 #include "GraphicsEngine.h"
 
-using namespace std;
-
 /*****************************************************
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
@@ -255,31 +253,18 @@ void GraphicsEngine::drawOrderScreen() {
 }
 
 void GraphicsEngine::drawScoresScreen() {
-    // Implementation
-
-    echo();
-
-    std::string scores = curr_game.getHighScores();
-
+  echo();
+  std::string scores = curr_game.getHighScores();
 	//print screen title
 	screenPrompt("Top 5 Scores", -10);
 	screenPrompt(scores, -9);
-
-    //replace for requesting user input
-    screenPrompt("Enter your intials ", 6);
-
-    char str[80];
-    getstr(str);
-    std::string initials = std::string(str);
-    curr_game.setUsername(initials);
-    screenPrompt(initials+": 0",0);
-
-
 }
 
 void GraphicsEngine::drawEndScreen() {
-
-    // Implementation
+  //in game: username and score
+  //print username and scores
+  screenPrompt(curr_game.username + " " + to_string(curr_game.getScore()),0);
+  curr_game.writeScore();
 }
 
 /* For getting input from various screens */
@@ -354,12 +339,21 @@ std::string GraphicsEngine::getOrderInput() {
 }
 
 std::string GraphicsEngine::getScoresInput() {
-    // Implementation
-    return "";
+  drawScoresScreen();
+  //replace for requesting user input
+  screenPrompt("Enter your intials ", 6);
+  char str[80];
+  getstr(str);
+  std::string initials = std::string(str);
+  curr_game.username = initials;
+  screenPrompt(initials+": 0",0);
+  return initials;
 }
 
 bool GraphicsEngine::getEndInput() {
     // Implementation
+    drawEndScreen();
+
     return false;
 }
 

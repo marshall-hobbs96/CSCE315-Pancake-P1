@@ -239,10 +239,10 @@ string Game::getHighScores() {
 
 /* For dealing with the high scores file */
 
-string Game::findScore(string user)
+void Game::writeScore()
 {
 	//not implemented
-	return "";
+
 }
 
 int* Game::gen_rand_stack(int* stack, int stackSize) {
@@ -354,7 +354,13 @@ vector<std::string> Game::stackToString(int* stack, int stackSize) {
 
 }
 
-Game::~Game() {
-    delete human;
-    delete ai;
+
+int Game::getScore()
+{
+	return this->human_score;
 }
+/*
+Game::~Game() {
+    // Implementation...
+}
+*/
