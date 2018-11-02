@@ -43,7 +43,7 @@ public:
     GraphicsEngine();
     void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
     void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
-
+    int* generateStack(int stackSize, std::string stackState);
     // For drawing various screens:
     void drawSplashScreen();
     void drawDifficultyScreen();
@@ -56,7 +56,7 @@ public:
     bool isWithinRange(char arg, int a, int b);
     int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
                                     // so size of next array is determined...
-    std::string getOrderInput();
+    int* getOrderInput(int stackSize);
     std::string getScoresInput();
     bool getEndInput();
 
