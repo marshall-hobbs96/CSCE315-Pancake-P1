@@ -16,6 +16,8 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 
 #include "GraphicsEngine.h"
 
+using namespace std;
+
 /*****************************************************
  * PRIVATE / PROTECTED METHODS
  ****************************************************/
@@ -25,9 +27,9 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 // to show the player how to play
 void GraphicsEngine::drawInstructions() {
     int row,col;
-    getmaxyx(stdscr,row,col);    
+    getmaxyx(stdscr,row,col);
     //print screen title
-    std::string mesg ="INSTRUCTIONS";    
+    std::string mesg ="INSTRUCTIONS";
     screenPrompt(mesg,0);
     mesg = "You and an Artificial Intelligence player will be given two versions";
     screenPrompt(mesg,1);
@@ -51,28 +53,34 @@ void GraphicsEngine::drawInstructions() {
     screenPrompt(mesg,11);
     mesg = "+-----------+";
     screenPrompt(mesg,12);
-}     
+}
 
 void GraphicsEngine::screenPrompt(std::string text, int line)
 {
 	int row,col;
-	getmaxyx(stdscr,row,col);	
+	getmaxyx(stdscr,row,col);
 	char mesg1[text.size()+1];
 	strcpy(mesg1, text.c_str());
 	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
-}    
+}
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window) {
+void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
     
 
-
+    if (blinkFrom != -1)
+        attrset(A_BLINK | A_BOLD);
+        
     for(int i = 0; i < stringStack.size(); i++ ){
-    int rows, cols;
-	getmaxyx(window, rows, cols);
-	std::string the_string = stringStack.at(i);
-    mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
+        if (i == blinkFrom - 1) {
+            attroff(A_BLINK);
+            attroff(A_BOLD);
+        }
+        int rows, cols;
+	    getmaxyx(window, rows, cols);
+	    std::string the_string = stringStack.at(i);
+        mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
 
     }
 
@@ -95,8 +103,18 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
 }  
 
 void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
-    std::string choices[] = {"REPLACE"};
+    //std::string choices[] = {"REPLACE"};
     //std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
+    //char* choices = 
+    vector<std::string> choices;
+    choices = curr_game.stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
+
+    /*char choices[curr_game.getStackSize()];
+    for (int i = 0; i < curr_game.getStackSize(); ++i) {
+        choices[i] = s_choices.at(i).c_str();
+    }*/
+
+
     int x, y, i;	
 
 	x = 2;
@@ -105,10 +123,10 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
 	for(i = 0; i < n_choices; ++i) {
         if(highlight == i + 1) {
             wattron(stack_win, A_REVERSE); 
-            mvwprintw(stack_win, y, x, "%s", choices[i]);
+            mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
             wattroff(stack_win, A_REVERSE);
         } else {
-            mvwprintw(stack_win, y, x, "%s", choices[i]);
+            mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
         }
         ++y;
 	}
@@ -207,9 +225,9 @@ GraphicsEngine::GraphicsEngine() : curr_game(5, 3, "scores.db", NULL) {
 
 void GraphicsEngine::drawSplashScreen() {
     int row,col;
-    getmaxyx(stdscr,row,col);    
+    getmaxyx(stdscr,row,col);
     //print screen title
-    std::string mesg ="Ultimate Pancake Flipper Simulator 2018";    
+    std::string mesg ="Ultimate Pancake Flipper Simulator 2018";
     screenPrompt(mesg,0);
     mesg = "****** Team 17 ******";
     screenPrompt(mesg,2);
@@ -224,15 +242,15 @@ void GraphicsEngine::drawSplashScreen() {
     addstr("ENTER\n");
     attroff(A_BLINK);
     attroff(A_BOLD);
-}       
+}
 
 void GraphicsEngine::drawDifficultyScreen() {
     // Implementation
-}     
+}
 
 void GraphicsEngine::drawOrderScreen() {
     // Implementation
-}     
+}
 
 void GraphicsEngine::drawScoresScreen() {
     // Implementation
@@ -247,19 +265,20 @@ void GraphicsEngine::drawScoresScreen() {
 
     //replace for requesting user input
     screenPrompt("Enter your intials ", 6);
-    
+
     char str[80];
     getstr(str);
     std::string initials = std::string(str);
-
+    curr_game.setUsername(initials);
     screenPrompt(initials+": 0",0);
 
 
 }
 
 void GraphicsEngine::drawEndScreen() {
+
     // Implementation
-}     
+}
 
 /* For getting input from various screens */
 
@@ -285,7 +304,7 @@ bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
 }
 
 int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
-    
+
     noecho();
     refresh();
 
@@ -296,7 +315,7 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
             printw("%c\n",c);
             clear();
             printw("Enter a number of pancakes from 2 to 9: ");
-            
+
         }
         int numCakes = c - '0';
         clear();
@@ -320,10 +339,10 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
             return NULL;
         }
     }
-    
+
    return NULL;
-}     
-                                
+}
+
 std::string GraphicsEngine::getOrderInput() {
 
    printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
@@ -335,12 +354,12 @@ std::string GraphicsEngine::getOrderInput() {
 std::string GraphicsEngine::getScoresInput() {
     // Implementation
     return "";
-}     
+}
 
 bool GraphicsEngine::getEndInput() {
     // Implementation
     return false;
-}     
+}
 
 
 /* Facilitating gameplay */
@@ -375,8 +394,14 @@ bool GraphicsEngine::playGame() {
 
     int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
 
+
+
+
+    int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
     if(score!= -1)
+    {
       return false;
+    }
     else
       return true;
 }
