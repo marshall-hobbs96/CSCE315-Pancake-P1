@@ -147,10 +147,117 @@ void Game::writeScore()
 
 }
 
+int* Game::gen_rand_stack(int* stack, int stackSize) {
 
+   std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
+   int* resultStack = new int[stackSize];
+   resultStack = stack;
+   std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
+   return resultStack;
 
-/*
-Game::~Game() {
-    // Implementation...
 }
-*/
+
+vector<std::string> Game::stackToString(int* stack, int stackSize) {
+
+    vector<std::string> stringStack;
+
+    for(int i = 0; i < stackSize; i++){
+
+	std::string pancakeString;
+	
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        int pancakeSize = stack[i];
+        pancakeString = pancakeString + "+";
+        for(int k = 0; k < (2*pancakeSize - 1); k++) {
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k++){
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "|";
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        char number = stack[i] + '0';
+        pancakeString = pancakeString + number;
+
+
+        for(int k = 0; k < ((pancakeSize - 1)); k++) {
+
+            pancakeString = pancakeString + " ";
+
+        }
+
+        pancakeString = pancakeString + "|";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        stringStack.push_back(pancakeString);
+		pancakeString = "";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+		
+        pancakeString = pancakeString + "+";
+
+        for(int k = 0; k < (2*pancakeSize - 1); k++){
+
+            pancakeString = pancakeString + "-";
+
+        }
+
+        pancakeString = pancakeString + "+";
+		
+		for(int k = 0; k < 9 - stack[i]; k ++) {
+			
+			pancakeString = pancakeString + " ";
+			
+		}
+
+        stringStack.push_back(pancakeString);
+        pancakeString = "";
+
+    }
+
+    return stringStack;
+
+}
+
+
+int Game::getScore()
+{
+	return this->human_score;
+}

@@ -66,7 +66,8 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
     
-
+    wclear(window);
+    wrefresh(window);
     if (blinkFrom != -1)
         attrset(A_BLINK | A_BOLD);
         
@@ -82,8 +83,11 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
 
     }
 
+    //wrefresh(window);
+    redrawwin(window);
     wrefresh(window);
-    sleep(3);
+    if (blinkFrom > -1) sleep(3);
+
     
     return;
 
@@ -104,23 +108,28 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
 
 void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
     //std::string choices[] = {"REPLACE"};
-    //std::string choices[] = curr_game.stackToString(curr_game.getHumanStack(), curr_game.getStackSize());
+    //std::string choices[] = curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize());
     //char* choices = 
     vector<std::string> choices;
-    choices = stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
+    choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
 
-    /*char choices[curr_game.getStackSize()];
-    for (int i = 0; i < curr_game.getStackSize(); ++i) {
+    /*char choices[curr_game->getStackSize()];
+    for (int i = 0; i < curr_game->getStackSize(); ++i) {
         choices[i] = s_choices.at(i).c_str();
     }*/
 
 
     int x, y, i;	
 
-	x = 2;
-	y = 2;
+	x = 0;
+	y = 0;
+    
+    //wrefresh(stack_win);
+    //drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), stack_win, -1);
+    //wgetch(stack_win);
+    
 	box(stack_win, 0, 0);
-	for(i = 0; i < n_choices; ++i) {
+	for(i = 0; i < n_choices; ++i, ++y) {
         if(highlight == i + 1) {
             wattron(stack_win, A_REVERSE); 
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
@@ -128,9 +137,8 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
         } else {
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
         }
-        ++y;
 	}
-	wrefresh(stack_win);
+	//wrefresh(stack_win);
 
 
 } 
@@ -140,19 +148,19 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     // comment test
     //char* choices[] = 
     vector<std::string> choices;
-    choices = stackToString(curr_game.getHumanStack(),curr_game.getStackSize());
-    int n_choices = (this->curr_game.getStackSize()) + 1;
+    choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
+    int n_choices = (this->curr_game->getStackSize());
     int highlight = 1;
 	int choice = 0;
 	int c;
 
-    clear();
+    
 	noecho();
 	cbreak();
 
     keypad(window, TRUE);
     mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
-    refresh();
+    //wrefresh(window);
     drawSelectionStack(window, highlight, n_choices);
 
     while(1) {	
@@ -193,19 +201,19 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
         if(choice != 0)
 			break;
     }
-    mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);
+    mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);/*
     //blink pancakes,
-    //drawStack(choices, window, highlight); //blink pancakes
-    //timeout(3); //blink for 3 seconds
-    //this->curr_game.moveHuman(highlight);
-    //drawStack(choices, window,highlight); //draw updated stack
-    //mvprintw(20, 0, "Press any key to ");
-    //getch(); //wit for keypress for testing purposes
-
+    drawStack(choices, window, highlight); //blink pancakes
+    timeout(3); //blink for 3 seconds
+    this->curr_game->moveHuman(highlight);
+    drawStack(choices, window,highlight); //draw updated stack
+    mvprintw(20, 0, "Press any key to ");
+    getch(); //wit for keypress for testing purposes
+    */
     // makeMove
+getch();
 
-
-    return 0;
+    return highlight;
 }
 
 void GraphicsEngine::blinkPancakes(int p) {
@@ -217,11 +225,8 @@ void GraphicsEngine::blinkPancakes(int p) {
  ****************************************************/
 
 /* Default Constructor creates a dummy game with the file name so it can get scores */
-GraphicsEngine::GraphicsEngine(Game g) :
+GraphicsEngine::GraphicsEngine(Game* g) :
     curr_game(g) {}
-    
-GraphicsEngine::GraphicsEngine() : curr_game(5, 3, "scores.db", NULL) {
-}
 
 /* For drawing various screens */
 
@@ -256,7 +261,7 @@ void GraphicsEngine::drawOrderScreen() {
 
 void GraphicsEngine::drawScoresScreen() {
   echo();
-  std::string scores = curr_game.getHighScores();
+  std::string scores = curr_game->getHighScores();
 	//print screen title
 	screenPrompt("Top 5 Scores", -10);
 	screenPrompt(scores, -9);
@@ -265,20 +270,20 @@ void GraphicsEngine::drawScoresScreen() {
 void GraphicsEngine::drawEndScreen() {
   //in game: username and score
   //print username and scores
-  screenPrompt(curr_game.username + " " + to_string(curr_game.getScore()),0);
-  curr_game.writeScore();
+  screenPrompt(curr_game->username + " " + to_string(curr_game->getScore()),0);
+  curr_game->writeScore();
 }
 
 /* For getting input from various screens */
 
 bool GraphicsEngine::getSplashInput() {
-    // hitting enter
-    getch();
-
     // Clear the screen
     clear();
+    drawSplashScreen();
+    getch();
 
     // Show instructions and wait for another "ENTER"
+    clear();
     drawInstructions();
     getch();
 
@@ -294,6 +299,7 @@ bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
 
 int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
 
+    clear();
     noecho();
     refresh();
 
@@ -371,9 +377,15 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
         if (finalStackIterator != (stackSize)) {            //stacksize is 5 and user put 1 2 3 4 or something like that
 
-            printw("Error, invalid number of arguments\n");
-            delete finalStack;
-            return NULL;
+            printw("initializing random initial stack\n");
+
+            for(int i = 0; i < stackSize; i++){
+
+                finalStack[i] = i + 1;              //fill with 1 - n for shuffle
+
+            }
+
+            finalStack = gen_rand_stack(finalStack, stackSize);     //shuffle the stack, i.e. random
 
         }
 
@@ -386,11 +398,11 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 }
 
 int* GraphicsEngine::getOrderInput(int stackSize) {
-
-   printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
-   std::string stackState = getString();       //string for getting user input
-   int* finalStack = generateStack(stackSize, stackState);
-   return finalStack;
+    clear();
+    printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
+    std::string stackState = getString();       //string for getting user input
+    int* finalStack = generateStack(stackSize, stackState);
+    return finalStack;
 
 }
 
@@ -411,7 +423,7 @@ std::string GraphicsEngine::getScoresInput() {
   char str[80];
   getstr(str);
   std::string initials = std::string(str);
-  curr_game.username = initials;
+  curr_game->username = initials;
   screenPrompt(initials+": 0",0);
   return initials;
 }
@@ -426,25 +438,27 @@ bool GraphicsEngine::getEndInput() {
 
 /* Facilitating gameplay */
 
-/*
+
 bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
 
-    while (curr_game.checkWin()) {
-        int player_selection = getFlipSelection();
-        //drawStack(g.stackToString(g.getHumanStack(), g.getStackSize()), player_window, player_selection);
-        // or blinkStack(player_selection);
-        curr_game.moveHuman(player_stack);
-        // redraw the human stack
-        int AI_selection = curr_game.getAIMove();
-        // blink the AI stack
-        curr_game.moveAI(AI_selection);
-        // redraw the ai stack
+    while (curr_game->checkWin()) {
+        // Player's move
+        int player_selection = getFlipSelection(player_window);
+        drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
+        curr_game->moveHuman(player_selection);
+        drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, -1);
+        
+        // AI's Move
+        int AI_selection = curr_game->getAIMove();
+        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), player_window, AI_selection);
+        curr_game->moveAI(AI_selection);
+        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), player_window, -1);
     }
 
     return getEndInput();
 }
 
-*/
+/*
 
 bool GraphicsEngine::playGame() {
 
@@ -454,12 +468,12 @@ bool GraphicsEngine::playGame() {
 
     }
 
-    int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
+    int score = curr_game->computeScore(curr_game->getDifficulty(), curr_game->getStackSize(), curr_game->getHumanStack(), curr_game->getAIStack());
 
 
 
 
-    int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
+    int score = curr_game->computeScore(curr_game->getDifficulty(), curr_game->getStackSize(), curr_game->getHumanStack(), curr_game->getAIStack());
     if(score!= -1)
     {
       return false;
@@ -467,10 +481,11 @@ bool GraphicsEngine::playGame() {
     else
       return true;
 }
+*/
 
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) {
     delete curr_game;
-    curr_game = Game(num_pancakes, ai_difficulty, fn, starting_order);
+    curr_game = new Game(num_pancakes, ai_difficulty, fn, starting_order);
 }
 
 std::string GraphicsEngine::getString() {

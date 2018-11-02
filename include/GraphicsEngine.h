@@ -26,7 +26,7 @@ GaphicsEngine.h - Interface for the Graphics Engine class
 
 class GraphicsEngine {
 private:
-    Game curr_game;
+    Game* curr_game;
 
     // Helpers for drawing certain screens:
     void drawInstructions();      // to show the player how to play
@@ -39,7 +39,7 @@ private:
 public:
 
     // Constructor:
-    GraphicsEngine(Game g);
+    GraphicsEngine(Game* g);
     GraphicsEngine();
     void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
     void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
