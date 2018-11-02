@@ -33,7 +33,6 @@ private:
 	void screenPrompt(std::string text, int line);
 
     // Facilitating gameplay in playGame:
-    void drawStack(std::string stringStack, int stackSize,WINDOW *window);
     int getFlipSelection();
     void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
@@ -42,6 +41,7 @@ public:
     // Constructor:
     GraphicsEngine(Game g);
     GraphicsEngine();
+    void drawStack(vector<std::string> stringStack, WINDOW *window);
 
     // For drawing various screens:
     void drawSplashScreen();
