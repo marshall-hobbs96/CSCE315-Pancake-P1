@@ -64,13 +64,17 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 /* Facilitating gameplay in playGame */
 
-void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window) {
+void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window) {
     
-    for(int i = stackSize - 1; i >= 0; i-- ){
+
+
+    for(int i = stringStack.size() - 1; i >= 0; i-- ){
         
-        mvwprintw(window, 0, 0, "%s", stringStack[i]);
+    mvwprintw(window, 2, 20, "%s", stringStack[i]);
 
     }
+
+    
     return;
 
 
@@ -245,11 +249,11 @@ void GraphicsEngine::drawScoresScreen() {
     char str[80];
     getstr(str);
     std::string initials = std::string(str);
-    
-    screenPrompt("Your score: "+curr_game.findScore(initials),0);
-    
-	
-}     
+
+    screenPrompt(initials+": 0",0);
+
+
+}
 
 void GraphicsEngine::drawEndScreen() {
     // Implementation
@@ -342,7 +346,7 @@ bool GraphicsEngine::getEndInput() {
 bool GraphicsEngine::playGame() {
     // Implementation
     int score = curr_game.computeScore(curr_game.getDifficulty(), curr_game.getStackSize(), curr_game.getHumanStack(), curr_game.getAIStack());
-    cout<<score<<endl;
+
     if(score!= -1)
       return false;
     else
