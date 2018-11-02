@@ -14,7 +14,7 @@ Player.cpp - Implementations for Player class (making moves, returning the stack
 #include "Player.h"
 
 Player::Player(int num_pancakes, int* order, std::string un) :
-    stack_size(num_pancakes), stack(order), username(un) {}
+    stack_size(num_pancakes), stack(order) {}
 
 int* Player::getStack() {
     // Implementation...
@@ -34,22 +34,20 @@ void Player::swapPancakes(int i, int j) {
 void Player::makeMove(int pancake) {
     // Count of pancakes at and above spatula
     int pancakes_to_flip = (stack_size - pancake)/2;
-    
+
     // If we need to look at more than one
     if (pancakes_to_flip >= 1) {
-        
+
         // For each of the pancakes above the spatula
         for (int i = pancake; i < pancake + (pancakes_to_flip/2) + 1; i++) {
             swapPancakes(i, stack_size - i + pancake - 1);
         }
     }
-    
+
     return;
 }
 
-void Player::setName(std::string name) {
-     username = name;
-}
+
 
 int Player::getSortedness() {
     // Array of ls and gs for less than and greater than
@@ -57,7 +55,7 @@ int Player::getSortedness() {
     comparators[0] = 'l';
 
     for (int i = 0; i < stack_size - 1; i++) {
-        if (stack[i] < stack[i+1]) 
+        if (stack[i] < stack[i+1])
             comparators[i+1] = 'l';
         else
             comparators[i+1] = 'g';
@@ -70,6 +68,6 @@ int Player::getSortedness() {
             count++;
 
     delete[] comparators;
-    
+
     return count;
 }

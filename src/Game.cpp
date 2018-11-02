@@ -222,7 +222,7 @@ string Game::getHighScores() {
 	ifstream scoreFile;
 
 	//open file if it exists
-	scoreFile.open(filename);
+	scoreFile.open(filename, fstream::in);
 	string scores;
 	if(scoreFile.is_open())
 	{
@@ -230,9 +230,7 @@ string Game::getHighScores() {
 		{
 			string name,score;
 			getline(scoreFile,name);
-			name = name.substr(0,name.size()-1);
 			getline(scoreFile,score);
-			score = score.substr(0,score.size()-1);
 			string line = name + " " + score;
 			scores = scores + "\n" + line;
 		}
@@ -246,29 +244,8 @@ string Game::getHighScores() {
 
 string Game::findScore(string user)
 {
-	fstream scoreFile;
-	bool scoreFound = false;
-	string username;
-	scoreFile.open(filename);
-
-	while(getline(scoreFile,username))
-	{
-		if(username==user)
-		{
-			string score;
-			getline(scoreFile,score);
-			return user +" "+score;
-			scoreFound = true;
-			break;
-		}
-	}
-	scoreFile.close();
-	if(!scoreFound)
-	{
-		scoreFile.open(filename, fstream::app);
-		scoreFile<<user<<"\t"<<"0"<<"\n";
-		return user+ " 0";
-	}
+	//not implemented
+	return "";
 }
 
 int* Game::gen_rand_stack(int* stack, int stackSize) {
@@ -380,6 +357,15 @@ vector<std::string> Game::stackToString(int* stack, int stackSize) {
 
 }
 
+void Game::setUsername(string name)
+{
+	this->username = name;
+}
+
+string Game::getUsername()
+{
+	return this->username;
+}
 /*
 Game::~Game() {
     // Implementation...
