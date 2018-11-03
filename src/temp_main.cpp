@@ -33,8 +33,6 @@ int main() {
 
         int* stack = ge.getOrderInput();
 
-         = g.generateStack(diff[0], order, false);
-
         // Instantiates a new inaccessible game object, ignoring the previous dummy
         ge.startGame(diff[0], diff[1], "death.txt", stack);       // filename hardcoded?
 
