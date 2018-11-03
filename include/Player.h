@@ -26,6 +26,7 @@ Player.h - Interface for the Player class
 #include <random>
 #include <chrono>
 #include <array>
+#include <unistd.h>
 #include "MMTree.h"
 
 /************************************************

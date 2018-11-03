@@ -261,8 +261,3 @@ int Game::getScore()
 {
 	return this->human_score;
 }
-/*
-Game::~Game() {
-    // Implementation...
-}
-*/

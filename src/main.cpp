@@ -1,15 +1,5 @@
 /*
-CSCE 315 503
-Project 3
-Group 17
-
-Abdul Campos
-Marshall Hobbs
-McLain Johnson
-Troy Fulton
-
-main.cpp - contains main() for instantiating a graphics engine and 
-        running the game for as many games as the player wants to play
+MAIN PSEUDOCODE
 */
 
 /************************************************
@@ -26,74 +16,40 @@ main.cpp - contains main() for instantiating a graphics engine and
 using namespace std;
 
 int main() {
-    // Game g created so the scores file can be read from
-    Game g(5, 3, "scores.txt", NULL);
+    // Dummy game for constructing Graphics Engine
+    Game* g = new Game(5, 3, "scores.txt", NULL);
+    GraphicsEngine ge(g);
 
     initscr();
-
-    // Then use it to make a graphics engine
-    GraphicsEngine ge(g);
-    bool keep_playing = true, new_game = true;
+    bool keep_playing = true;
     
-    // Splash Screen
-    ge.drawSplashScreen();
+    // Start with the splash screen
     ge.getSplashInput();
-    // ...which eventually draws the instructions screen;
 
-    clear();
-    
-    while (new_game) {
+    while (keep_playing) {
+        // Gets the size of the stack and the AI's difficulty:
+        // diff is [stack_size, ai_difficulty]
+        int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
 
-        while (keep_playing) {
-            ge.drawDifficultyScreen();
-            int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
-            
-            clear();
-			noecho();
-			cbreak();
+        int* stack = ge.getOrderInput(diff[0]);
 
-            ge.drawOrderScreen();
-            string order = ge.getOrderInput();
-            int* stack = g.generateStack(diff[0], order, false);
-			clear();
-			
-            //***********************************Initialize two subscreens for displaying pancakes
-			
-			
-            WINDOW* left_window = newwin(LINES, COLS / 2, 0, 0);
-            WINDOW* right_window = newwin(LINES, COLS / 2, 0, COLS / 2);
-			vector<std::string> stringStack = g.stackToString(stack, 9);
-			ge.drawStack(stringStack, left_window);
-			box(left_window, 0, 0);
-            wrefresh(left_window);
-			ge.drawStack(stringStack, right_window);
-            wrefresh(right_window);
-			refresh();
-            getch();
+        // Instantiates a new inaccessible game object, ignoring the previous dummy
+        ge.startGame(diff[0], diff[1], "filename", stack);       // filename hardcoded?
 
+        std::string username = ge.getScoresInput();
 
-            // Instantiates a new inaccessible game object, ignoring the previous dummy
-            ge.startGame(order[0], order[1], "filename", stack);       // filename hardcoded?
-            
-            clear();
-
-            ge.drawScoresScreen();
-            std::string username = ge.getScoresInput();
-
-            keep_playing = ge.playGame();
-
-        }
-
-        // Inside:
-        // printHighScores(curr_game.getHighScores);
-        ge.drawEndScreen();
-        new_game = ge.getEndInput();
+        // Initialize two subscreens for displaying pancakes
+        clear();
+        WINDOW* left_window = newwin(LINES - 4, COLS / 2, 0, 0);
+        WINDOW* right_window = newwin(LINES - 4, COLS / 2, 0, COLS / 2);
+        refresh();
+        ge.drawStack(ge.stackToString(stack, diff[0]), left_window, -1);
+        ge.drawStack(ge.stackToString(stack, diff[0]), right_window, -1);
+        //wgetch(left_window);
+        keep_playing = ge.playGame(left_window, right_window);
     }
     
-    
     getch();
-    
     endwin();
-	
     return 0;
 }
