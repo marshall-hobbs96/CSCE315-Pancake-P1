@@ -41,6 +41,7 @@ public:
     // Constructor:
     GraphicsEngine(Game* g);
     GraphicsEngine();
+    ~GraphicsEngine();
     void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
     void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
     int* generateStack(int stackSize, std::string stackState);

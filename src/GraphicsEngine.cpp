@@ -67,7 +67,6 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
     
     wclear(window);
-    wrefresh(window);
     if (blinkFrom != -1)
         attrset(A_BLINK | A_BOLD);
         
@@ -83,15 +82,11 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
 
     }
 
-    //wrefresh(window);
-    redrawwin(window);
+    wprintw(window, "Printed a stack");
     wrefresh(window);
     if (blinkFrom > -1) sleep(3);
 
-    
     return;
-
-
 }   
 /*
 void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* window, int blinkFrom) {
@@ -128,7 +123,7 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
     //drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), stack_win, -1);
     //wgetch(stack_win);
     
-	box(stack_win, 0, 0);
+	//box(stack_win, 0, 0);
 	for(i = 0; i < n_choices; ++i, ++y) {
         if(highlight == i + 1) {
             wattron(stack_win, A_REVERSE); 
@@ -138,7 +133,7 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
         }
 	}
-	//wrefresh(stack_win);
+	wrefresh(stack_win);
 
 
 } 
@@ -159,7 +154,7 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
 	cbreak();
 
     keypad(window, TRUE);
-    mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
+    mvprintw(76, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
     //wrefresh(window);
     drawSelectionStack(window, highlight, n_choices);
 
@@ -225,8 +220,13 @@ void GraphicsEngine::blinkPancakes(int p) {
  ****************************************************/
 
 /* Default Constructor creates a dummy game with the file name so it can get scores */
-GraphicsEngine::GraphicsEngine(Game* g) :
-    curr_game(g) {}
+GraphicsEngine::GraphicsEngine() {
+    curr_game = new Game(0, 1, "scores.txt", NULL);
+}
+
+GraphicsEngine::~GraphicsEngine() {
+    delete curr_game;
+}
 
 /* For drawing various screens */
 
@@ -323,12 +323,12 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
             printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
         }
         int diff = c - '0';
-        static int result[2] = {numCakes,diff};
+        int* result = new int[2]{numCakes,diff};
 
         return result;
     } else {
         if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
-            static int result[2] = {(testA - '0'), (testB - '0')};
+            int* result = new int[2]{(testA - '0'), (testB - '0')};
             return result;
         } else {
             return NULL;
@@ -409,8 +409,7 @@ int* GraphicsEngine::getOrderInput(int stackSize) {
 int* GraphicsEngine::gen_rand_stack(int* stack, int stackSize) {
 
    std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
-   int* resultStack = new int[stackSize];
-   resultStack = stack;
+   int* resultStack = stack;
    std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
    return resultStack;
 
@@ -458,34 +457,10 @@ bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
     return getEndInput();
 }
 
-/*
-
-bool GraphicsEngine::playGame() {
-
-    bool is_playing = true;
-
-    while (is_playing) {
-
-    }
-
-    int score = curr_game->computeScore(curr_game->getDifficulty(), curr_game->getStackSize(), curr_game->getHumanStack(), curr_game->getAIStack());
-
-
-
-
-    int score = curr_game->computeScore(curr_game->getDifficulty(), curr_game->getStackSize(), curr_game->getHumanStack(), curr_game->getAIStack());
-    if(score!= -1)
-    {
-      return false;
-    }
-    else
-      return true;
-}
-*/
-
 void GraphicsEngine::startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) {
-    delete curr_game;
+    Game* temp = curr_game;
     curr_game = new Game(num_pancakes, ai_difficulty, fn, starting_order);
+    delete temp;
 }
 
 std::string GraphicsEngine::getString() {

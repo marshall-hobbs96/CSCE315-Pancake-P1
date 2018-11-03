@@ -46,7 +46,7 @@ public:
     void makeMove(int pancake);     // Same "flipping" action for all players
     int getSortedness();
 
-    Player(int num_pancakes, int* order, std::string un);
+    Player(int num_pancakes, int* order);
     ~Player();
 };
 

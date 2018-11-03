@@ -15,7 +15,7 @@ AI.cpp - AI implementation for calculating the next move
 using namespace std;
 
 AI::AI(int num_pancakes, int* order, int diff) :
-    Player(num_pancakes, order, ""), difficulty(diff) {}
+    Player(num_pancakes, order), difficulty(diff) {}
 
 int AI::calculateMove() {
     Helper h(*this);

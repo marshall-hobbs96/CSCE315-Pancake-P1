@@ -17,14 +17,16 @@ using namespace std;
 
 int main() {
     // Dummy game for constructing Graphics Engine
-    Game* g = new Game(5, 3, "scores.txt", NULL);
-    GraphicsEngine ge(g);
+    GraphicsEngine ge;
 
     initscr();
     bool keep_playing = true;
     
     // Start with the splash screen
     ge.getSplashInput();
+
+    // Game "count" for testing:
+    int count = 0;
 
     while (keep_playing) {
         // Gets the size of the stack and the AI's difficulty:
@@ -45,10 +47,22 @@ int main() {
         refresh();
         ge.drawStack(ge.stackToString(stack, diff[0]), left_window, -1);
         ge.drawStack(ge.stackToString(stack, diff[0]), right_window, -1);
-        //wgetch(left_window);
-        keep_playing = ge.playGame(left_window, right_window);
+        getch();
+        clear();
+
+        //keep_playing = ge.playGame(left_window, right_window);
+
+        delete[] diff;
+        delete[] stack;
+
+        // Testing using 2 tests:
+        count++;
+        if (count == 2) break;
     }
-    
+
+    clear();
+    printw("All done...");
+    refresh();
     getch();
     endwin();
     return 0;
