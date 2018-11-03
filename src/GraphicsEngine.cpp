@@ -29,36 +29,38 @@ void GraphicsEngine::drawInstructions() {
     screenPrompt(mesg,0);
     mesg = "You and an Artificial Intelligence player will be given two versions";
     screenPrompt(mesg,1);
-    mesg = "of the same stack of pancakes. Your goal is to sort the pancakes from top to bottom";
+    mesg = "of the same stack of pancakes. Your goal is to sort the pancakes";
     screenPrompt(mesg,2);
-    mesg = "(meaning the smallest pancake will be on the top and the largest on bottom).";
+    mesg = "from top to bottom (meaning the smallest pancake will be on the top";
     screenPrompt(mesg,3);
-    mesg = "To do this, you will insert a spatula under any of the pancakes in the stack and";
+    mesg = " and the largest on bottom)."; 
     screenPrompt(mesg,4);
-    mesg = "'flip' the pancakes at and above that pancake. The blinking pancake will";
-    screenPrompt(mesg,5);
-    mesg = "indicate which pancake your curser is on, and hitting ENTER will select";
+    mesg = "To do this, you will insert a spatula under any of the pancakes";
     screenPrompt(mesg,6);
-    mesg = "the pancake and flip the pancakes at and above that pancake after blinking for";
+    mesg = "in the (left) stack and 'flip' the pancakes at and above that pancake.";
     screenPrompt(mesg,7);
-    mesg = "a few seconds. Here is an example pancake of size 6:";
+    mesg = "The blinking pancake will indicate which pancake your curser is on,";
     screenPrompt(mesg,8);
-    mesg = "+-----------+";
+    mesg = "and hitting ENTER will select the pancake and flip the pancakes at";
+    screenPrompt(mesg,9);
+    mesg = "and above that pancake after blinking for a few seconds.";
     screenPrompt(mesg,10);
-    mesg = "|     6     |";
-    screenPrompt(mesg,11);
-    mesg = "+-----------+";
+    mesg = "Here is an example pancake of size 6:";
     screenPrompt(mesg,12);
+    mesg = "+-----------+";
+    screenPrompt(mesg,14);
+    mesg = "|     6     |";
+    screenPrompt(mesg,15);
+    mesg = "+-----------+";
+    screenPrompt(mesg,16);
 }
 
 void GraphicsEngine::screenPrompt(std::string text, int line)
 {
 	int row,col;
 	getmaxyx(stdscr,row,col);
-	char* mesg1 = new char[text.size()+1];
-	strcpy(mesg1, text.c_str());
-	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
-    delete mesg1;
+	mvprintw(row/2+line,(col-text.size())/2,"%s",text.c_str());
+    //delete mesg1;
 }
 
 /* Facilitating gameplay in playGame */
@@ -81,7 +83,6 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
 
     }
 
-    wprintw(window, "Printed a stack");
     wrefresh(window);
     if (blinkFrom > -1) sleep(3);
 
