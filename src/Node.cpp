@@ -53,9 +53,9 @@ Node* Node::eval() {
     // Search for the min or max
     if (is_min) {   // Min node
 
-        for (int i = 1; i < children.size(); ++i) {
+        for (int i = 1; i < (int) children.size(); ++i) {
             Node* temp_node = children[i]->eval();
-            bool short_enough = temp_node->getPath().size() <= shortest_path;
+            bool short_enough = (int) temp_node->getPath().size() <= shortest_path;
             if (temp_node->value < sel_val && short_enough) {
                 sel_val = temp_node->value;
                 sel_Node = temp_node;
@@ -65,9 +65,9 @@ Node* Node::eval() {
     }
     else {      // Max node
 
-        for (int i = 1; i < children.size(); ++i) {
+        for (int i = 1; i < (int) children.size(); ++i) {
             Node* temp_node = children[i]->eval();
-            bool short_enough = temp_node->getPath().size() <= shortest_path;
+            bool short_enough = (int) temp_node->getPath().size() <= shortest_path;
             if (temp_node->value > sel_val && short_enough) {
                 sel_val = temp_node->value;
                 sel_Node = temp_node;

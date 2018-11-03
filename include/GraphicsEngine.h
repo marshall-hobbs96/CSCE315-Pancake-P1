@@ -34,7 +34,7 @@ private:
 
     // Facilitating gameplay in playGame:
     int getFlipSelection(WINDOW* window);
-    void blinkPancakes(int p);    // blink pancakes at and above pancake p
+    // void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
 public:
 

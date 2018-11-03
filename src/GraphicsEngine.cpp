@@ -24,8 +24,6 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 
 // to show the player how to play
 void GraphicsEngine::drawInstructions() {
-    int row,col;
-    getmaxyx(stdscr,row,col);
     //print screen title
     std::string mesg ="INSTRUCTIONS";
     screenPrompt(mesg,0);
@@ -57,9 +55,10 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 {
 	int row,col;
 	getmaxyx(stdscr,row,col);
-	char mesg1[text.size()+1];
+	char* mesg1 = new char[text.size()+1];
 	strcpy(mesg1, text.c_str());
 	mvprintw(row/2+line,(col-sizeof(mesg1))/2,"%s",mesg1);
+    delete mesg1;
 }
 
 /* Facilitating gameplay in playGame */
@@ -70,7 +69,7 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
     if (blinkFrom != -1)
         attrset(A_BLINK | A_BOLD);
         
-    for(int i = 0; i < stringStack.size(); i++ ){
+    for(int i = 0; i < (int) stringStack.size(); i++ ){
         if (i == blinkFrom - 1) {
             attroff(A_BLINK);
             attroff(A_BOLD);
@@ -78,7 +77,7 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
         int rows, cols;
 	    getmaxyx(window, rows, cols);
 	    std::string the_string = stringStack.at(i);
-        mvwprintw(window, i + 2, cols / 4, "%s", the_string.c_str());
+        mvwprintw(window, i + 2 + (0*rows), cols / 4, "%s", the_string.c_str());
 
     }
 
@@ -211,9 +210,11 @@ getch();
     return highlight;
 }
 
+/*
 void GraphicsEngine::blinkPancakes(int p) {
     // Implementation
-}     
+} 
+*/    
 
 /*****************************************************
  * PUBLIC METHODS
@@ -231,8 +232,6 @@ GraphicsEngine::~GraphicsEngine() {
 /* For drawing various screens */
 
 void GraphicsEngine::drawSplashScreen() {
-    int row,col;
-    getmaxyx(stdscr,row,col);
     //print screen title
     std::string mesg ="Ultimate Pancake Flipper Simulator 2018";
     screenPrompt(mesg,0);
@@ -363,7 +362,7 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
     else {
         printw("initializing predefined stack\n");
         int finalStackIterator = 0;                             //for iterating through the string, pulling ints
-        for(int i = 0; i < stackState.size(); i++){              //iterate through the user input string
+        for(int i = 0; i < (int) stackState.size(); i++){              //iterate through the user input string
 
             int temp = stackState.at(i) - '0';
 
@@ -449,9 +448,9 @@ bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
         
         // AI's Move
         int AI_selection = curr_game->getAIMove();
-        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), player_window, AI_selection);
+        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, AI_selection);
         curr_game->moveAI(AI_selection);
-        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), player_window, -1);
+        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, -1);
     }
 
     return getEndInput();

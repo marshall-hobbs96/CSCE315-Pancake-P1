@@ -3,18 +3,23 @@
 all: main
 
 AI.o: Player.o
+	# AI...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/AI.cpp
 
 Node.o:
+	# Node...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/Node.cpp
 
 Player.o: 
+	# Player...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/Player.cpp
 
 Game.o: Player.o AI.o
+	# Game...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include -c src/Game.cpp
 
 GraphicsEngine.o: Game.o
+	# Graphics Engine...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses1 -I include -c src/GraphicsEngine.cpp
 
 # Tests:
@@ -36,7 +41,8 @@ test_MMTree: MMTree.o Node.o
 
 # Main:
 
-main: GraphicsEngine.o Game.o AI.o Player.o Node.o
+main: GraphicsEngine.o Game.o AI.o Node.o Player.o
+	# Main...
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I include Node.o AI.o Player.o Game.o GraphicsEngine.o -o bin/main src/main.cpp 
 
 clean:

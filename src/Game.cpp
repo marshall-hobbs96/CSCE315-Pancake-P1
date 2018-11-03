@@ -44,7 +44,7 @@ bool Game::checkStackOrder(int *stack, int size)
 
 Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
     human(num_pancakes, starting_order), ai(num_pancakes, starting_order, ai_difficulty),
-    human_score(0), stack_size(num_pancakes), filename(fn)    {}
+    filename(fn), human_score(0), stack_size(num_pancakes)   {}
 
 
 int* Game::getHumanStack() {
