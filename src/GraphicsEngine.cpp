@@ -261,14 +261,14 @@ void GraphicsEngine::drawOrderScreen() {
 
 void GraphicsEngine::drawScoresScreen() {
   echo();
-  std::string scores = curr_game.getHighScores();
+  std::string scores = curr_game->getHighScores();
   replace(scores.begin(),scores.end(), '\n', ' ');
 	//print screen title
   vector<string> splitScores;
   boost::split(splitScores, scores, [](char c){return c == ' ';});
 	screenPrompt("Top 5 Scores", -10);
 
-  for(int i=1, j=0; i<splitScores.size(); i+=2, j++)
+  for(int i=1, j=0; (unsigned)i<splitScores.size(); i+=2, j++)
   {
     string curScore = splitScores[i]+" "+splitScores[i+1];
     screenPrompt(curScore, -9+j);
@@ -279,7 +279,7 @@ void GraphicsEngine::drawEndScreen() {
   //in game: username and score
   //print username and scores
 
-  curr_game.writeScore();
+  curr_game->writeScore();
   drawScoresScreen();
 }
 
@@ -439,7 +439,7 @@ std::string GraphicsEngine::getScoresInput() {
      initials = std::string(str);
   } while(initials.size()>3||initials=="");
 
-  curr_game.username = initials;
+  curr_game->username = initials;
   screenPrompt(initials+": 0",2);
   return initials;
 }
@@ -447,7 +447,7 @@ std::string GraphicsEngine::getScoresInput() {
 bool GraphicsEngine::getEndInput() {
     // Implementation
     clear();
-    screenPrompt("Score: "+ curr_game.username + " " + to_string(curr_game.getScore()),0);
+    screenPrompt("Score: "+ curr_game->username + " " + to_string(curr_game->getScore()),0);
     screenPrompt("Press any key to continue",1);
     getch();
     clear();
