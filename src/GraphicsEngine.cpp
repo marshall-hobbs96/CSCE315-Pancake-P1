@@ -437,7 +437,7 @@ std::string GraphicsEngine::getScoresInput() {
     char str[80];
     getstr(str);
      initials = std::string(str);
-  } while(initials.size()>3);
+  } while(initials.size()>3||initials=="");
 
   curr_game.username = initials;
   screenPrompt(initials+": 0",2);
