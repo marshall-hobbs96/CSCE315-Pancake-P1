@@ -261,17 +261,26 @@ void GraphicsEngine::drawOrderScreen() {
 
 void GraphicsEngine::drawScoresScreen() {
   echo();
-  std::string scores = curr_game->getHighScores();
+  std::string scores = curr_game.getHighScores();
+  replace(scores.begin(),scores.end(), '\n', ' ');
 	//print screen title
+  vector<string> splitScores;
+  boost::split(splitScores, scores, [](char c){return c == ' ';});
 	screenPrompt("Top 5 Scores", -10);
-	screenPrompt(scores, -9);
+
+  for(int i=1, j=0; i<splitScores.size(); i+=2, j++)
+  {
+    string curScore = splitScores[i]+" "+splitScores[i+1];
+    screenPrompt(curScore, -9+j);
+  }
 }
 
 void GraphicsEngine::drawEndScreen() {
   //in game: username and score
   //print username and scores
-  screenPrompt(curr_game->username + " " + to_string(curr_game->getScore()),0);
-  curr_game->writeScore();
+
+  curr_game.writeScore();
+  drawScoresScreen();
 }
 
 /* For getting input from various screens */
@@ -418,20 +427,46 @@ int* GraphicsEngine::gen_rand_stack(int* stack, int stackSize) {
 std::string GraphicsEngine::getScoresInput() {
   drawScoresScreen();
   //replace for requesting user input
-  screenPrompt("Enter your intials ", 6);
-  char str[80];
-  getstr(str);
-  std::string initials = std::string(str);
-  curr_game->username = initials;
-  screenPrompt(initials+": 0",0);
+  std::string initials;
+  do {
+    int row,col;
+  	getmaxyx(stdscr,row,col);
+    move(row/2+6, 0);          // move to begining of line
+    clrtoeol();
+    screenPrompt("Enter your intials ", 6);
+    char str[80];
+    getstr(str);
+     initials = std::string(str);
+  } while(initials.size()>3);
+
+  curr_game.username = initials;
+  screenPrompt(initials+": 0",2);
   return initials;
 }
 
 bool GraphicsEngine::getEndInput() {
     // Implementation
+    clear();
+    screenPrompt("Score: "+ curr_game.username + " " + to_string(curr_game.getScore()),0);
+    screenPrompt("Press any key to continue",1);
+    getch();
+    clear();
     drawEndScreen();
-
-    return false;
+    string cont;
+    while(true){
+      int row,col;
+    	getmaxyx(stdscr,row,col);
+      move(row/2+5, 0);          // move to begining of line
+      clrtoeol();
+      screenPrompt("Would you like to play again? (Y/N)",5);
+      char str[80];
+      getstr(str);
+      cont = std::string(str);
+      if(cont=="Y"||cont=="N")
+        break;
+    }
+    clear();
+    return cont=="Y"? true:false;
 }
 
 
