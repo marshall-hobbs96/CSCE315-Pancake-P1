@@ -2,12 +2,10 @@
 CSCE 315 503
 Project 3
 Group 17
-
 Abdul Campos
 Marshall Hobbs
 McLain Johnson
 Troy Fulton
-
 Game.h - Interface for the Game class
 */
 
@@ -31,18 +29,21 @@ private:
     Player human;
     AI ai;
     std::string filename;
+
     int human_score;
     int stack_size;     // new
 
     // To check if a stack is in order (for checkWin and generateStack)
-    bool checkStackOrder(int* stack, int sz);
+    bool checkStackOrder(int *stack, int size);
 
 public:
-
+    string username;
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
+    ~Game();
     int* generateStack(int stackSize, std::string stackState, bool test);
-
+    int getDifficulty();
+    int getScore();
     // For getting the state of each stack before and after each move:
     int* getHumanStack();
     int* getAIStack();
@@ -52,16 +53,17 @@ public:
     // For gameplay loop:
     void moveHuman(int pancake);
     void moveAI(int pancake);
+
     bool checkWin();
-    
+
     // For when the game is over:
-    int computeScore();
+    int computeScore(int diff, int n, int* userS, int* aiS);
     std::string getHighScores();
-    //~Game();
 
 	// For dealing with the high scores file
-	std::string findScore(std::string user);
+	  void writeScore();
     int* gen_rand_stack(int* stack, int stackSize);
+    vector<std::string> stackToString(int* stack, int stackSize);
 };
 
 #endif
