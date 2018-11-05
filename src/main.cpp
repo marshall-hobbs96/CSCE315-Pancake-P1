@@ -25,9 +25,6 @@ int main() {
     // Start with the splash screen
     ge.getSplashInput();
 
-    // Game "count" for testing:
-    int count = 0;
-
     while (keep_playing) {
         // Gets the size of the stack and the AI's difficulty:
         // diff is [stack_size, ai_difficulty]
@@ -36,7 +33,7 @@ int main() {
         int* stack = ge.getOrderInput(diff[0]);
 
         // Instantiates a new inaccessible game object, ignoring the previous dummy
-        ge.startGame(diff[0], diff[1], "filename", stack);       // filename hardcoded?
+        ge.startGame(diff[0], diff[1], "scores.txt", stack);       // filename hardcoded?
 
         std::string username = ge.getScoresInput();
 
@@ -54,10 +51,6 @@ int main() {
 
         delete[] diff;
         delete[] stack;
-
-        // Testing using 2 tests:
-        count++;
-        if (count == 2) break;
     }
 
     clear();

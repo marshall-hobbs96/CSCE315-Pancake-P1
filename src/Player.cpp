@@ -14,7 +14,7 @@ Player.cpp - Implementations for Player class (making moves, returning the stack
 #include "Player.h"
 
 Player::Player(int num_pancakes, int* order) :
-    stack_size(num_pancakes), stack(order) {}
+    stack(order), stack_size(num_pancakes)  {}
 
 int* Player::getStack() {
     return stack;

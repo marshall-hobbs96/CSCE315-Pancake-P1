@@ -15,6 +15,7 @@ GraphicsEngine.cpp - Implementations for Engine methods for running the game and
 */
 
 #include "GraphicsEngine.h"
+#include <boost/algorithm/string.hpp>
 
 /*****************************************************
  * PRIVATE / PROTECTED METHODS
@@ -67,16 +68,18 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 
 void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
 
-    blinkFrom  = ((blinkFrom + 1)*3) - 1;
+    int real_blinkFrom = curr_game->getStackSize() - blinkFrom;
+
+    real_blinkFrom = ((real_blinkFrom + 1)*3) - 1;
     
     wclear(window);
-    // if (blinkFrom != -1)
-    //     attrset(A_BLINK | A_BOLD);
+    if (blinkFrom != -1)
+        //attrset(A_BOLD);
+        wattrset(window, A_BLINK);
         
     for(int i = 0; i < (int) stringStack.size(); i++ ){
-        if (i == blinkFrom - 1) {
-            //attroff(A_BLINK);
-            //attroff(A_BOLD);
+        if (i == real_blinkFrom - 2) {
+            wattroff(window, A_BLINK);
         }
         int rows, cols;
 	    getmaxyx(window, rows, cols);
@@ -86,7 +89,9 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
     }
 
     wrefresh(window);
-    //if (blinkFrom > -1) sleep(3);
+    if (blinkFrom > -1) sleep(3);
+            wattroff(window, A_BLINK);
+            //attroff(A_BOLD);
 
     return;
 }   
@@ -110,6 +115,8 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
     vector<std::string> choices;
     choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
 
+    //reverse(choices.begin(), choices.end());
+
     /*char choices[curr_game->getStackSize()];
     for (int i = 0; i < curr_game->getStackSize(); ++i) {
         choices[i] = s_choices.at(i).c_str();
@@ -121,14 +128,14 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
     getmaxyx(stack_win, y, x);
 
     x /= 4;
-    y = 2;
+    y = choices.size() + 1;
     
     //wrefresh(stack_win);
     //drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), stack_win, -1);
     //wgetch(stack_win);
     
 	//box(stack_win, 0, 0);
-	for(i = 0; i < 3*n_choices; i++, y++) {
+	for(i = 3*n_choices - 1; i >= 0; i--, y--) {
         if(highlight == i/3 + 1) {
             wattron(stack_win, A_REVERSE); 
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
@@ -205,6 +212,7 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
         wrefresh(window);
     }
     mvprintw(31, 0, "You chose Pancake %d with index %d\n", choice,highlight);
+    refresh();
     wrefresh(window);
     /*
     //blink pancakes,
@@ -216,9 +224,8 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     getch(); //wit for keypress for testing purposes
     */
     // makeMove
-    getch();
 
-    return highlight - 1;
+    return curr_game->getStackSize() - highlight;
 }
 
 /*
@@ -488,21 +495,16 @@ bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
     while (!curr_game->checkWin()) {
         // Player's move
         int player_selection = getFlipSelection(player_window);
-        drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
-        getch();
+        wprintw(player_window, "%i", player_selection);
+        drawStack(stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
         curr_game->moveHuman(player_selection);
-        drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, -1);
-        getch();
+        drawStack(stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, -1);
         
         // AI's Move
         int AI_selection = curr_game->getAIMove();
-        getch();
-        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, AI_selection);
-        getch();
+        drawStack(stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, AI_selection);
         curr_game->moveAI(AI_selection);
-        getch();
-        drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, -1);
-        getch();
+        drawStack(stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, -1);
     }
 
     return getEndInput();
@@ -536,7 +538,7 @@ vector<std::string> GraphicsEngine::stackToString(int* stack, int stackSize) {
 
     vector<std::string> stringStack;
 
-    for(int i = 0; i < stackSize; i++){
+    for(int i = stackSize - 1; i >= 0; i--){
 
 	std::string pancakeString;
 	
