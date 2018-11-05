@@ -53,7 +53,7 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
 
     // Recursively:
     vector<Node*> children;
-    for (int i = 0; i < num_children; i++) {
+    for (int i = 0; i < num_children - 1; i++) {
         vector<int> temp_path = path_so_far;
         temp_path.push_back(i);
         if (func(temp_path) == -10) {    // signal meaning the solution ends the game- make a terminal node

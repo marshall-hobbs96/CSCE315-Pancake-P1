@@ -108,14 +108,34 @@ TEST_CASE( "AI Test calculateMove 4", "[single-file]" ) {
 }
 
 TEST_CASE( "AI Test calculateMove 5", "[single-file]" ) {
-    // Testing minimax tree search at depth 3
-    int* stack = new int[9]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    // Testing minimax tree search at depth 5
+    int* stack = new int[9]{1, 2, 3, 4, 5, 6, 7, 9, 8};
     AI tester(9, stack, 5);
-    int solution = 8;
+    int solution = 7;
     int AImove = tester.calculateMove();
     CHECK( AImove == solution );
 
     int* new_stack = new int[9]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    tester.makeMove(AImove);
+
+    for (int i =0; i < tester.getStackSize(); i++) {
+        CHECK(tester.getStack()[i] == new_stack[i]);
+    }
+
+    delete[] stack;
+    delete[] new_stack;
+    REQUIRE( true );
+}
+
+TEST_CASE( "AI Test calculateMove 6", "[single-file]" ) {
+    // Testing minimax tree search when in reverse order
+    int* stack = new int[5]{3, 2, 4, 5, 1};
+    AI tester(5, stack, 5);
+    int solution = 0;
+    int AImove = tester.calculateMove();
+    CHECK( AImove == solution );
+
+    int* new_stack = new int[5]{1, 2, 3, 4, 5};
     tester.makeMove(AImove);
 
     for (int i =0; i < tester.getStackSize(); i++) {

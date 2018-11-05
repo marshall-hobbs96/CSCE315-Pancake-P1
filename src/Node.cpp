@@ -51,7 +51,7 @@ Node* Node::eval() {
     int shortest_path = sel_Node->getPath().size();
 
     // Search for the min or max
-    if (is_min) {   // Min node
+    //if (is_min) {   // Min node
 
         for (int i = 1; i < (int) children.size(); ++i) {
             Node* temp_node = children[i]->eval();
@@ -62,7 +62,7 @@ Node* Node::eval() {
                 shortest_path = temp_node->getPath().size();
             }
         }
-
+    /*
     }
     else {      // Max node
         cout << "Max node!!!" << endl;
@@ -77,6 +77,7 @@ Node* Node::eval() {
         }
 
     }
+    */
 
     this->value = sel_val;
     return sel_Node;
