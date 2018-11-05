@@ -27,6 +27,7 @@ Player.h - Interface for the Player class
 #include <chrono>
 #include <array>
 #include <unistd.h>
+#include <boost/algorithm/string.hpp>
 #include "MMTree.h"
 
 /************************************************

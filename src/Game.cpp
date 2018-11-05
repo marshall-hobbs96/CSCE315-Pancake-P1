@@ -158,7 +158,48 @@ string Game::getHighScores() {
 void Game::writeScore()
 {
 	//not implemented
+	ifstream scoresFile;
+	scoresFile.open(filename, fstream::in);
+	string scores[5][2];
+	for(int i=0; i<5; i++)
+	{
+		string name, score;
+		getline(scoresFile, scores[i][0]);
+		getline(scoresFile, scores[i][1]);
+	}
+	scoresFile.close();
+	//delete contents of file
+	std::ofstream ofs;
+	ofs.open(filename, std::ofstream::out | std::ofstream::trunc);
+	ofs.close();
 
+	if(scores[0][0] == "")
+	{
+		ofstream fileWrite(filename, std::ios_base::app);
+		fileWrite<<username<<'\n'<<human_score<<'\n';
+		fileWrite.close();
+	}
+	else //sort score into right place then write top 5 to file
+	{
+		ofstream fileWriter(filename, ofstream::out);
+		int sLeft=5;
+		bool inserted = false;
+		for(int i=0; i<sLeft; i++)
+		{
+			if(atoi(scores[i][1].c_str())<=human_score && !inserted)
+			{
+				sLeft--;
+				inserted = true;
+				fileWriter<<username<<'\n'<<human_score<<'\n';
+				fileWriter<<scores[i][0]<<'\n'<<scores[i][1]<<'\n';
+			}
+			else
+			{
+				fileWriter<<scores[i][0]<<'\n'<<scores[i][1]<<'\n';
+			}
+		}
+		fileWriter.close();
+	}
 }
 
 int* Game::gen_rand_stack(int* stack, int stackSize) {
