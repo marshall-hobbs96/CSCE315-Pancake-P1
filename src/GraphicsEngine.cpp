@@ -349,7 +349,8 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
         }
         int diff = c - '0';
         int* result = new int[2]{numCakes,diff};
-
+        printw("\nYou selected %d Pancakes at Difficulty %d. Press any key to continue.",numCakes,diff);
+        getch();
         return result;
     } else {
         if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
