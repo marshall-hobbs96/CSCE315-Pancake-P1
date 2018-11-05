@@ -370,6 +370,7 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
    //printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
 
     int* finalStack = new int[stackSize];
+    int[9] numbers = 0; 
     //std::string stackState = getString();       //string for getting user input
 
     if(stackState.size() == 0){                 //if user just puts enter...generate random order
@@ -397,6 +398,36 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
                 finalStack[finalStackIterator] = temp;
                 finalStackIterator++;
+                numbers[temp - 1] += 1; 
+
+                if(numbers[temp - 1] > 1){
+
+                    printw("initializing random initial stack\n");
+
+                    for(int i = 0; i < stackSize; i++){
+
+                    finalStack[i] = i + 1;              //fill with 1 - n for shuffle
+
+                    }
+
+                    finalStack = gen_rand_stack(finalStack, stackSize);     //shuffle the stack, i.e. random
+                    return finalStack; 
+                }
+
+                else if(temp > stackSize) {
+
+                    printw("initializing random initial stack\n");
+
+                    for(int i = 0; i < stackSize; i++){
+
+                        finalStack[i] = i + 1;              //fill with 1 - n for shuffle
+
+                    }
+
+                    finalStack = gen_rand_stack(finalStack, stackSize);     //shuffle the stack, i.e. random
+                    return finalStack; 
+
+                }
 
             }
         }
