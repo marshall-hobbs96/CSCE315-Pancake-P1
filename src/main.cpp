@@ -48,9 +48,9 @@ int main() {
         ge.drawStack(ge.stackToString(stack, diff[0]), left_window, -1);
         ge.drawStack(ge.stackToString(stack, diff[0]), right_window, -1);
         getch();
-        clear();
 
-        //keep_playing = ge.playGame(left_window, right_window);
+        keep_playing = ge.playGame(left_window, right_window);
+        clear();
 
         delete[] diff;
         delete[] stack;

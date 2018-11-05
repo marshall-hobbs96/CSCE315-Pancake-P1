@@ -27,7 +27,7 @@ int AI::calculateMove() {
 int Helper::operator()(vector<int> path) {
     // Get initial sortedness
     int init_sortedness = ai.getSortedness();
-
+    
     // Do all the flips in order
     for (int move : path) {
         ai.makeMove(move);
@@ -46,7 +46,7 @@ int Helper::operator()(vector<int> path) {
     if (original_score == 0) {       // signal for game-ending score
         return -10;
     }
-
+    
     return score;
 }
 

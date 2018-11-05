@@ -66,15 +66,17 @@ void GraphicsEngine::screenPrompt(std::string text, int line)
 /* Facilitating gameplay in playGame */
 
 void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, int blinkFrom) {
+
+    blinkFrom  = ((blinkFrom + 1)*3) - 1;
     
     wclear(window);
-    if (blinkFrom != -1)
-        attrset(A_BLINK | A_BOLD);
+    // if (blinkFrom != -1)
+    //     attrset(A_BLINK | A_BOLD);
         
     for(int i = 0; i < (int) stringStack.size(); i++ ){
         if (i == blinkFrom - 1) {
-            attroff(A_BLINK);
-            attroff(A_BOLD);
+            //attroff(A_BLINK);
+            //attroff(A_BOLD);
         }
         int rows, cols;
 	    getmaxyx(window, rows, cols);
@@ -84,7 +86,7 @@ void GraphicsEngine::drawStack(vector<std::string> stringStack, WINDOW* window, 
     }
 
     wrefresh(window);
-    if (blinkFrom > -1) sleep(3);
+    //if (blinkFrom > -1) sleep(3);
 
     return;
 }   
@@ -116,16 +118,18 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
 
     int x, y, i;	
 
-	x = 0;
-	y = 0;
+    getmaxyx(stack_win, y, x);
+
+    x /= 4;
+    y = 2;
     
     //wrefresh(stack_win);
     //drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), stack_win, -1);
     //wgetch(stack_win);
     
 	//box(stack_win, 0, 0);
-	for(i = 0; i < n_choices; ++i, ++y) {
-        if(highlight == i + 1) {
+	for(i = 0; i < 3*n_choices; i++, y++) {
+        if(highlight == i/3 + 1) {
             wattron(stack_win, A_REVERSE); 
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
             wattroff(stack_win, A_REVERSE);
@@ -134,7 +138,6 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
         }
 	}
 	wrefresh(stack_win);
-
 
 } 
 
@@ -154,9 +157,12 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
 	cbreak();
 
     keypad(window, TRUE);
-    mvprintw(76, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
-    //wrefresh(window);
+    //mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
+    refresh();
+    wrefresh(window);
     drawSelectionStack(window, highlight, n_choices);
+    refresh();
+    wrefresh(window);
 
     while(1) {	
         c = wgetch(window);
@@ -189,14 +195,18 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
 				choice = highlight;
 				break;
 			default:
-				mvprintw(24, 0, "character digit: %3d, key: '%c'", c, c);
+				mvprintw(30, 0, "character digit: %3d, key: '%c'", c, c);
 				refresh();
 				break;
 		}
+        drawSelectionStack(window, highlight, n_choices);
         if(choice != 0)
 			break;
+        wrefresh(window);
     }
-    mvprintw(23, 0, "You chose Pancake %d with index %d\n", choice,highlight);/*
+    mvprintw(31, 0, "You chose Pancake %d with index %d\n", choice,highlight);
+    wrefresh(window);
+    /*
     //blink pancakes,
     drawStack(choices, window, highlight); //blink pancakes
     timeout(3); //blink for 3 seconds
@@ -206,9 +216,9 @@ int GraphicsEngine::getFlipSelection(WINDOW* window) {
     getch(); //wit for keypress for testing purposes
     */
     // makeMove
-getch();
+    getch();
 
-    return highlight;
+    return highlight - 1;
 }
 
 /*
@@ -440,18 +450,24 @@ bool GraphicsEngine::getEndInput() {
 
 bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
 
-    while (curr_game->checkWin()) {
+    while (!curr_game->checkWin()) {
         // Player's move
         int player_selection = getFlipSelection(player_window);
         drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
+        getch();
         curr_game->moveHuman(player_selection);
         drawStack(curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, -1);
+        getch();
         
         // AI's Move
         int AI_selection = curr_game->getAIMove();
+        getch();
         drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, AI_selection);
+        getch();
         curr_game->moveAI(AI_selection);
+        getch();
         drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), ai_window, -1);
+        getch();
     }
 
     return getEndInput();

@@ -44,8 +44,23 @@ bool Game::checkStackOrder(int *stack, int size)
 
 Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
     human(num_pancakes, starting_order), ai(num_pancakes, starting_order, ai_difficulty),
-    filename(fn), human_score(0), stack_size(num_pancakes)   {}
+    filename(fn), human_score(0), stack_size(num_pancakes)   {
 
+		int* human_stack = new int[num_pancakes];
+		int* ai_stack = new int[num_pancakes];
+		for (int i = 0; i < num_pancakes; i++) {
+			human_stack[i] = starting_order[i];
+			ai_stack[i] = starting_order[i];
+		}
+
+		human = Player(num_pancakes, human_stack);
+		ai = AI(num_pancakes, ai_stack, ai_difficulty);
+	}
+
+Game::~Game() {
+	delete[] human.getStack();
+	delete[] ai.getStack();
+}
 
 int* Game::getHumanStack() {
     return human.getStack();
@@ -56,8 +71,7 @@ int* Game::getAIStack() {
 }
 
 int Game::getStackSize() {
-    // Implementation...
-    return 0;
+    return stack_size;
 }
 
 // For getting the result of AI.calculateMove()

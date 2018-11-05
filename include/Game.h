@@ -40,6 +40,7 @@ public:
     string username;
     // For starting the game:
     Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
+    ~Game();
     int* generateStack(int stackSize, std::string stackState, bool test);
     int getDifficulty();
     int getScore();

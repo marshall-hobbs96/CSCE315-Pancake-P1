@@ -14,13 +14,7 @@ Player.cpp - Implementations for Player class (making moves, returning the stack
 #include "Player.h"
 
 Player::Player(int num_pancakes, int* order) :
-    stack_size(num_pancakes)
-{
-    stack = new int[num_pancakes];
-    for (int i = 0; i < num_pancakes; ++i) {
-        stack[i] = order[i];
-    }
-}
+    stack_size(num_pancakes), stack(order) {}
 
 int* Player::getStack() {
     return stack;
@@ -76,7 +70,8 @@ int Player::getSortedness() {
 
     return count;
 }
-
+/*
 Player::~Player() {
     delete[] stack;
 }
+*/
