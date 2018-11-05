@@ -108,21 +108,9 @@ void GraphicsEngine::drawStack(std::string stringStack, int stackSize, WINDOW* w
     return;
 }  */
 
-void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices) {
-    //std::string choices[] = {"REPLACE"};
-    //std::string choices[] = curr_game->stackToString(curr_game->getHumanStack(), curr_game->getStackSize());
-    //char* choices =
+void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int numChoices) {
     vector<std::string> choices;
     choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
-
-    //reverse(choices.begin(), choices.end());
-
-    /*char choices[curr_game->getStackSize()];
-    for (int i = 0; i < curr_game->getStackSize(); ++i) {
-        choices[i] = s_choices.at(i).c_str();
-    }*/
-
-
     int x, y, i;
 
     getmaxyx(stack_win, y, x);
@@ -130,14 +118,9 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
     x /= 4;
     y = choices.size() + 1;
 
-    //wrefresh(stack_win);
-    //drawStack(curr_game->stackToString(curr_game->getAIStack(), curr_game->getStackSize()), stack_win, -1);
-    //wgetch(stack_win);
-
-	//box(stack_win, 0, 0);
-	for(i = 3*n_choices - 1; i >= 0; i--, y--) {
+	for(i = 3*numChoices - 1; i >= 0; i--, y--) { // draw stack from bottom up
         if(highlight == i/3 + 1) {
-            wattron(stack_win, A_REVERSE);
+            wattron(stack_win, A_REVERSE);  // toggle highlight effect
             mvwprintw(stack_win, y, x, "%s", choices[i].c_str());
             wattroff(stack_win, A_REVERSE);
         } else {
@@ -148,84 +131,75 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int n_
 
 }
 
-int GraphicsEngine::getFlipSelection(WINDOW* window) {
-    // Implementation
-    // comment test
-    //char* choices[] =
-    vector<std::string> choices;
-    choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
-    int n_choices = (this->curr_game->getStackSize());
-    int highlight = 1;
-	int choice = 0;
-	int c;
-
-
-	noecho();
-	cbreak();
-
-    keypad(window, TRUE);
-    //mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
-    refresh();
-    wrefresh(window);
-    drawSelectionStack(window, highlight, n_choices);
-    refresh();
-    wrefresh(window);
-
+int GraphicsEngine::keyPadInput(WINDOW* window, int highlight, int numChoices) {
+    int choice = 0;
+    int c;
     while(1) {
-        c = wgetch(window);
+        c = wgetch(window); //get keystroke
 		switch(c) {
-            case KEY_UP:
+            case KEY_UP:        // up arrow pressed
 				if(highlight == 1)
-					highlight = n_choices;
+					highlight = numChoices;
 				else
 					--highlight;
 				break;
-			case KEY_DOWN:
-				if(highlight == n_choices)
+			case KEY_DOWN:      // down arrow pressed
+				if(highlight == numChoices)
 					highlight = 1;
 				else
 					++highlight;
 				break;
-			case 119:
+			case 119:           // w key pressed
 				if(highlight == 1)
-					highlight = n_choices;
+					highlight = numChoices;
 				else
 					--highlight;
 				break;
-			case 115:
-				if(highlight == n_choices)
+			case 115:           // d key pressed
+				if(highlight == numChoices)
 					highlight = 1;
 				else
 					++highlight;
 				break;
-			case 10:
+			case 10:            //  enter key pressed 
 				choice = highlight;
 				break;
 			default:
-				mvprintw(30, 0, "character digit: %3d, key: '%c'", c, c);
+				mvprintw(30, 0, "Invalid character.");
 				refresh();
 				break;
 		}
-        drawSelectionStack(window, highlight, n_choices);
-        if(choice != 0)
+        drawSelectionStack(window, highlight, numChoices); // draw stack with updated highlighter position
+        if(choice != 0)         // end loop when a selection is made
 			break;
         wrefresh(window);
     }
-    mvprintw(31, 0, "You chose Pancake %d with index %d\n", choice,highlight);
+    return highlight;
+}
+
+int GraphicsEngine::getFlipSelection(WINDOW* window) {
+    vector<std::string> choices;
+    choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
+    int numChoices = (this->curr_game->getStackSize());
+    int highlight = 1;
+	noecho();
+	cbreak();
+    keypad(window, TRUE);
+
+    //mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
     refresh();
     wrefresh(window);
-    /*
-    //blink pancakes,
-    drawStack(choices, window, highlight); //blink pancakes
-    timeout(3); //blink for 3 seconds
-    this->curr_game->moveHuman(highlight);
-    drawStack(choices, window,highlight); //draw updated stack
-    mvprintw(20, 0, "Press any key to ");
-    getch(); //wit for keypress for testing purposes
-    */
-    // makeMove
 
-    return curr_game->getStackSize() - highlight;
+    drawSelectionStack(window, highlight, numChoices); //Draw initial stack with highlighter at first position
+    refresh();
+    wrefresh(window);
+    
+    highlight = keyPadInput(window, highlight, numChoices); //Accept keypad entry
+    mvprintw(31, 0, "You chose the Pancake at position %d\n",highlight);
+    refresh();
+    wrefresh(window);
+
+    return curr_game->getStackSize() - highlight; //return the adjusted selection
 }
 
 /*
@@ -328,10 +302,10 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
     noecho();
     refresh();
 
-    if (!test) {
+    if (!test) { // non test case
         char c;
         printw("Enter a number of pancakes from 2 to 9: ");
-        while(!isWithinRange((c = getch()),2,9)) {
+        while(!isWithinRange((c = getch()),2,9)) { // get num pancakes from keyboard
             printw("%c\n",c);
             clear();
             printw("Enter a number of pancakes from 2 to 9: ");
@@ -342,7 +316,7 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
         printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
         printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
 
-        while(!isWithinRange((c = getch()),1,numCakes)) {
+        while(!isWithinRange((c = getch()),1,numCakes)) { // get difficulty from keyboard
             clear();
             printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
             printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
@@ -352,7 +326,7 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
         printw("\nYou selected %d Pancakes at Difficulty %d. Press any key to continue.",numCakes,diff);
         getch();
         return result;
-    } else {
+    } else { //test case
         if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
             int* result = new int[2]{(testA - '0'), (testB - '0')};
             return result;
