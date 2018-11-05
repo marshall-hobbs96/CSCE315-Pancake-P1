@@ -366,16 +366,10 @@ int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
 
 int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
-
-   //printw("Please specify initial stack order, i.e. 1, 2, 3, 4,.., n. Press enter for random order\n");
-
     int* finalStack = new int[stackSize];
     int[9] numbers = 0; 
-    //std::string stackState = getString();       //string for getting user input
 
     if(stackState.size() == 0){                 //if user just puts enter...generate random order
-
-        printw("initializing random initial stack\n");
 
         for(int i = 0; i < stackSize; i++){
 
@@ -388,7 +382,6 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
     }
 
     else {
-        printw("initializing predefined stack\n");
         int finalStackIterator = 0;                             //for iterating through the string, pulling ints
         for(int i = 0; i < (int) stackState.size(); i++){              //iterate through the user input string
 
@@ -402,8 +395,6 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
                 if(numbers[temp - 1] > 1){
 
-                    printw("initializing random initial stack\n");
-
                     for(int i = 0; i < stackSize; i++){
 
                     finalStack[i] = i + 1;              //fill with 1 - n for shuffle
@@ -415,8 +406,6 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
                 }
 
                 else if(temp > stackSize) {
-
-                    printw("initializing random initial stack\n");
 
                     for(int i = 0; i < stackSize; i++){
 
@@ -434,8 +423,6 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
         if (finalStackIterator != (stackSize)) {            //stacksize is 5 and user put 1 2 3 4 or something like that
 
-            printw("initializing random initial stack\n");
-
             for(int i = 0; i < stackSize; i++){
 
                 finalStack[i] = i + 1;              //fill with 1 - n for shuffle
@@ -448,9 +435,7 @@ int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
 
     }
 
-
    return finalStack;
-
 
 }
 
