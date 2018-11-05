@@ -55,15 +55,17 @@ Node* Node::eval() {
 
         for (int i = 1; i < (int) children.size(); ++i) {
             Node* temp_node = children[i]->eval();
-            bool short_enough = (int) temp_node->getPath().size() <= shortest_path;
-            if (temp_node->value < sel_val && short_enough) {
+            bool short_enough = ((int) temp_node->getPath().size()) <= shortest_path;
+            if (temp_node->value <= sel_val && short_enough) {
                 sel_val = temp_node->value;
                 sel_Node = temp_node;
+                shortest_path = temp_node->getPath().size();
             }
         }
 
     }
     else {      // Max node
+        cout << "Max node!!!" << endl;
 
         for (int i = 1; i < (int) children.size(); ++i) {
             Node* temp_node = children[i]->eval();

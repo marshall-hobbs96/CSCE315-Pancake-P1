@@ -86,3 +86,43 @@ TEST_CASE( "AI Test calculateMove 3", "[single-file]" ) {
     delete[] new_stack;
     REQUIRE( true );
 }
+
+TEST_CASE( "AI Test calculateMove 4", "[single-file]" ) {
+    // Testing minimax tree search at depth 3
+    int* stack = new int[4]{1, 3, 4, 2};
+    AI tester(4, stack, 4);
+    int solution = 1;
+    int AImove = tester.calculateMove();
+    CHECK( AImove == solution );
+
+    int* new_stack = new int[4]{1, 2, 4, 3};
+    tester.makeMove(AImove);
+
+    for (int i =0; i < tester.getStackSize(); i++) {
+        CHECK(tester.getStack()[i] == new_stack[i]);
+    }
+
+    delete[] stack;
+    delete[] new_stack;
+    REQUIRE( true );
+}
+
+TEST_CASE( "AI Test calculateMove 5", "[single-file]" ) {
+    // Testing minimax tree search at depth 3
+    int* stack = new int[9]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    AI tester(9, stack, 5);
+    int solution = 8;
+    int AImove = tester.calculateMove();
+    CHECK( AImove == solution );
+
+    int* new_stack = new int[9]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    tester.makeMove(AImove);
+
+    for (int i =0; i < tester.getStackSize(); i++) {
+        CHECK(tester.getStack()[i] == new_stack[i]);
+    }
+
+    delete[] stack;
+    delete[] new_stack;
+    REQUIRE( true );
+}

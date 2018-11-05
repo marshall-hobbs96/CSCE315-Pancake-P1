@@ -57,10 +57,10 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
         vector<int> temp_path = path_so_far;
         temp_path.push_back(i);
         if (func(temp_path) == -10) {    // signal meaning the solution ends the game- make a terminal node
-            children.push_back(make_tree(func, 0, num_children, !is_minimum, temp_path));
+            children.push_back(make_tree(func, 0, num_children, is_minimum, temp_path));
         }
         else {
-            children.push_back(make_tree(func, d-1, num_children, !is_minimum, temp_path));
+            children.push_back(make_tree(func, d-1, num_children, is_minimum, temp_path));
         }
     }
 
