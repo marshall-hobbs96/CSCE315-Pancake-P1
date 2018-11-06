@@ -420,10 +420,28 @@ int* GraphicsEngine::getOrderInput(int stackSize) {
 
 int* GraphicsEngine::gen_rand_stack(int* stack, int stackSize) {
 
-   std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
-   int* resultStack = stack;
-   std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
-   return resultStack;
+    bool not_shuffled = true;
+     int* resultStack = stack; 
+    while(not_shuffled){
+        std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
+        std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
+
+	    for(int i =0; i<stackSize; i++)
+	    {
+		    if(stack[i]!=(stackSize-i)){
+			    not_shuffled = true;
+            }
+
+            else{
+
+                not_shuffled = false; 
+
+            }
+	    }
+
+    }
+
+    return resultStack;
 
 }
 
