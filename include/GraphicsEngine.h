@@ -31,9 +31,6 @@ private:
     // Helpers for drawing certain screens:
     void drawInstructions();      // to show the player how to play
 	void screenPrompt(std::string text, int line);
-
-    // Facilitating gameplay in playGame:
-    int getFlipSelection(WINDOW* window);
     // void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
 public:
@@ -44,6 +41,8 @@ public:
     ~GraphicsEngine();
     void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
     void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
+    int getFlipSelection(WINDOW* window, int testVal,int testStackSize);
+    int keyPadInput(WINDOW* window, int highlight, int numChoices);
     int* generateStack(int stackSize, std::string stackState);
     // For drawing various screens:
     void drawSplashScreen();
@@ -55,7 +54,8 @@ public:
     // For getting input from various screens:
     bool getSplashInput();
     bool isWithinRange(char arg, int a, int b);
-    int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
+    int* getDifficultyInput();  
+    int* getDifficultyInput(char testA, char testB);      // overloaded for test
                                     // so size of next array is determined...
     int* getOrderInput(int stackSize);
     std::string getScoresInput();

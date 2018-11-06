@@ -5,14 +5,15 @@ To compile the main program:
 
 To run:
 
-> ./main
+> bin/main
 
-To compile the test classes, for example, GraphicsEngine, run:
+To compile all the test suites, run:
 
-> make test_GraphicsEngine
+> make test
 
-To run all the test cases:
+Warning: it takes a while. 
+To run all the test cases in a particular class (not MMTree):
 
-> test/test_GraphicsEngine
+> bin/test_<class name>
 
 Enjoy!

@@ -9,6 +9,11 @@ McLain Johnson
 Troy Fulton
 
 AI.h - Interface for the Artificial Intelligence Player class
+
+The AI also has a helper class that inherits from it so that
+when the AI needs to evaluate the tree, it can use a helper functor
+which can make "imaginary" moves on its stack and put it right 
+back to see the sortedness advatage of each sequence of moves.
 */
 
 #ifndef __AI__        // For #including more than once
@@ -39,7 +44,7 @@ public:
 };
 
 
-
+// Functor for implementing the utility function
 class Helper {
     AI ai;
 public:

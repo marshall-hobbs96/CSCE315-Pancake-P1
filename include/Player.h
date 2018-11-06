@@ -48,6 +48,7 @@ public:
     int getSortedness();
 
     Player(int num_pancakes, int* order);
+    //~Player();
 };
 
 #endif

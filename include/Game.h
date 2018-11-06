@@ -35,7 +35,7 @@ private:
 
     // To check if a stack is in order (for checkWin and generateStack)
     bool checkStackOrder(int *stack, int size);
-
+    void sortInsertScore(string scores[5][2]);
 public:
     string username;
     // For starting the game:

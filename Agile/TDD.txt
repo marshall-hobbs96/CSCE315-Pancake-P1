@@ -1,3 +1,5 @@
+*** Graders can ignore this file ***
+
 In this file, keep notes about the tests you are writing that
 might be useful to other team members.
 

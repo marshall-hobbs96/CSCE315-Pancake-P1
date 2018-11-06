@@ -20,10 +20,11 @@ AI::AI(int num_pancakes, int* order, int diff) :
 int AI::calculateMove() {
     Helper h(*this);
     MMTree<Helper> mmt(h, difficulty, stack_size);
+    //mmt.print();
     return mmt.bestMove();
 }
 
-// Utility function:
+// Utility function for the minimax tree:
 int Helper::operator()(vector<int> path) {
     // Get initial sortedness
     int init_sortedness = ai.getSortedness();
