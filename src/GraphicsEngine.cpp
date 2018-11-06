@@ -131,74 +131,64 @@ void GraphicsEngine::drawSelectionStack(WINDOW* stack_win, int highlight, int nu
 
 }
 
+
+
 int GraphicsEngine::keyPadInput(WINDOW* window, int highlight, int numChoices) {
-    int choice = 0;
-    int c;
+    int c, choice = 0;
+    
     while(1) {
         c = wgetch(window); //get keystroke
 		switch(c) {
-            case KEY_UP:        // up arrow pressed
-				if(highlight == 1)
-					highlight = numChoices;
-				else
-					--highlight;
-				break;
-			case KEY_DOWN:      // down arrow pressed
-				if(highlight == numChoices)
-					highlight = 1;
-				else
-					++highlight;
-				break;
-			case 119:           // w key pressed
-				if(highlight == 1)
-					highlight = numChoices;
-				else
-					--highlight;
-				break;
-			case 115:           // d key pressed
-				if(highlight == numChoices)
-					highlight = 1;
-				else
-					++highlight;
-				break;
+            case KEY_UP:        // up arrow  or w pressed
+            case 119:
+            highlight = (highlight == 1) ? numChoices : highlight - 1;
+		        break;
+			case KEY_DOWN:      // down arrow or s key pressed
+            case 115:
+                highlight = (highlight == numChoices) ? 1 : highlight + 1;
+                break;
 			case 10:            //  enter key pressed 
-				choice = highlight;
-				break;
+				choice = highlight; 
+                break;
 			default:
-				mvprintw(30, 0, "Invalid character.");
-				refresh();
-				break;
+				mvprintw(31, 0, "Invalid character.");
+				refresh(); 
+                break;
 		}
         drawSelectionStack(window, highlight, numChoices); // draw stack with updated highlighter position
-        if(choice != 0)         // end loop when a selection is made
-			break;
+        if(choice != 0) 
+            break;
         wrefresh(window);
     }
     return highlight;
 }
 
-int GraphicsEngine::getFlipSelection(WINDOW* window) {
-    vector<std::string> choices;
-    choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
-    int numChoices = (this->curr_game->getStackSize());
+int GraphicsEngine::getFlipSelection(WINDOW* window, int testVal) {
     int highlight = 1;
-	noecho();
-	cbreak();
-    keypad(window, TRUE);
+    if (testVal == -1) {
+        vector<std::string> choices;
+        choices = stackToString(curr_game->getHumanStack(),curr_game->getStackSize());
+        int numChoices = (this->curr_game->getStackSize());
+        noecho();
+        cbreak();
+        keypad(window, TRUE);
 
-    //mvprintw(0, 0, "Use the Arrow Keys (or WASD) to go up and down, then Press Enter to select a Pancake to insert the spatula below to flip:");
-    refresh();
-    wrefresh(window);
+        mvprintw(30, 0, "Use the Arrow Keys (or WASD) to go up and down,");
+        mvprintw(31, 0, "then Press Enter to select a Pancake to insert the spatula below to flip.");
+        refresh();
+        wrefresh(window);
 
-    drawSelectionStack(window, highlight, numChoices); //Draw initial stack with highlighter at first position
-    refresh();
-    wrefresh(window);
-    
-    highlight = keyPadInput(window, highlight, numChoices); //Accept keypad entry
-    mvprintw(31, 0, "You chose the Pancake at position %d\n",highlight);
-    refresh();
-    wrefresh(window);
-
+        drawSelectionStack(window, highlight, numChoices); //Draw initial stack with highlighter at first position
+        refresh();
+        wrefresh(window);
+        
+        highlight = keyPadInput(window, highlight, numChoices); //Accept keypad entry
+        mvprintw(33, 0, "You chose the Pancake at position %d\n",highlight);
+        refresh();
+        wrefresh(window);
+    } else { // test case
+        highlight = testVal;
+    }
     return curr_game->getStackSize() - highlight; //return the adjusted selection
 }
 
@@ -295,47 +285,52 @@ bool GraphicsEngine::isWithinRange(char arg, int a, int b) {
         return true;
     return false;
 }
+int* GraphicsEngine::getDifficultyInput() {
+    clear();
+    noecho();
+    refresh();
 
-int* GraphicsEngine::getDifficultyInput(bool test, char testA, char testB) {
+    char c;
+    printw("Enter a number of pancakes from 2 to 9: ");
+    while(!isWithinRange((c = getch()),2,9)) { // get num pancakes from keyboard
+        printw("%c\n",c);
+        clear();
+        printw("Enter a number of pancakes from 2 to 9: ");
+    }
+    int numCakes = c - '0';
+    clear();
+    printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+    printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+
+    while(!isWithinRange((c = getch()),1,numCakes)) { // get difficulty from keyboard
+        clear();
+        printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
+        printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
+    }
+    int diff = c - '0';
+    int* result = new int[2]{numCakes,diff};
+    printw("\nYou selected %d Pancakes at Difficulty %d. Press any key to continue.",numCakes,diff);
+    getch();
+    return result;
+
+
+   return NULL;
+
+
+}
+
+int* GraphicsEngine::getDifficultyInput(char testA, char testB) { //overloaded for test
 
     clear();
     noecho();
     refresh();
 
-    if (!test) { // non test case
-        char c;
-        printw("Enter a number of pancakes from 2 to 9: ");
-        while(!isWithinRange((c = getch()),2,9)) { // get num pancakes from keyboard
-            printw("%c\n",c);
-            clear();
-            printw("Enter a number of pancakes from 2 to 9: ");
-
-        }
-        int numCakes = c - '0';
-        clear();
-        printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
-        printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
-
-        while(!isWithinRange((c = getch()),1,numCakes)) { // get difficulty from keyboard
-            clear();
-            printw("Enter a number of pancakes from 2 to 9: %d",numCakes);
-            printw("\nEnter a difficulty level from 1 to %d: ",numCakes);
-        }
-        int diff = c - '0';
-        int* result = new int[2]{numCakes,diff};
-        printw("\nYou selected %d Pancakes at Difficulty %d. Press any key to continue.",numCakes,diff);
-        getch();
+    if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
+        int* result = new int[2]{(testA - '0'), (testB - '0')};
         return result;
-    } else { //test case
-        if (isWithinRange(testA,2,9) && isWithinRange(testB,1,(testA - '0'))) {
-            int* result = new int[2]{(testA - '0'), (testB - '0')};
-            return result;
-        } else {
-            return NULL;
-        }
+    } else {
+        return NULL;
     }
-
-   return NULL;
 }
 
 int* GraphicsEngine::generateStack(int stackSize, std::string stackState) {
@@ -485,7 +480,7 @@ bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
 
     while (!curr_game->checkWin()) {
         // Player's move
-        int player_selection = getFlipSelection(player_window);
+        int player_selection = getFlipSelection(player_window,-1);
         wprintw(player_window, "%i", player_selection);
         drawStack(stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
         curr_game->moveHuman(player_selection);
