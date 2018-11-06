@@ -129,13 +129,13 @@ TEST_CASE( "AI Test calculateMove 5", "[single-file]" ) {
 
 TEST_CASE( "AI Test calculateMove 6", "[single-file]" ) {
     // Testing minimax tree search when in reverse order
-    int* stack = new int[5]{3, 2, 4, 5, 1};
+    int* stack = new int[5]{1, 2, 3, 4, 5};
     AI tester(5, stack, 5);
     int solution = 0;
     int AImove = tester.calculateMove();
     CHECK( AImove == solution );
 
-    int* new_stack = new int[5]{1, 2, 3, 4, 5};
+    int* new_stack = new int[5]{5, 4, 3, 2, 1};
     tester.makeMove(AImove);
 
     for (int i =0; i < tester.getStackSize(); i++) {
