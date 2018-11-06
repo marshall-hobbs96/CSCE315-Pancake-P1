@@ -23,7 +23,9 @@ GraphicsEngine.o: Game.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses1 -I include -c src/GraphicsEngine.cpp
 
 # Tests:
-# ... finished making tests
+
+test: test_AI test_Game test_Node test_Player
+	# ... finished making tests
 
 test_AI: AI.o Player.o Node.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_AI AI.o Player.o Node.o test/test_AI.cpp 

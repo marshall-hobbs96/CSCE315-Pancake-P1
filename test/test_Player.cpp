@@ -32,7 +32,7 @@ TEST_CASE( "Player Test makeMove 1", "[single-file]" ) {
     // Set up tester and solution
     int* stack = new int[5]{1, 2, 4, 3, 5};
     int* solution = new int[5]{1, 2, 5, 3, 4};
-    Player tester(5, stack, "Me");
+    Player tester(5, stack);
     int move = 2;
 
     // Get original size, make move, and get new stack
@@ -59,7 +59,7 @@ TEST_CASE( "Player Test makeMove 2", "[single-file]" ) {
     // Set up tester and solution
     int* stack = new int[6]{1, 2, 6, 3, 4, 5};
     int* solution = new int[6]{1, 2, 5, 4, 3, 6};
-    Player tester(6, stack, "Me");
+    Player tester(6, stack);
     int move = 2;
 
     // Get original size, make move, and get new stack
@@ -86,7 +86,7 @@ TEST_CASE( "Player Test makeMove 3", "[single-file]" ) {
     // Set up tester and solution
     int* stack = new int[2]{1, 2};
     int* solution = new int[2]{2, 1};
-    Player tester(2, stack, "Me");
+    Player tester(2, stack);
     int move = 0;
 
     // Get original size, make move, and get new stack
@@ -113,7 +113,7 @@ TEST_CASE( "Player Test makeMove 4", "[single-file]" ) {
     // Set up tester and solution
     int* stack = new int[9]{1, 2, 3, 4, 9, 8, 7, 6, 5};
     int* solution = new int[9]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-    Player tester(9, stack, "Me");
+    Player tester(9, stack);
     int move = 4;
 
     // Get original size, make move, and get new stack
@@ -139,12 +139,12 @@ TEST_CASE( "Player Test getSortedness 1", "[single-file]" ) {
     
     // Set up tester and solution
     int* stack = new int[6]{6, 5, 4, 3, 2, 1};
-    int solution = 1;
-    Player tester(6, stack, "Me");
+    int solution = 0;
+    Player tester(6, stack);
 
     // Check that the size has not changed
     int original_size = tester.getStackSize();
-    int sortedness = tester.getSortedness(stack);
+    int sortedness = tester.getSortedness();
     int new_size = tester.getStackSize();
     CHECK(original_size == new_size);
 
@@ -161,12 +161,12 @@ TEST_CASE( "Player Test getSortedness 2", "[single-file]" ) {
     
     // Set up tester and solution
     int* stack = new int[7]{7, 2, 4, 3, 1, 6, 5};
-    int solution = 5;
-    Player tester(7, stack, "Me");
+    int solution = 4;
+    Player tester(7, stack);
 
     // Check that the size has not changed
     int original_size = tester.getStackSize();
-    int sortedness = tester.getSortedness(stack);
+    int sortedness = tester.getSortedness();
     int new_size = tester.getStackSize();
     CHECK(original_size == new_size);
 
