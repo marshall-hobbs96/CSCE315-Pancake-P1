@@ -207,6 +207,8 @@ GraphicsEngine::GraphicsEngine() {
     curr_game = new Game(0, 1, "scores.txt", NULL);
 }
 
+GraphicsEngine::GraphicsEngine(Game* g) : curr_game(g) {}
+
 GraphicsEngine::~GraphicsEngine() {
     delete curr_game;
 }
