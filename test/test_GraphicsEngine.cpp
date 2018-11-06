@@ -59,7 +59,8 @@ bool compare_files(const std::string& filename1, const std::string& filename2)
  ***************************************************/
 
 TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
-    Game* g = new Game(5, 3, "scores.db", NULL);
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.db", exStack);
     GraphicsEngine ge(g);
 
     // Show the screen
@@ -86,11 +87,14 @@ TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
 
     
     // Returns true even if one of the files is missing!
+    delete g;
+    //delete[] exStack;
     REQUIRE_NOTHROW(compare_files(key_name, response_name));
 }
 
 TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
-    Game* g = new Game(5, 3, "scores.db", NULL);
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.txt",exStack);
     GraphicsEngine ge(g);
 
     int* result1;
@@ -103,20 +107,22 @@ TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
     CHECK(diff1 == 4);
   
     int* result2;
-    result2 = ge.getDifficultyInput('8','2');
+    result2 = ge.getDifficultyInput('4','2');
     int numCakes2, diff2 = 0;
     numCakes2 = *result2;
     diff2 = *(result2 + 1);
 
-    CHECK(numCakes2 == 8);
+    CHECK(numCakes2 == 4);
     CHECK(diff2 == 2);
 
-    delete g;
+    //delete[] exStack;
     REQUIRE(true);
+    delete g;
 }
 
 TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
-    Game* g = new Game(5, 3, "scores.db", NULL);
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.txt", exStack);
     GraphicsEngine ge(g);
 
     int* result3;
@@ -129,34 +135,37 @@ TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
     CHECK(diff3 == 2);
 
     int* result4;
-    result4 = ge.getDifficultyInput('9','2');
+    result4 = ge.getDifficultyInput('3','2');
     int numCakes4, diff4 = 0;
     numCakes4 = *result4;
     diff4 = *(result4 + 1);
 
-    CHECK(numCakes4 == 9);
+    CHECK(numCakes4 == 3);
     CHECK(diff4 == 2);
 
-    delete g;
+
+    //delete[] exStack;
     REQUIRE(true);
+    delete g;
 }
 
 TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
-    Game* g = new Game(5, 3, "scores.db", NULL);
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.txt", exStack);
     GraphicsEngine ge(g);
     WINDOW* testWindow;
     int result;
 
-    result = ge.getFlipSelection(testWindow,1);
+    result = ge.getFlipSelection(testWindow,1,6);
+    CHECK(result == 5);
+
+    result = ge.getFlipSelection(testWindow,2,6);
+    CHECK(result == 4);
+
+    result = ge.getFlipSelection(testWindow,5,6);
     CHECK(result == 1);
-
-    result = ge.getFlipSelection(testWindow,2);
-    CHECK(result == 2);
-
-    result = ge.getFlipSelection(testWindow,2);
-    CHECK(result == 8);
-    delete g;
-
+    //delete[] exStack;
     REQUIRE(true);
+    delete g;
     
 }

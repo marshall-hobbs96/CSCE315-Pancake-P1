@@ -41,7 +41,7 @@ public:
     ~GraphicsEngine();
     void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
     void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
-    int getFlipSelection(WINDOW* window, int testVal);
+    int getFlipSelection(WINDOW* window, int testVal,int testStackSize);
     int keyPadInput(WINDOW* window, int highlight, int numChoices);
     int* generateStack(int stackSize, std::string stackState);
     // For drawing various screens:

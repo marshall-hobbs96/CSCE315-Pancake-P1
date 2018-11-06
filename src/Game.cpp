@@ -78,6 +78,7 @@ Game::~Game() {
 	delete[] ai.getStack();
 }
 
+
 int* Game::getHumanStack() {
     return human.getStack();
 }

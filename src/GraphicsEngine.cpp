@@ -163,7 +163,7 @@ int GraphicsEngine::keyPadInput(WINDOW* window, int highlight, int numChoices) {
     return highlight;
 }
 
-int GraphicsEngine::getFlipSelection(WINDOW* window, int testVal) {
+int GraphicsEngine::getFlipSelection(WINDOW* window, int testVal, int testStackSize) {
     int highlight = 1;
     if (testVal == -1) {
         vector<std::string> choices;
@@ -186,10 +186,12 @@ int GraphicsEngine::getFlipSelection(WINDOW* window, int testVal) {
         mvprintw(33, 0, "You chose the Pancake at position %d\n",highlight);
         refresh();
         wrefresh(window);
+        return curr_game->getStackSize() - highlight; //return the adjusted selection
     } else { // test case
         highlight = testVal;
+        return testStackSize - highlight; //return the adjusted selection
     }
-    return curr_game->getStackSize() - highlight; //return the adjusted selection
+    //return curr_game->getStackSize() - highlight; //return the adjusted selection
 }
 
 /*
@@ -500,7 +502,7 @@ bool GraphicsEngine::playGame(WINDOW* player_window, WINDOW* ai_window) {
 
     while (!curr_game->checkWin()) {
         // Player's move
-        int player_selection = getFlipSelection(player_window,-1);
+        int player_selection = getFlipSelection(player_window,-1,-1);
         wprintw(player_window, "%i", player_selection);
         drawStack(stackToString(curr_game->getHumanStack(), curr_game->getStackSize()), player_window, player_selection);
         curr_game->moveHuman(player_selection);
