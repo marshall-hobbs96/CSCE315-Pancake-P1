@@ -32,43 +32,55 @@ TEST_CASE("Case1: Test AI Sorted & User stack not sorted")
 {
 	int difficulty = 4;
 	int n = 5;
-	int ai[] = {5,4,3,2,1};
-	int user[] = {1,3,4,5,2};
-	Game g(n, difficulty, "scores.txt", NULL);
+	int* ai= new int[5]{5,4,3,2,1};
+	int* user = new int[5]{1,3,4,5,2};
+	Game g(n, difficulty, "scores.txt", ai);
 
 	CHECK(g.computeScore(difficulty, n, user, ai)==n);
+	delete[] ai;
+	delete[] user;
+	REQUIRE(true);
 }
 TEST_CASE("Case2: Test AI Sorted & User stack sorted")
 {
-  difficulty = 4;
-  n = 5;
-  int ai1[] = {5,4,3,2,1};
-  int user1[] = {5,4,3,2,1};
-  Game g(n, difficulty, "scores.txt", NULL);
+  int difficulty = 4;
+  int n = 5;
+  int* ai1 = new int[n]{5,4,3,2,1};
+  int* user1 = new int[n]{5,4,3,2,1};
+  Game g(n, difficulty, "scores.txt", ai1);
 
-  CHECK(computeScore(difficulty,n ,user1, ai1)==(n*(difficulty+1)));
+  CHECK(g.computeScore(difficulty,n ,user1, ai1)==(n*(difficulty+1)));
+	delete[] ai1;
+	delete[] user1;
+	REQUIRE(true);
 }
 
 TEST_CASE("Case3: Test AI not Sorted & User stack sorted")
 {
-  difficulty = 4;
-  n = 5;
-  int ai2[] = {5,3,4,2,1};
-  int user2[] = {5,4,3,2,1};
-  Game g(n, difficulty, "scores.txt", NULL);
-  CHECK(computeScore(difficulty,n ,user2, ai2)==(2*n*(difficulty+1)));
+  int difficulty = 4;
+  int n = 5;
+  int* ai2 = new int[n]{5,3,4,2,1};
+  int* user2 = new int[n]{5,4,3,2,1};
+  Game g(n, difficulty, "scores.txt", ai2);
+  CHECK(g.computeScore(difficulty,n ,user2, ai2)==(2*n*(difficulty+1)));
+	delete[] ai2;
+	delete[] user2;
+	REQUIRE(true);
 }
 
 TEST_CASE("Case4: Test AI not Sorted & User stack not sorted"){
-  difficulty = 4;
-  n = 5;
-  int ai3[] = {5,3,4,2,1};
-  int user3[] = {5,4,3,1,2};
-  Game g(n, difficulty, "scores.txt", NULL);
-  CHECK(computeScore(difficulty,n ,user3, ai3)==-1);
+  int difficulty = 4;
+  int n = 5;
+  int* ai3 = new int[n]{5,3,4,2,1};
+  int* user3 = new int[n]{5,4,3,1,2};
+  Game g(n, difficulty, "scores.txt", ai3);
+  CHECK(g.computeScore(difficulty,n ,user3, ai3)==-1);
+	delete[] ai3;
+	delete[] user3;
+	REQUIRE(true);
 }
 
-
+/*
 TEST_CASE("Testing whether pancakeStack in int form converts to string successfully. stackToString"){
 
     int stackSize = 9;
@@ -82,3 +94,4 @@ TEST_CASE("Testing whether pancakeStack in int form converts to string successfu
     delete stack;
 
 }
+*/
