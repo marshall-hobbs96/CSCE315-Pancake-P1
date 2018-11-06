@@ -59,7 +59,7 @@ bool compare_files(const std::string& filename1, const std::string& filename2)
  ***************************************************/
 
 TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
-    Game g(5, 3, "scores.db", NULL);
+    Game* g = new Game(5, 3, "scores.db", NULL);
     GraphicsEngine ge(g);
 
     // Show the screen
@@ -145,7 +145,6 @@ TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
     Game* g = new Game(5, 3, "scores.db", NULL);
     GraphicsEngine ge(g);
     WINDOW* testWindow;
-    int testFlipValue = 1;
     int result;
 
     result = ge.getFlipSelection(testWindow,1);
