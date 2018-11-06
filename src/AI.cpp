@@ -24,7 +24,7 @@ int AI::calculateMove() {
     return mmt.bestMove();
 }
 
-// Utility function:
+// Utility function for the minimax tree:
 int Helper::operator()(vector<int> path) {
     // Get initial sortedness
     int init_sortedness = ai.getSortedness();

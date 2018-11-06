@@ -9,6 +9,10 @@ McLain Johnson
 Troy Fulton
 
 MMTree.h - Interface for the Minimax Tree Implementation
+
+This templated Class depends on the Node class and implements a "minimin" tree
+(a mimimax tree with all min nodes). It is templated because it takes the
+utility function as a template argument so that it can determine the leaf nodes.
 */
 
 #ifndef __MMTREE__        // For #including more than once
@@ -42,6 +46,9 @@ public:
     int bestMove();
 };
 
+/* Constructs the tree recursively. Each node has num_cildren - 1 children because
+choosing the top pancake is always unwise. Also, the tree stops when a full solution
+is found. */
 template <typename T>
 Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vector<int> path_so_far) {
 
@@ -54,6 +61,7 @@ Node* MMTree<T>::make_tree(T func, int d, int num_children, bool is_minimum, vec
     // Recursively:
     vector<Node*> children;
     for (int i = 0; i < num_children - 1; i++) {
+        // Get a copy of the path so far and update for this node
         vector<int> temp_path = path_so_far;
         temp_path.push_back(i);
         if (func(temp_path) == -10) {    // signal meaning the solution ends the game- make a terminal node
@@ -77,6 +85,7 @@ MMTree<T>::MMTree(T func, int d, int num_children) : depth(d) {
 
 template <typename T>
 MMTree<T>::~MMTree() {
+    // Desctruction done recursively as well
     delete root;
 }
 
@@ -92,6 +101,7 @@ int MMTree<T>::bestMove() {
     return best_path[0];
 }
 
+/* purely for debugging */
 template<typename T>
 void MMTree<T>::print() {
 
@@ -102,6 +112,7 @@ void MMTree<T>::print() {
     cout << "\n\n=============\n";
 }
 
+/* recursive helper for print() */
 template <typename T>
 void MMTree<T>::printTree(Node* tree_root, int tabs) {
     // Print tabs
