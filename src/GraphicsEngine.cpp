@@ -431,9 +431,9 @@ int* GraphicsEngine::gen_rand_stack(int* stack, int stackSize) {
         std::default_random_engine randomEngine(std::time(nullptr));            //random engine for running shuffle function
         std::shuffle(&stack[0], &stack[stackSize], randomEngine);               //shuffle the stack
 
-	    for(int i =0; i<sizeStack; i++)
+	    for(int i =0; i<stackSize; i++)
 	    {
-		    if(stack[i]!=(sizeStack-i)){
+		    if(stack[i]!=(stackSize-i)){
 			    not_shuffled = true;
             }
 
