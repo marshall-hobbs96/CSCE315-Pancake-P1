@@ -66,7 +66,7 @@ Framework Code
 
 For week 2, we will focus on making the first few screens in the game appear without failure. We will make sure that all product backlog items marked priority 2 are complete so that the game player can see a splash screen as well as screens that allow them to customize the game and enter their username before starting. We will need to configure the first 4 tasks mentioned in the instructions for this project. When these screens are done, the screen will show everything received from the user and print that the game is over.
 
-**Sprint 3: 10/23 - 10/29** 
+**Sprint 3: 10/23 - 10/31** 
 Functioning Game
 
 By the end of this sprint, we should have a fully functional game that allows the user to play until the game is over and repeat as necessary. The game does not have to be as robust as possible, but tests should be written (and sometimes failing) for edge cases. The game should run to completion if the user does everything they are supposed to, even if the screen does not look very pretty and easy to use for people without computer experience. Someone else in our CSCE315 class should be able to play.
@@ -86,21 +86,20 @@ This weekend will be for handing the game off to someone who does not have a com
 15 Minute meeetings to review priorities mentioned (should mostly come from the Product backlog). Will be filled in and added to as we go.
 
 
-| Date   | Time  | Master   | Members Present | Items Due      | Items Completed     | Items Due Count (running total) | Completed Count (running total) |
-|--------|-------|----------|-----------------|----------------|---------------------|---------------------------------|---------------------------------|
-| 15-Oct | 4:10  | Troy     | Everyone        | 1, 2           | 1, 2                | 2                               | 2                               |
-| 17-Oct | 4:10  | Troy     | Everyone        | 3              | 3                   | 3                               | 3                               |
-| 18-Oct | 5:00  | Troy     | Everyone        | 4, 5           | 4, 5                | 5                               | 5                               |
-| 21-Oct | 5:00  | Troy     | Everyone        | 6, 7, 10       | 6                   | 8                               | 6                               |
-| 22-Oct | 4:10  | Troy     | Everyone        | 8, 11, 13, 15  | 10, 11, 13, 15      | 12                              | 10                              |
-| 23-Oct | 12:35 | Abdul    | Everyone        | 9, 12, 14, 16  | 7, 8, 9, 12, 14, 16 | 16                              | 16                              |
-| 28-Oct | TBA   | Abdul    | Everyone        | 17, 24, 27     |                     | 19                              | 16                              |
-| 29-Oct | 4:10  | Marshall | Everyone        | 18, 20, 28     |                     | 22                              | 16                              |
-| 30-Oct | 12:35 | Marshall | Everyone        | 19, 21, 22, 25 |                     | 26                              | 16                              |
-| 31-Oct | 4:10  | McLain   | Everyone        | 23, 26, 29, 30 |                     | 30                              | 16                              |
-| 1-Nov  | 12:35 | McLain   | Everyone        | 31, 32, 34, 36 |                     | 34                              | 16                              |
-| 3-Nov  | TBA   | McLain   | Everyone        | 33, 35         |                     | 36                              | 16                              |
-| 4-Nov  | TBA   | Troy     | Everyone        | 37             |                     | 37                              | 16                              |
-| 5-Nov  | 4:10  | Troy     | Everyone        | 38             |                     | 38                              | 16                              |
+| Date   | Time  | Master   | Members Present | Items Due          | Items Completed                         | Items Due Count (running total) | Completed Count (running total) |
+|--------|-------|----------|-----------------|--------------------|-----------------------------------------|---------------------------------|---------------------------------|
+| 15-Oct | 4:10  | Troy     | Everyone        | 1, 2               | 1, 2                                    | 2                               | 2                               |
+| 17-Oct | 4:10  | Troy     | Everyone        | 3                  | 3                                       | 3                               | 3                               |
+| 18-Oct | 5:00  | Troy     | Everyone        | 4, 5               | 4, 5                                    | 5                               | 5                               |
+| 21-Oct | 5:00  | Troy     | Everyone        | 6, 7, 10           | 6                                       | 8                               | 6                               |
+| 22-Oct | 4:10  | Troy     | Everyone        | 8, 11, 13, 15      | 10, 11, 13, 15                          | 12                              | 10                              |
+| 23-Oct | 12:35 | Abdul    | Everyone        | 9, 12, 14, 16      | 7, 8, 9, 12, 14, 16                     | 16                              | 16                              |
+| 29-Oct | 4:10  | Marshall | Everyone        | 18, 20, 28, 17     | 27, 20                                  | 20                              | 18                              |
+| 30-Oct | 12:35 | Marshall | Everyone        | 19, 21, 22, 25, 24 | 28, 21                                  | 25                              | 20                              |
+| 31-Oct | 4:10  | McLain   | Everyone        | 23, 26, 29, 30, 27 | 22, 23, 24                              | 30                              | 23                              |
+| 1-Nov  | 12:35 | McLain   | Everyone        | 31, 32, 34, 36     | 17, 18                                  | 34                              | 25                              |
+| 3-Nov  | TBA   | McLain   | Everyone        | 33, 35             | 19, 25                                  | 36                              | 27                              |
+| 4-Nov  | TBA   | Troy     | Everyone        | 37                 | 26, 29, 30, 31, 32, 33, 34, 35, 36, 37  | 37                              | 37                              |
+| 5-Nov  | 4:10  | Troy     | Everyone        | 38                 | 38                                      | 38                              | 38                              |
 
 ### 
