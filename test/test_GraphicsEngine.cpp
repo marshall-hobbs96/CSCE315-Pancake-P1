@@ -59,7 +59,7 @@ bool compare_files(const std::string& filename1, const std::string& filename2)
  ***************************************************/
 
 TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
-    Game g(5, 3, "scores.db", NULL);
+    Game* g = new Game(5, 3, "scores.db", NULL);
     GraphicsEngine ge(g);
 
     // Show the screen
@@ -94,7 +94,7 @@ TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
     GraphicsEngine ge(g);
 
     int* result1;
-    result1 = ge.getDifficultyInput(true,'5','4');
+    result1 = ge.getDifficultyInput('5','4');
     int numCakes1, diff1 = 0;
     numCakes1 = *result1;
     diff1 = *(result1 + 1);
@@ -103,7 +103,7 @@ TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
     CHECK(diff1 == 4);
   
     int* result2;
-    result2 = ge.getDifficultyInput(true,'8','2');
+    result2 = ge.getDifficultyInput('8','2');
     int numCakes2, diff2 = 0;
     numCakes2 = *result2;
     diff2 = *(result2 + 1);
@@ -120,7 +120,7 @@ TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
     GraphicsEngine ge(g);
 
     int* result3;
-    result3 = ge.getDifficultyInput(true,'2','2');
+    result3 = ge.getDifficultyInput('2','2');
     int numCakes3, diff3 = 0;
     numCakes3 = *result3;
     diff3 = *(result3 + 1);
@@ -129,14 +129,14 @@ TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
     CHECK(diff3 == 2);
 
     int* result4;
-    result4 = ge.getDifficultyInput(true,'9','2');
+    result4 = ge.getDifficultyInput('9','2');
     int numCakes4, diff4 = 0;
     numCakes4 = *result4;
     diff4 = *(result4 + 1);
 
     CHECK(numCakes4 == 9);
     CHECK(diff4 == 2);
-    
+
     delete g;
     REQUIRE(true);
 }
@@ -145,21 +145,15 @@ TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
     Game* g = new Game(5, 3, "scores.db", NULL);
     GraphicsEngine ge(g);
     WINDOW* testWindow;
-    int testFlipValue = 1;
     int result;
 
-    //result = ge.getFlipSelection(testWindow, 1);
-
+    result = ge.getFlipSelection(testWindow,1);
     CHECK(result == 1);
-    result = 2; //temp val
-    testFlipValue = 2;
-    //result = ge.getFlipSelection(testWindow);
-    result = 2; //temp val
+
+    result = ge.getFlipSelection(testWindow,2);
     CHECK(result == 2);
 
-    testFlipValue = 8;
-    //result = ge.getFlipSelection(testWindow);
-    result = 8; //temp val
+    result = ge.getFlipSelection(testWindow,2);
     CHECK(result == 8);
     delete g;
 

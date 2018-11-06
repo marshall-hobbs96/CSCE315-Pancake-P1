@@ -28,7 +28,7 @@ int main() {
     while (keep_playing) {
         // Gets the size of the stack and the AI's difficulty:
         // diff is [stack_size, ai_difficulty]
-        int* diff = ge.getDifficultyInput(false, '3', '2');   // size defined above main
+        int* diff = ge.getDifficultyInput();   // size defined above main
 
         int* stack = ge.getOrderInput(diff[0]);
 
