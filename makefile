@@ -24,7 +24,7 @@ GraphicsEngine.o: Game.o
 
 # Tests:
 
-test: test_AI test_Game test_Node test_Player
+test: test_AI test_Game test_Node test_Player test_GraphicsEngine
 	# ... finished making tests
 
 test_AI: AI.o Player.o Node.o

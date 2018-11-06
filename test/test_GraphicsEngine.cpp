@@ -85,10 +85,8 @@ TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
     //CHECK(key > 0);
     //CHECK(response > 0);
 
-    
+    delete[] exStack;
     // Returns true even if one of the files is missing!
-    delete g;
-    //delete[] exStack;
     REQUIRE_NOTHROW(compare_files(key_name, response_name));
 }
 
@@ -115,9 +113,10 @@ TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
     CHECK(numCakes2 == 4);
     CHECK(diff2 == 2);
 
-    //delete[] exStack;
+    delete[] exStack;
+    delete[] result1;
+    delete[] result2;
     REQUIRE(true);
-    delete g;
 }
 
 TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
@@ -143,17 +142,17 @@ TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
     CHECK(numCakes4 == 3);
     CHECK(diff4 == 2);
 
-
-    //delete[] exStack;
+    delete[] exStack;
+    delete[] result4;
+    delete[] result3;
     REQUIRE(true);
-    delete g;
 }
+
 
 TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
     int* exStack = new int[6]{6,5,4,3,2,1};
-    Game* g = new Game(6, 2, "scores.txt", exStack);
-    GraphicsEngine ge(g);
-    WINDOW* testWindow;
+    GraphicsEngine ge(new Game(6, 2, "scores.txt", exStack));
+    WINDOW* testWindow = NULL;
     int result;
 
     result = ge.getFlipSelection(testWindow,1,6);
@@ -164,8 +163,6 @@ TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
 
     result = ge.getFlipSelection(testWindow,5,6);
     CHECK(result == 1);
-    //delete[] exStack;
+    delete[] exStack;
     REQUIRE(true);
-    delete g;
-    
 }

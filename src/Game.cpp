@@ -59,7 +59,7 @@ void Game::sortInsertScore(string scores[5][2])
 /* For starting the game */
 
 Game::Game(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order) :
-    human(num_pancakes, starting_order), ai(num_pancakes, starting_order, ai_difficulty),
+    human(num_pancakes, NULL), ai(num_pancakes, NULL, ai_difficulty),
     filename(fn), human_score(0), stack_size(num_pancakes)   {
 
 		int* human_stack = new int[num_pancakes];
@@ -77,6 +77,7 @@ Game::~Game() {
 	delete[] human.getStack();
 	delete[] ai.getStack();
 }
+
 
 
 int* Game::getHumanStack() {
