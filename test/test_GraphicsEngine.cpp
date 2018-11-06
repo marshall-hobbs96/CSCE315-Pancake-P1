@@ -59,7 +59,8 @@ bool compare_files(const std::string& filename1, const std::string& filename2)
  ***************************************************/
 
 TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
-    Game g(5, 3, "scores.db", NULL);
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.db", exStack);
     GraphicsEngine ge(g);
 
     // Show the screen
@@ -84,50 +85,84 @@ TEST_CASE( "GE Test drawSplashScreen 1", "[single-file]" ) {
     //CHECK(key > 0);
     //CHECK(response > 0);
 
-    
+    delete[] exStack;
     // Returns true even if one of the files is missing!
     REQUIRE_NOTHROW(compare_files(key_name, response_name));
 }
 
-TEST_CASE("GE Test getDifficultyInput 1", "[single-file]" ) {
-    Game g(5, 3, "scores.db", NULL);
+TEST_CASE("GE Test getDifficultyInputP1 1", "[single-file]" ) {
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.txt",exStack);
     GraphicsEngine ge(g);
 
     int* result1;
-    result1 = ge.getDifficultyInput(true,'5','4');
+    result1 = ge.getDifficultyInput('5','4');
     int numCakes1, diff1 = 0;
     numCakes1 = *result1;
     diff1 = *(result1 + 1);
 
-    REQUIRE(numCakes1 == 5);
-    REQUIRE(diff1 == 4);
+    CHECK(numCakes1 == 5);
+    CHECK(diff1 == 4);
   
     int* result2;
-    result2 = ge.getDifficultyInput(true,'8','2');
+    result2 = ge.getDifficultyInput('4','2');
     int numCakes2, diff2 = 0;
     numCakes2 = *result2;
     diff2 = *(result2 + 1);
 
-    REQUIRE(numCakes2 == 8);
-    REQUIRE(diff2 == 2);
+    CHECK(numCakes2 == 4);
+    CHECK(diff2 == 2);
+
+    delete[] exStack;
+    delete[] result1;
+    delete[] result2;
+    REQUIRE(true);
+}
+
+TEST_CASE("GE Test getDifficultyInputP2 1", "[single-file]" ) {
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    Game* g = new Game(6, 2, "scores.txt", exStack);
+    GraphicsEngine ge(g);
 
     int* result3;
-    result3 = ge.getDifficultyInput(true,'2','2');
+    result3 = ge.getDifficultyInput('2','2');
     int numCakes3, diff3 = 0;
     numCakes3 = *result3;
     diff3 = *(result3 + 1);
 
-    REQUIRE(numCakes3 == 2);
-    REQUIRE(diff3 == 2);
+    CHECK(numCakes3 == 2);
+    CHECK(diff3 == 2);
 
     int* result4;
-    result4 = ge.getDifficultyInput(true,'9','2');
+    result4 = ge.getDifficultyInput('3','2');
     int numCakes4, diff4 = 0;
     numCakes4 = *result4;
     diff4 = *(result4 + 1);
 
-    REQUIRE(numCakes4 == 9);
-    REQUIRE(diff4 == 2);
-    
-    //out << "result2: " << numCakes2 << " and " << diff2 << endl;
+    CHECK(numCakes4 == 3);
+    CHECK(diff4 == 2);
+
+    delete[] exStack;
+    delete[] result4;
+    delete[] result3;
+    REQUIRE(true);
+}
+
+
+TEST_CASE("GE Test getFlipSelection 1", "[single-file]" ) {
+    int* exStack = new int[6]{6,5,4,3,2,1};
+    GraphicsEngine ge(new Game(6, 2, "scores.txt", exStack));
+    WINDOW* testWindow = NULL;
+    int result;
+
+    result = ge.getFlipSelection(testWindow,1,6);
+    CHECK(result == 5);
+
+    result = ge.getFlipSelection(testWindow,2,6);
+    CHECK(result == 4);
+
+    result = ge.getFlipSelection(testWindow,5,6);
+    CHECK(result == 1);
+    delete[] exStack;
+    REQUIRE(true);
 }

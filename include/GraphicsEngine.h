@@ -26,23 +26,24 @@ GaphicsEngine.h - Interface for the Graphics Engine class
 
 class GraphicsEngine {
 private:
-    Game curr_game;
+    Game* curr_game;
 
     // Helpers for drawing certain screens:
     void drawInstructions();      // to show the player how to play
 	void screenPrompt(std::string text, int line);
-
-    // Facilitating gameplay in playGame:
-    void drawStack(int* stack, int sz);
-    int getFlipSelection();
-    void blinkPancakes(int p);    // blink pancakes at and above pancake p
+    // void blinkPancakes(int p);    // blink pancakes at and above pancake p
 
 public:
 
     // Constructor:
-    GraphicsEngine(Game g);
+    GraphicsEngine(Game* g);
     GraphicsEngine();
-
+    ~GraphicsEngine();
+    void drawStack(vector<std::string> stringStack, WINDOW *window, int blinkFrom);
+    void drawSelectionStack(WINDOW* stack_win, int highlight, int n_choices);
+    int getFlipSelection(WINDOW* window, int testVal,int testStackSize);
+    int keyPadInput(WINDOW* window, int highlight, int numChoices);
+    int* generateStack(int stackSize, std::string stackState);
     // For drawing various screens:
     void drawSplashScreen();
     void drawDifficultyScreen();
@@ -53,15 +54,18 @@ public:
     // For getting input from various screens:
     bool getSplashInput();
     bool isWithinRange(char arg, int a, int b);
-    int* getDifficultyInput(bool test, char testA, char testB);      // Always returns [stack_size, ai_difficulty]
+    int* getDifficultyInput();  
+    int* getDifficultyInput(char testA, char testB);      // overloaded for test
                                     // so size of next array is determined...
-    std::string getOrderInput();
+    int* getOrderInput(int stackSize);
     std::string getScoresInput();
     bool getEndInput();
 
     // Facilitating gameplay:
-    bool playGame();
-    void startGame(int num_pancakes, int ai_difficulty, std::string fn);
+    bool playGame(WINDOW* player_window, WINDOW* ai_window);
+    void startGame(int num_pancakes, int ai_difficulty, std::string fn, int* starting_order);
+    int* gen_rand_stack(int* stack, int stackSize);
+    vector<std::string> stackToString(int* stack, int stackSize);
 
     std::string getString();
 };

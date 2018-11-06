@@ -25,6 +25,10 @@ Player.h - Interface for the Player class
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <array>
+#include <unistd.h>
+#include <vector>
+#include "MMTree.h"
 
 /************************************************
  * Main Class
@@ -34,14 +38,17 @@ class Player {
 protected:
     int *stack;         // Pancake Stack size
     int stack_size;     // Number of Pancakes
-    std::string username;
+
+    void swapPancakes(int i, int j);
 
 public:
     int* getStack();
+    int getStackSize();
     void makeMove(int pancake);     // Same "flipping" action for all players
-    void setName(std::string name);
+    int getSortedness();
 
-    Player(int num_pancakes, int* order, std::string un);
+    Player(int num_pancakes, int* order);
+    //~Player();
 };
 
 #endif
