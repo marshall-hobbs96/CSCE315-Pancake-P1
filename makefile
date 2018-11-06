@@ -23,6 +23,7 @@ GraphicsEngine.o: Game.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses1 -I include -c src/GraphicsEngine.cpp
 
 # Tests:
+# ... finished making tests
 
 test_AI: AI.o Player.o Node.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_AI AI.o Player.o Node.o test/test_AI.cpp 
@@ -36,8 +37,8 @@ test_Player: Player.o
 test_Node: Node.o
 	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Node Node.o test/test_Node.cpp 
 
-test_Game: Player.o AI.o Node.o
-	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Game Player.o AI.o Node.o test/test_Game.cpp 
+test_Game: Player.o AI.o Node.o Game.o
+	g++-8.2.0 -std=c++2a -Wall -Wextra -pedantic -fsanitize=address,undefined,pointer-compare,pointer-subtract -fstack-clash-protection -g -fno-omit-frame-pointer -lncurses++ -lmenu -lpanel -lform -lutil -lncurses -Wall -I $(CATCH_SINGLE_INCLUDE):include -o bin/test_Game Player.o AI.o Node.o Game.o test/test_Game.cpp 
 
 # Main:
 
